@@ -1,0 +1,55 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+body {
+    font-family: Arial;
+}
+
+ul{
+    list-style: none;
+    position: absolute;
+    top: 48px;
+    width: 100%;
+}
+
+labe{
+    width: 50px;
+    height: 40px;
+}
+
+input[type = "checkbox"] {
+    display: none;
+}
+
+nav{
+    background-color: rgba(16,16,16,.5);
+    width:  350px;
+    height: 100%;
+    position: absolute;
+    left: -350px;
+    transition: all .5s;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    display: block;
+    padding: 20px 5px;
+    color: white;
+}
+
+a:hover {
+    background-color: rgb(176,224,230);
+    color: black;
+}
+
+label{
+    padding: 15px;
+    position: absolute;
+    z-index: 1;
+}
+input[type = "checkbox"]:checked ~ nav {
+    transform: translateX(350px) ;
+}

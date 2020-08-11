@@ -1,0 +1,60 @@
+
+
+React
+
+SPA = sigle paga aplication
+
+instalando react => npx create-react-app my-app --template typescript
+
+ JSX => possibilidade de escrever html e javascript junto
+ TSX => possibilidade de escrever html e Typecript junto
+ 
+ 
+ Todo componete deve iniciar com letras mausculas
+
+
+criando rotas
+
+npm i react-router-dom => instala o gerenciamento de rotas para o typescript deve intalar os tipos
+
+
+
+rotas
+
+import React from "react";
+import {Route , BrowserRouter} from 'react-router-dom'
+import Home from "./Pages/Home/Home";
+import CreatePoint from "./Pages/createPoint";
+
+
+  const Routes = () =>{
+    return(
+    <BrowserRouter>
+        <Route component={Home} path='/' exact ></Route>
+        <Route component={CreatePoint} path='/create-points'  ></Route>
+
+    </BrowserRouter>
+    )
+  }
+  export default Routes
+
+
+
+
+link
+para que funciona o spa de foma boa usamos o Link
+
+import {Link} from 'react-router-dom'
+
+<Link to="/create-points">
+                        <span> <FiLogIn></FiLogIn> </span>
+                        <strong>Cadastre um ponto de coleta.</strong>
+                    </Link>
+
+ 
+ 
+ C:\Program Files\PostgreSQL\12\bin\pg_restore.exe
+
+
+
+ tempo 1:45
