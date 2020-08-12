@@ -1,10 +1,8 @@
-* {
-    padding: 0px;
-    margin: 0px;
-}
+
 
 body {
     font-family: Arial;
+
 }
 
 ul{
@@ -14,7 +12,7 @@ ul{
     width: 100%;
 }
 
-labe{
+label{
     width: 50px;
     height: 40px;
 }
@@ -23,11 +21,13 @@ input[type = "checkbox"] {
     display: none;
 }
 
-nav{
-    background-color: rgba(16,16,16,.5);
+
+nav.menu{
+
+    background-color: rgba(0,0,0,0.7);
     width:  350px;
     height: 100%;
-    position: absolute;
+    position: fixed;
     left: -350px;
     transition: all .5s;
 }
@@ -37,11 +37,11 @@ a {
     color: black;
     display: block;
     padding: 20px 5px;
-    color: white;
+    color: black;
 }
 
 a:hover {
-    background-color: rgb(176,224,230);
+    background-color: rgba(0,0,0,.6);
     color: black;
 }
 

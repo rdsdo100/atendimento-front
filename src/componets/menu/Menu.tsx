@@ -11,7 +11,8 @@ function Menu(){
     <div>
         <input id='chek' type='checkbox'/>
         <label htmlFor="chek" ><FiMenu/></label>
-        <nav>
+
+        <nav className="menu">
             <ul>
                 <li>
                     <Link  to="/home">Home</Link>
