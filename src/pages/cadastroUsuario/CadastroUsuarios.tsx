@@ -12,24 +12,18 @@ const CadastroUsuario = ()=>{
 
     function btnCancelar (event: FormEvent){
         event.preventDefault()
-limparCampos()
+
     }
     function confirmar(event : FormEvent<HTMLFormElement>){
         event.preventDefault()
-limparCampos()
+
 
     }
 
-    function limparCampos (){
-        setNomeUsuario("")
-        setSenha("")
-        setEmailUsuario("")
-        setMatricula("")
-        setTipo('0')
-    }
+
 
     return(
-        <div>
+        <div className="autoCadastroUsuario">
             <Menu/>
 
 <div className="cadastro">
@@ -50,7 +44,7 @@ limparCampos()
             </form>
 
 
-    <h1 className="cadastro" >{mesage}</h1>
+    <label className="cadastroUsuario" >{mesage}</label>
 
 
 
