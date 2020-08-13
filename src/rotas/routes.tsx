@@ -5,6 +5,8 @@ import Home from "../pages/home/Home";
 import LoginServer from "../services/LoginServer";
 import CadastroAtendimento from "../pages/cadastroAtendimento/CadastroAtendiemto";
 import NotFound from "../pages/notFound/NotFound";
+import CadastroUsuario from "../pages/cadastroUsuario/CadastroUsuarios";
+import CadastroEmpresa from "../pages/cadastroEmpresas/CadastroEmpresas";
 
 const loginServer = new LoginServer()
 
@@ -19,8 +21,6 @@ const  PrivateRoute =  ({component, isAuthenticated, ...rest}: any) => {
     return <Route {...rest} render={routeComponent}/>;
 };
 
-
-
 const Routes =  () =>{
   return(
   <BrowserRouter>
@@ -30,6 +30,8 @@ const Routes =  () =>{
 
       <PrivateRoute component={Home} path='/home' ></PrivateRoute>
         <PrivateRoute component={CadastroAtendimento} path='/cadastro-atendimento' ></PrivateRoute>
+        <PrivateRoute component={CadastroUsuario} path='/cadastro-usuario' ></PrivateRoute>
+        <PrivateRoute component={CadastroEmpresa} path='/cadastro-empresa' />
 <Route component={NotFound} path="*" ></Route>
     </Switch>
   </BrowserRouter>
