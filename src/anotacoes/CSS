@@ -137,7 +137,7 @@ ex  de oreintações
 
 box size
 
-box-size : contex-box
+box-size : contex-box /*ermite que elemento ultrapasse o elemento pai acaba estrapolando por causa do padding masi a margim e a border*/
 
 box-size : border-box  /* obriga os elementos obedecerem a borda em relação ao tamanho */
 
@@ -154,8 +154,8 @@ overflow : hidem /* não deixa passar da borda */
 overflow: scroll /* se foe maior que a borda ira mostras as barras de rolagem */
 }
 
-fluter : flutuar 
-
+float : flutuar
+float: left flutuar a esquerda
 
 
 
@@ -267,6 +267,26 @@ div {
 		
 ============================================================================================================================================================================================================
 
+display: block /* e impresso em sua propria linha um abaixo do outro  */
+
+============================================================================================================================================================================================================
+display: inline /*impresso um do lado do outro todos na mesma linha */
+
+considerado
+padding
+margim
+altira e largura serao iginorados
+
+============================================================================================================================================================================================================
+
+display: inline-block
+
+considerado
+padding
+margim
+altira e largura
+
+============================================================================================================================================================================================================
 flex-box
 
 
@@ -354,7 +374,7 @@ grid-template-columns: minmax(100px , 300px); /*tamenho minimo e tamnelho maximo
             grid-column-end: 4;  /*finalza na quarta coluna*/
             grid-column-end: span 2;  /*o spam + numero representa que apartir do inicio ia prencher mais 2 coluna  */
             grid-row-start: 3;  /*inicia na terceira linha*/
-            grid-row-end: 5; /*finalza na quinta coluna*/
+            grid-row-end: 5; /*finalza na quinta lina*/
             grid-row-end: span 2;  /*o spam + numero representa que apartir do inicio ia prencher mais 2 coluna  */
 
 
@@ -436,8 +456,30 @@ grid-template-columns: minmax(100px , 300px); /*tamenho minimo e tamnelho maximo
                     " roda-pe roda-pe" ;
         }
 		
-		
-		
+
+=====================================================================================================================================================================================================================
+
+border-box
+
+box-size: constent-box /* permite que elemento ultrapasse o elemento pai
+
+acaba estrapolando por causa do padding masi a margim e a border
+
+*/
+
+
+box-size: border-box /* obedece o tamanho do elemento ja considerando a borda do elemento e a padding masi a margim e a border
+somando todos eles para dar o tamano especificado.
+
+como ele naão passa por padrão po herança
+para colocar em todo o codigo usar o seletor universal
+*{
+
+}
+
+
+
+*/
 		
 		
 		
