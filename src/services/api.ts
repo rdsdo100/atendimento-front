@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const url =  "https://atendimentots.herokuapp.com"
+const url =  "http://localhost:3333"
 
 
 

@@ -1,0 +1,17 @@
+.autoCadastroEmpresa{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+form.cadastroEmpresa{
+    display: grid;
+    grid-template-columns:  1fr;
+    padding-top: 100px;
+}
+
+label.autoCadastroUsuario{
+    color: red;
+    font-family: Arial, sans-serif;
+}

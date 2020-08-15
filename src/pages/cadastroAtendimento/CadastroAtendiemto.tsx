@@ -1,11 +1,19 @@
 import React from "react";
 import Menu from "../../componets/menu/Menu";
-
+import './index.css'
 const CadastroAtendimento = ()=>{
     return(
-        <div>
+        <div className="autoCadastroAtendimento">
             <Menu/>
-            <h1>Cadastro de Atendimentos</h1>
+            <form className="cadastroAtendimento">
+                <select name="" id="">
+                    <option value="0" >selecione empresa</option>
+                </select>
+                <textarea></textarea>
+                <button>Cadastrar</button>
+
+
+            </form>
         </div>
     )
 }
