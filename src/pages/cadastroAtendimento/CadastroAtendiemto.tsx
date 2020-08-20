@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useState} from "react";
+import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import {api} from "../../services/api"
 import Menu from "../../componets/menu/Menu";
 import './index.css'
@@ -64,13 +64,29 @@ const CadastroAtendimento = ()=>{
 
     }
 
+    function handlECadastroAtendimentos(event: FormEvent){
+        event.preventDefault()
+
+        api.post("atendimentos" , {
+
+            "empresa": empresaId ,
+            "descricaoAtendimento": descricao,
+            "pendente": true
+
+        }).then(atendimentos =>{
+            console.log(atendimentos.data)
+
+        })
+
+    }
+
     function handleTextAreaEmpresas(event: ChangeEvent<HTMLTextAreaElement>) {
         const empresaDescricao = String(event.target.value)
         setDescricao(empresaDescricao)
         console.log(empresaDescricao)
     }
 
-        return(
+    return(
         <div className="autoCadastroAtendimento">
             <Menu/>
             <form className="cadastroAtendimento">
@@ -82,22 +98,21 @@ const CadastroAtendimento = ()=>{
                 </select>
                 <textarea onChange={handleTextAreaEmpresas}></textarea>
                 <input type="checkbox" onChange={handleCheckAtendimentos} />
-                <button>Cadastrar</button>
-
-                {/*<ul>
-                    {listAtendimentos?.map(listAtendiemtos=>{
-                            return(
-                                <li key={listAtendiemtos.id}>
-                                    <h5>{listAtendiemtos.descricaoAtendimento} </h5>
-                                </li>
-                            )
-                    }
-                    )}
-                </ul>*/}
-
-
+                <button onClick={handlECadastroAtendimentos} >Cadastrar</button>
             </form>
+
+            <ul>
+                {listAtendimentos?.map(listAtendiemtos=>{
+                        return(
+                            <li key={listAtendiemtos.id}>
+                                <h5>{listAtendiemtos.descricaoAtendimento} </h5>
+                            </li>
+                        )
+                    }
+                )}
+            </ul>
+
         </div>
-        )
+    )
 }
 export default CadastroAtendimento

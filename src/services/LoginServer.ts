@@ -18,9 +18,11 @@ export default class LoginServer {
           localStorage.removeItem("Authorization")
       }
 
-     localStorage.setItem("Authorization" , String(login.data.authorization))
 
-    }
+     localStorage.setItem("Authorization" , String(login.data.authorization))
+      process.env.REACT_TOKEN = String(login.data.authorization)
+
+  }
 
 
 
