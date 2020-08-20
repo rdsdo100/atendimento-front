@@ -15,7 +15,6 @@ const api = axios.create({
 const apiLogin = axios.create({
     baseURL: url,
 
-
 })
 
 export { api , apiLogin}

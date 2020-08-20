@@ -9,8 +9,8 @@ function Menu(){
     }
     return(
     <div>
-        <input id='chek' type='checkbox'/>
-        <label htmlFor="chek" ><FiMenu/></label>
+        <input className="chekMenu" id='chek' type='checkbox'/>
+        <label  htmlFor="chek" ><FiMenu/></label>
 
         <nav className="menu">
             <ul>
