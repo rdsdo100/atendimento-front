@@ -80,38 +80,56 @@ const CadastroAtendimento = ()=>{
 
     }
 
+
+
     function handleTextAreaEmpresas(event: ChangeEvent<HTMLTextAreaElement>) {
         const empresaDescricao = String(event.target.value)
         setDescricao(empresaDescricao)
         console.log(empresaDescricao)
     }
+    function deletaLiAtendimentos(ok: any){
+
+console.log(ok)
+
+    }
 
     return(
-        <div className="autoCadastroAtendimento">
+        <div className="atendimentosGrid">
             <Menu/>
             <form className="cadastroAtendimento">
-                <select name="" id="" onChange={handleSelectEmpresas} >
+                <select className="selectAtendimento" name="" id="" onChange={handleSelectEmpresas} >
                     <option value="0" >selecione empresa</option>
                     {empresas?.map(ok =>(
                         <option key={ok.id} value={ok.id}>{`${ok.codEmpresa} - ${ok.fantasiaEmpresa}`}</option>
                     ))}
                 </select>
-                <textarea onChange={handleTextAreaEmpresas}></textarea>
+                <textarea className="textAreaAtendimentos" onChange={handleTextAreaEmpresas}></textarea>
                 <input type="checkbox" onChange={handleCheckAtendimentos} />
                 <button onClick={handlECadastroAtendimentos} >Cadastrar</button>
             </form>
 
-            <ul>
+            <div className="listAtendimentos">
+            <ul className="listAtendimentos" >
                 {listAtendimentos?.map(listAtendiemtos=>{
+                    const pendente = listAtendiemtos.pendente ? "Pendente" : "Concluida"
+
+
                         return(
-                            <li key={listAtendiemtos.id}>
-                                <h5>{listAtendiemtos.descricaoAtendimento} </h5>
+                            <li onClick={deletaLiAtendimentos}  className="listAtendimentos" key={listAtendiemtos.id}>
+                                <h1>{`Codigo Empresa: ${listAtendiemtos.empresasIdFk?.codEmpresa}`}</h1>
+                                <h1>{`Descrição: ${listAtendiemtos.descricaoAtendimento}`} </h1>
+                                <h1>{`Data Cadastro ${listAtendiemtos.dataCadastro}`}</h1>
+                                <h1>{`Situação: ${pendente}`}</h1>
+
+<button onClick={deletaLiAtendimentos} >Deletar</button>
+
                             </li>
                         )
                     }
                 )}
             </ul>
 
+        </div>
         </div>
     )
 }
