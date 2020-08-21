@@ -34,6 +34,7 @@ const CadastroAtendimento = ()=>{
     const [empresaId , setRmpresaId] = useState<number>()
     const [descricao , setDescricao] = useState<string>()
     const [pendente ,  setPendente] = useState()
+    const [atualizarId , setAtualizarId] = useState<number>()
     const [listAtendimentos , setListAtendimentos] = useState<ListAtendimentos[]>()
 
     useEffect(()=>{
@@ -52,7 +53,7 @@ const CadastroAtendimento = ()=>{
                 setListAtendimentos(atendimentos.data)
             })
 
-    } , [])
+    } , [atualizarId])
 
 
     function handleSelectEmpresas(event: ChangeEvent<HTMLSelectElement>){
@@ -75,21 +76,22 @@ const CadastroAtendimento = ()=>{
 
         }).then(atendimentos =>{
             console.log(atendimentos.data)
-
+            setAtualizarId(Number(atendimentos.data.id))
         })
 
     }
-
-
 
     function handleTextAreaEmpresas(event: ChangeEvent<HTMLTextAreaElement>) {
         const empresaDescricao = String(event.target.value)
         setDescricao(empresaDescricao)
         console.log(empresaDescricao)
     }
-    function deletaLiAtendimentos(ok: any){
+    async  function deletaLiAtendimentos(deleteId: number){
+        const deletado = await api.delete(`atendimentos/${deleteId}`  )
 
-console.log(ok)
+        console.log(deletado)
+        const data = new Date()
+        setAtualizarId(Number(deletado.data.deletado) + Number(data.getMilliseconds()))
 
     }
 
@@ -109,27 +111,25 @@ console.log(ok)
             </form>
 
             <div className="listAtendimentos">
-            <ul className="listAtendimentos" >
-                {listAtendimentos?.map(listAtendiemtos=>{
-                    const pendente = listAtendiemtos.pendente ? "Pendente" : "Concluida"
+                <ul className="listAtendimentos" >
+                    {listAtendimentos?.map(listAtendiemtos=>{
+                        const pendente = listAtendiemtos.pendente ? "Pendente" : "Concluida"
 
 
                         return(
-                            <li onClick={deletaLiAtendimentos}  className="listAtendimentos" key={listAtendiemtos.id}>
-                                <h1>{`Codigo Empresa: ${listAtendiemtos.empresasIdFk?.codEmpresa}`}</h1>
+                            <li  className="listAtendimentos" key={listAtendiemtos.id}>
+                                <h1 id="Codigo" >{`Codigo Empresa: ${listAtendiemtos.empresasIdFk?.codEmpresa}`}</h1>
                                 <h1>{`Descrição: ${listAtendiemtos.descricaoAtendimento}`} </h1>
                                 <h1>{`Data Cadastro ${listAtendiemtos.dataCadastro}`}</h1>
                                 <h1>{`Situação: ${pendente}`}</h1>
-
-<button onClick={deletaLiAtendimentos} >Deletar</button>
-
+                                <button  onClick={()=>{ deletaLiAtendimentos(listAtendiemtos.id)}} >Deletar</button>
                             </li>
                         )
                     }
-                )}
-            </ul>
+                    )}
+                </ul>
 
-        </div>
+            </div>
         </div>
     )
 }

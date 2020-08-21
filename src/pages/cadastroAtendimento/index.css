@@ -51,6 +51,12 @@ select.selectAtendimento{
 
 ul.listAtendimentos{
 
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    box-sizing: border-box;
+
+    height: 800px;
     position: relative;
     display: grid;
     grid-template-columns: 50% 50%;
