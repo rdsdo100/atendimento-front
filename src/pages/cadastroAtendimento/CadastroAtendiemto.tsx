@@ -34,8 +34,8 @@ const CadastroAtendimento = ()=>{
     const [empresaId , setRmpresaId] = useState<number>()
     const [descricao , setDescricao] = useState<string>()
     const [pendente ,  setPendente] = useState()
-    const [atualizarId , setAtualizarId] = useState<number>()
-    const [listAtendimentos , setListAtendimentos] = useState<ListAtendimentos[]>()
+    const [atual1izarId , setAtualizarId] = useState<number>(0)
+     const [listAtendimentos , setListAtendimentos] = useState<ListAtendimentos[]>()
 
     useEffect(()=>{
         api.get<Empresas[]>('list-emprea')
@@ -53,13 +53,14 @@ const CadastroAtendimento = ()=>{
                 setListAtendimentos(atendimentos.data)
             })
 
-    } , [atualizarId])
+    } , [atual1izarId])
 
 
     function handleSelectEmpresas(event: ChangeEvent<HTMLSelectElement>){
         const selectEmpresaId = Number(event.target.value)
         setRmpresaId(selectEmpresaId)
     }
+
     function handleCheckAtendimentos(event: ChangeEvent<HTMLInputElement>){
 
 
@@ -110,7 +111,8 @@ const CadastroAtendimento = ()=>{
                 <button onClick={handlECadastroAtendimentos} >Cadastrar</button>
             </form>
 
-            <div className="listAtendimentos">
+
+          <div className="listAtendimentos">
                 <ul className="listAtendimentos" >
                     {listAtendimentos?.map(listAtendiemtos=>{
                         const pendente = listAtendiemtos.pendente ? "Pendente" : "Concluida"
