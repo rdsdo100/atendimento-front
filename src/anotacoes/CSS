@@ -236,7 +236,7 @@ posição - position
  
  position: fixed;    /* pode ser colocado em qualquer local da pagina e fica fixo quando rolado o scroll*/
  
- position: relative; /* fica em selação a outro elemento*/
+ position: relative; /* fica em relação a outro elemento*/
  
  position: sticky;   /*  */
 

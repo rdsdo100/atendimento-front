@@ -9,7 +9,9 @@ export default createGlobalStyle `
     }
 
     html, body, #root {
-        height: 100%;
+       
+        height: 100vm;
+        width: 100vm;
     }
 
     *, button, input {
@@ -21,6 +23,36 @@ export default createGlobalStyle `
     button {
         cursor: pointer;
     }
+    
+    
+    input {
+    padding-left: 5px;
+    margin: 5px;
+    border-radius: 5px;
+    height: 35px;
+}
+
+select {
+    padding-left: 5px;
+    margin: 5px;
+    border-radius: 5px;
+    height: 35px;
+}
+option{
+    padding-left: 5px;
+    margin: 5px;
+    border-radius: 5px;
+    height: 35px;
+}
+
+button{
+    padding: 0px 5px;
+    margin: 5px;
+    border-radius: 6px;
+    height: 35px;
+    font-family: Arial;
+}
+    
 
 `;
 
