@@ -1,9 +1,8 @@
-*{
-    margin: 0;
-    padding: 0;
-}
+import styled from 'styled-components'
 
-header {
+export const Container  = styled.div `
+
+> header {
    width: 100%;
     height: 50px;
     top: 0;
@@ -11,7 +10,8 @@ header {
     background-color: #5b859a;
 position: fixed;
 }
-.menu-icon {
+
+> .menu-icon {
     position: fixed;
     font-size: 25px;
     font-weight: bold;
@@ -27,16 +27,19 @@ position: fixed;
     top: 0;
     z-index: 1;
 }
-.menu-icon:hover {
+
+ >.menu-icon:hover {
 
 
     background-color: #ffffff ;
 
 }
-#chk {
+
+> #chk {
     display: none;
 }
-.menu {
+
+> .menu {
     height: 100%;
     position: fixed;
     background-color: #222;
@@ -46,14 +49,17 @@ position: fixed;
 
 
 }
-#principal {
+
+> #principal {
     width: 300px;
     left: -300px;
 }
-ul{
+
+> ul{
     list-style: none;
 }
-ul li a {
+
+> ul li a {
     display: block;
     font-size: 18px;
     font-family: Arial;
@@ -63,27 +69,29 @@ ul li a {
     text-decoration: none;
     transition: all .2s;
 }
-ul li span {
+
+> ul li span {
     float: right;
     padding-right: 10px;
 }
 
-ul li a:hover {
+> ul li a:hover {
     background-color: #5b859a;
 
 }
 
-.voltar {
+> .voltar {
 
     margin-top: 60px;
     background-color: #111;
     border-left: solid 5px #444;
 }
 
-#chk:checked ~ #principal {
+> #chk:checked ~ #principal {
     transform: translateX(300px);
 }
-.bg{
+
+> .bg{
     width: 100%;
     height: 100%;
     left: 0;
@@ -94,15 +102,21 @@ ul li a:hover {
 
 
 }
-#chk:checked  ~ .bg {
+
+> #chk:checked  ~ .bg {
     display: block;
 }
 
-#cursos {
+> #cursos {
     width: 250px;
     left: -250px;
 }
-#cursos:target {
+
+> #cursos:target {
     transform: translateX(250px);
     box-shadow: 2px 2px 5px 2px rgba(0,0,0,.5);
 }
+
+
+
+`;

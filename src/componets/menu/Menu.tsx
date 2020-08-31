@@ -1,7 +1,8 @@
 import React, {FormEvent} from "react";
 import {Link} from "react-router-dom";
 import { FiMenu } from "react-icons/fi";
-import "./Menu.css"
+import './Menu.css'
+
 function Menu(){
 
     function sair (event: FormEvent<HTMLAnchorElement>){
@@ -9,29 +10,58 @@ function Menu(){
     }
     return(
     <div>
-        <input className="chekMenu" id='chek' type='checkbox'/>
-        <label  htmlFor="chek" ><FiMenu/></label>
 
-        <nav className="menu">
+        <header></header>
+        <input className="chekMenu" id='chk' type='checkbox'/>
+        <label  htmlFor="chk" className= "menu-icon"><FiMenu/></label>
+
+      <div className="bg"></div>
+
+        <nav className="menu" id="principal">
+
             <ul>
                 <li>
-                    <Link  to="/home">Home</Link>
+                    <a className="voltar" href="">Sair</a>
                 </li>
                 <li>
-                    <Link to="/cadastro-atendimento">Cadastro Atendimentos</Link>
+                    <a  href="#">Home</a>
                 </li>
                 <li>
-                    <Link  to="/cadastro-usuario">Cadastro Usuário</Link>
+                    <a  href="#cursos">Cadastro <span>+</span></a>
                 </li>
                 <li>
-                    <Link to="/cadastro-empresa">Cadastro Empresa</Link>
+                    <a  href="#">Graficos<span>+</span></a>
                 </li>
                 <li>
-                    <Link onClick={sair} to="/">Sair</Link>
+                    <a  href="#">relatorios<span>+</span></a>
                 </li>
+
 
             </ul>
         </nav>
+
+        <nav className="menu" id="cursos">
+           <ul>
+               <li>
+                   <a className="voltar" href="">Sair</a>
+               </li>
+            <li>
+                <a  href="/home">Home</a>
+            </li>
+            <li>
+                <a  href="/cadastro-atendimento">Cadastro Atendimentos</a>
+            </li>
+            <li>
+                <a  href="/cadastro-usuario">Cadastro Usuário</a>
+            </li>
+            <li>
+                <a  href="/cadastro-empresa">Cadastro Empresa</a>
+            </li>
+           </ul>
+        </nav>
+
+
+
     </div>
     )
 }

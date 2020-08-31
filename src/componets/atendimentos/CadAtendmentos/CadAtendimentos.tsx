@@ -3,8 +3,21 @@ import {Container} from './styled'
 
 const CadAtendimentos = () => {
     return(
+        <Container>
 
-            <h1>CadastroAtendimentos</h1>
+           <form>
+
+               <select>
+                   <option value='0' >Selediona Gruo de Empresas</option>
+               </select>
+               <select>
+                   <option value='0' >seleciona empresas</option>
+               </select>
+               <textarea></textarea>
+
+
+           </form>
+        </Container>
     )
 
 }

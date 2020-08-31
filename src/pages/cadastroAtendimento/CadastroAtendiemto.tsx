@@ -1,14 +1,15 @@
 import React from "react";
-import CadastroAtendimentos from "../../componets/atendimentos/CadAtendmentos/CadAtendimentos";
-import {Container} from './styled'
+
+import Menu from "../../componets/menu/Menu";
 
 const CadastroAtendimento = ()=>{
 
     return(
 
-<Container>
 
-</Container>
+    <Menu/>
+
+
 
 
     )
