@@ -1,10 +1,10 @@
 import React from "react";
 import {Container} from "./styled"
-const Lyout = ()=>{
+const Lyout: React.FC  = ({children})=>{
 
     return(
 <Container>
-    <h1>Lyout</h1>
+    {children}
 </Container>
 
 
