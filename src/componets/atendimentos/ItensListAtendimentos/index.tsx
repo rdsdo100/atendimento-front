@@ -4,7 +4,7 @@ import {Container} from './styled'
 const ItensListAtendimentos: React.FC = () => {
     return(
         <Container>
-            <h1>ItensListAtendimentos</h1>
+            <h1>ainda a terminar</h1>
         </Container>
     )
 
