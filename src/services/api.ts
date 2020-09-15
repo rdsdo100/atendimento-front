@@ -1,8 +1,8 @@
 import axios from "axios"
 
-const url =  "http://localhost:3333"
-
-
+const local =  "http://localhost:3333"
+const heroku = "https://atendimento-back.herokuapp.com"
+const url = heroku
 
 const api = axios.create({
     baseURL: url,
