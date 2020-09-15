@@ -3,15 +3,9 @@ import {Container} from "./styled"
 const Lyout: React.FC  = ({children})=>{
 
     return(
-<Container>
-    {children}
-</Container>
-
-
-
-
-
-
+        <Container>
+            {children}
+        </Container>
     )
 }
 export default Lyout
