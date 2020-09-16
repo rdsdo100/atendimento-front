@@ -7,6 +7,7 @@ import ListAtendidos from "../../componets/atendimentos/ListAtendidos"
 import CadAtendimentos from '../../componets/atendimentos/CadAtendmentos'
 import ItensListAtendimentos from '../../componets/atendimentos/ItensListAtendimentos'
 import {ContainerListDia , ContainerListPendent } from "./styled"
+
 const CadastroAtendimento = ()=>{
 
     return(
@@ -14,14 +15,14 @@ const CadastroAtendimento = ()=>{
             <Menu/>
             <ContainerCadastroAtendimentos>
                 <CadAtendimentos/>
-<ListAtendidos>
-    <ContainerListDia>
-    <ItensListAtendimentos/>
-    </ContainerListDia>
-    <ContainerListPendent>
-    <ItensListAtendimentos/>
-    </ContainerListPendent>
-</ListAtendidos>
+                <ListAtendidos>
+                    <ContainerListDia>
+                        <ItensListAtendimentos/>
+                    </ContainerListDia>
+                    <ContainerListPendent>
+                        <ItensListAtendimentos/>
+                    </ContainerListPendent>
+                </ListAtendidos>
             </ContainerCadastroAtendimentos>
 
         </Layout>

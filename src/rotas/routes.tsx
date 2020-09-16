@@ -3,7 +3,7 @@ import {Route , BrowserRouter  ,Switch, Redirect} from 'react-router-dom'
 import Login from "../pages/login/Login"
 import Home from "../pages/home/Home";
 import LoginServer from "../services/LoginServer";
-import CadastroAtendimento from "../pages/cadastroAtendimento/CadastroAtendiemto";
+import CadastroAtendimento from "../pages/cadastroAtendimento";
 import NotFound from "../pages/notFound/NotFound";
 import CadastroUsuario from "../pages/cadastroUsuario/CadastroUsuarios";
 import CadastroEmpresa from "../pages/cadastroEmpresas/CadastroEmpresas";
