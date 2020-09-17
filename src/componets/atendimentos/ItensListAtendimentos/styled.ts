@@ -7,3 +7,21 @@ export const Container  = styled.div `
 
 
 `;
+
+export const CartaoList = styled.div `
+
+
+height: 150px;
+border: #222222 1px solid ;
+border-radius: 5px;
+margin: 5px;
+
+
+`;
+
+export const Header = styled.div`
+
+
+>
+
+`;

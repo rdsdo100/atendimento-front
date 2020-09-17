@@ -15,7 +15,7 @@ const Login = ()=>{
     String(element.target.login.value),
     String(element.target.senha.value),
 )
-        console.log( process.env.REACT_TOKEN)
+      console.log(localStorage.getItem('Authorization'))
         history.push('/home')
 
 
