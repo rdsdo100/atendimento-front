@@ -1,10 +1,15 @@
 import React from 'react'
+import Input from '../component/Input'
 
  const Home: React.FC = () => {
 
 return(
      <div>
-         <h1>Home</h1>
+      
+
+<Input></Input>
+
+
      </div>
 )
 }

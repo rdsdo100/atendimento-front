@@ -3,6 +3,7 @@ import {Route , BrowserRouter  ,Switch, Redirect} from 'react-router-dom'
 import Home from '../pages/Home'
 
 
+
 /*
 
 const  PrivateRoute =  ({component, isAuthenticated, ...rest}: any) => {
