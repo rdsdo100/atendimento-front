@@ -3,7 +3,9 @@ import {Grid} from "./styles"
 
 const Layout: React.FC = ({ children }) => {
     return(
-        <Grid></Grid>
+        <Grid>
+            
+        </Grid>
     )
 }
 

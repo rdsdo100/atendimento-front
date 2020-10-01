@@ -1,8 +1,9 @@
 import React from "react";
 import {Route , BrowserRouter  ,Switch, Redirect} from 'react-router-dom'
+import Home from '../pages/Home'
 
 
-
+/*
 
 const  PrivateRoute =  ({component, isAuthenticated, ...rest}: any) => {
 
@@ -14,17 +15,17 @@ const  PrivateRoute =  ({component, isAuthenticated, ...rest}: any) => {
 
     return <Route {...rest} render={routeComponent}/>;
 };
-
+*/
 const Routes =  () =>{
   return(
   <BrowserRouter>
     <Switch> // não deixa mais de uma rota ser chamada ao mesmo tempo
 
-      <Route component={Login} path='/' exact ></Route>
 
+      <Route path='/' exact ><h1>Possivel login!</h1></Route>
       <Route component={Home} path='/home' ></Route>
-        <PrivateRoute component={<h1>CadastroAtendimento</h1>} path='/cadastro-atendimento' ></PrivateRoute>
-<Route component={<h1>NotFound</h1>} path="*" ></Route>
+    
+
     </Switch>
   </BrowserRouter>
   )
