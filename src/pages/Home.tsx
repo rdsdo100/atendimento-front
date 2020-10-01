@@ -1,5 +1,6 @@
 import React from 'react'
-import Input from '../component/Input'
+
+import InputPersonalizado from '../component/InputPersonalizado'
 
  const Home: React.FC = () => {
 
@@ -7,10 +8,14 @@ return(
      <div>
       
 
-<Input></Input>
+
+<InputPersonalizado>
+</InputPersonalizado>
 
 
      </div>
 )
 }
 export default Home
+
+//https://mariosouto.com/inputs-materializados-com-css/
