@@ -1,6 +1,6 @@
 import React from 'react'
 
-import InputPersonalizado from '../component/InputPersonalizado'
+import Input from '../component/Input'
 
  const Home: React.FC = () => {
 
@@ -8,9 +8,7 @@ return(
      <div>
       
 
-
-<InputPersonalizado>
-</InputPersonalizado>
+         <Input></Input>
 
 
      </div>
