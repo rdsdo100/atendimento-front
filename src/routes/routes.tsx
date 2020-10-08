@@ -1,6 +1,7 @@
 import React from "react";
 import {Route , BrowserRouter  ,Switch, Redirect} from 'react-router-dom'
 import Home from '../pages/Home'
+import CadastroUsuario from "../pages/CadastroUsuario";
 
 
 
@@ -25,6 +26,7 @@ const Routes =  () =>{
 
       <Route path='/' exact ><h1>Possivel login!</h1></Route>
       <Route component={Home} path='/home' ></Route>
+      <Route component={CadastroUsuario} path='/cadastro-usuario'></Route>
     
 
     </Switch>
