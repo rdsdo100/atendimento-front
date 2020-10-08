@@ -4,7 +4,7 @@ import { Container ,Card , HeaderCard , Titulo , CardForm  }  from './styles'
 
 
 
-const CardForms: React.FC = () => {
+const CardForms: React.FC = ({children}) => {
   return(
 
       <Container>
@@ -14,14 +14,7 @@ const CardForms: React.FC = () => {
             </HeaderCard>
             <CardForm>
 
-                <Input placeholder="Nome" />
-                <Input placeholder="Sobrenome" />
-                <Input placeholder="Nome" />
-                <Input placeholder="Sobrenome" />
-                <Input placeholder="Nome" />
-                <Input placeholder="Sobrenome" />
-                <Input placeholder="Nome" />
-                <Input placeholder="Sobrenome" />
+               {children}
 
             </CardForm>
 
