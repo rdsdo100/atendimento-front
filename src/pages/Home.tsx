@@ -1,16 +1,14 @@
 import React from 'react'
-
+import Layout from '../component/Layout'
 import Input from '../component/Input'
 
  const Home: React.FC = () => {
 
 return(
      <div>
-      
+      <Layout>
 
-         <Input></Input>
-
-
+      </Layout>  
      </div>
 )
 }
