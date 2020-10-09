@@ -4,8 +4,10 @@ import Input from '../../component/Input'
 import {Container , ContainerInpus} from './styles'
 
 
+
 const CadastroUsuario: React.FC = () => {
     return(
+        
 <Container>
         <CardForms>
             <Input placeholder= "Nome"></Input>
@@ -20,6 +22,7 @@ const CadastroUsuario: React.FC = () => {
 
         </CardForms>
 </Container>
+
     )
 }
 export default CadastroUsuario
