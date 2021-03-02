@@ -1,5 +1,4 @@
 import React from 'react';
-import Input from "../Input";
 import { Container ,Card , HeaderCard , Titulo , CardForm  }  from './styles'
 
 

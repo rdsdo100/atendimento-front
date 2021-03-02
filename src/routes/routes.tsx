@@ -1,9 +1,10 @@
 import React from "react";
 import {Route , BrowserRouter  ,Switch, Redirect} from 'react-router-dom'
-import Home from '../pages/Home'
 import CadastroUsuario from "../pages/CadastroUsuario";
 import Login from "../pages/Login";
 import ErrorPage from "../pages/ErrorPage";
+import Home from "../pages/Home";
+
 
 const  PrivateRoute =  ({component, isAuthenticated, ...rest}: any) => {
 

@@ -1,4 +1,4 @@
-import {api, apiLogin} from "./api";
+import {apiLogin} from "./api";
 
 export default class LoginServer {
 
@@ -12,23 +12,15 @@ export default class LoginServer {
         })
 
         if (login.data.message){
-            return  login.data.usuario
             localStorage.removeItem("Authorization")
+            return  login.data.usuario
+
         }
 
         localStorage.setItem("Authorization" , String(login.data.authorization))
-
-
-
     }
 
-    islogin(){
 
-        if (localStorage.getItem("Authorization")) {
-            return true
-        }
-        return false
-    }
 
 
 }

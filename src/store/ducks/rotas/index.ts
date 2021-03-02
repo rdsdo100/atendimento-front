@@ -10,7 +10,7 @@ const INITIAL_STATE: RotasState = {
 const reducer: Reducer<RotasState> = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case RotaTypes.LOAD_CARREGAR_ROTAS:
-      return { ...state, loading: true };
+      return { ...state };
     case RotaTypes.LOAD_DELETE_ROTAS:
       return {
       ...state, loading: false, error: false, data: action.payload.data,
