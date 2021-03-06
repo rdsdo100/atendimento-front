@@ -29,9 +29,9 @@ const Login: React.FC = () => {
         const login = await loginServer.login(String(usuario) , String(senha))
 
 
-        dispath(loadAuthSuccess({name: String(login.data.authorization.authorization)}))
+      //  dispath(loadAuthSuccess({name: String(login.data.authorization.authorization)}))
 
-console.log(login.data.authorization)
+console.log(login)
 
 
         if(login.data.authorization){

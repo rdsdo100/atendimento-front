@@ -4,7 +4,7 @@ import {Nav , A , Label, UL, ImMenuIcons, InputCheck , Span} from './styles'
 const Menu: React.FC = () => {
     return(
 <div>
-    <Menu></Menu>
+    
         <div>
             <InputCheck type='checkbox' id='check' ></InputCheck>
             <Label htmlFor="check">

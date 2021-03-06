@@ -7,7 +7,7 @@ const url = local
 const api = axios.create({
     baseURL: url,
     headers: {
-        authorization: localStorage.getItem("Authorization")
+        
     }
 
 })

@@ -9,8 +9,8 @@ import Menu from "../../component/Menu";
 return(
     <Component>
 
-
-            <Menu></Menu>
+<Menu></Menu>
+            
 
 
     </Component>
