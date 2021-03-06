@@ -17,6 +17,7 @@ export const Nav = styled.nav`
   height: 100%;
   top: 0;
   left: -350px;
+  z-index: 1;
 
 `;
 
@@ -42,7 +43,7 @@ export const Label = styled.label`
 
     padding: 0;
     position: relative;
-    z-index: 1;
+    z-index: 2;
 
 `;
 

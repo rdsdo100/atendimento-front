@@ -1,6 +1,6 @@
 import React from 'react';
 import CardForms from "../../component/CardForms";
-import Input from '../../component/Input'
+import Input from '../../component/inputs/Input'
 import {Container , ContainerInpus} from './styles'
 
 

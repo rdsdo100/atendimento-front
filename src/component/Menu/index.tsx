@@ -17,9 +17,9 @@ const Menu: React.FC = () => {
 
                 <UL>
                     <li><A to="/home">Home</A></li>
+                    <li><A to="/atendimentos"   >Atendimentos</A></li>
+                    <li><A to="/cadastrar">Relatórios</A></li>
                     <li><A to="/cadastro-usuario">Usuário</A></li>
-                    <li><A to="/cadastro-usuario">Atendimentos</A></li>
-                    <li><A to="/cadastro-usuario">Relatórios</A></li>
                     <li><A to='/login'>Sair</A></li>
                 </UL>
 
