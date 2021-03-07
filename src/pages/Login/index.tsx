@@ -31,9 +31,6 @@ const Login: React.FC = () => {
 
         dispath(loadAuthSuccess({name: String(login.data.authorization)}))
 
-
-
-
         if(login.data.authorization){
             history.push('/home')
         }else{

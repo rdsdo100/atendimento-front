@@ -32,28 +32,23 @@ const Atendimentos: React.FC = () => {
         api.get<IEmpresas[]>('empresa',
             { headers: { authorization: auth } })
             .then(response => {
-                const ok: any = response.data
-                console.log(ok)
-                setListEmpresas(ok)
+                const resposta: any = response.data
+                setListEmpresas(resposta)
 
             }).catch(erro => {
 
                 history.push('/')
             })
 
-
-
     }, [])
 
     async function handleSubmit(event: FormEvent) {
         event.preventDefault()
 
-        const respostaEnvio: IEnvioAtendimentos = {
-            descricaoAtendimento: atendimento,
-            codigoEmpresaId: empresa
-        }
-
-
+const  respostaEnvio:IEnvioAtendimentos = {
+    descricaoAtendimento: atendimento,
+    codigoEmpresaId: empresa
+} 
 
     }
 
@@ -67,7 +62,6 @@ const Atendimentos: React.FC = () => {
         setEmpresa(Number(empresa))
     }
 
-
     return (
 
         <Container>
@@ -77,10 +71,10 @@ const Atendimentos: React.FC = () => {
                     name="empresas"
                     id="empresas"
                     onChange={handleSelectedIDEmpresa}
-
+                   
                 >
-
-                    <option key={0} value='0'>Seleciona a Empresa!</option>
+                   
+                    <option key={0}value='0'>Seleciona a Empresa!</option>
                     {listEmpresas.map((empresa: any) => {
                         return <option key={empresa.id} value={empresa.id}> {`${empresa.codigoEmpresa}- ${empresa.nomeEmpresa}`}</option>
                     })}

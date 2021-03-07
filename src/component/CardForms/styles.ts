@@ -13,7 +13,7 @@ export const Container = styled.div`
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, 0) }
-
+    background-color:  ${props => props.theme.colors.secundary};
 
 
 `;
@@ -26,7 +26,7 @@ border-radius: 5px;
  display: grid;
     grid-template-columns: 900px;
     grid-template-rows: 40px 500px ;
-
+    background-color:  ${props => props.theme.colors.secundary};
     grid-template-areas:
     'header'
     'card';

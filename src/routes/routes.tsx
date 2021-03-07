@@ -5,12 +5,25 @@ import Login from "../pages/Login";
 import ErrorPage from "../pages/ErrorPage";
 import Home from "../pages/Home";
 import Atendimentos from "../pages/Atendimentos";
+import Empresas from "../pages/Empresas";
+import { useSelector } from "react-redux";
+import { ApplicationState } from "../store";
 
 
 const  PrivateRoute =  ({component, isAuthenticated, ...rest}: any) => {
 
+  const auth = useSelector((state: ApplicationState) => state.auth.auth)
+  let authorization: boolean
+  
+if(auth== ''){
+  authorization = false
+}else{
+  authorization = true
+
+}
+
     const routeComponent = (props: any) => (
-      true
+      authorization
             ? React.createElement(component, props)
             : <Redirect to={{pathname: '/'}}/>
     );
@@ -27,7 +40,8 @@ const Routes =  () =>{
     <Route component={Login} path='/' exact ></Route>
       <PrivateRoute component={Home} path='/home' ></PrivateRoute>
       <PrivateRoute component={CadastroUsuario} path='/cadastro-usuario'></PrivateRoute>
-      <PrivateRoute component={Atendimentos} phth='/atendimentos' ></PrivateRoute>
+      <PrivateRoute component={Atendimentos} path='/atendimentos' ></PrivateRoute>
+      <PrivateRoute component={Empresas} path='/empresas' ></PrivateRoute>
       <PrivateRoute component={ErrorPage} path='*'></PrivateRoute>
 
     </Switch>

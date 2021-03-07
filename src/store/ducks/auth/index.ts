@@ -3,7 +3,7 @@ import { RepositoriesTypes } from './types';
 import {AuthState} from "./types";
 
 const INITIAL_STATE: AuthState = {
-  auth: 'AUTORIZAÇÃO'
+  auth: ''
 };
 
 const reducer: Reducer<AuthState> = (state = INITIAL_STATE, action) => {
