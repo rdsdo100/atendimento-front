@@ -7,10 +7,3 @@ height: 100vh;
   background-color:  ${props => props.theme.colors.primary};
   
 `;
-export const ContainerInpus = styled.div`
-  
-display: flex;
-   flex-direction: row;
- 
- 
-`;

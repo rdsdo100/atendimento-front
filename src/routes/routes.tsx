@@ -39,7 +39,7 @@ const Routes =  () =>{
 
     <Route component={Login} path='/' exact ></Route>
       <PrivateRoute component={Home} path='/home' ></PrivateRoute>
-      <PrivateRoute component={CadastroUsuario} path='/cadastro-usuario'></PrivateRoute>
+      <Route component={CadastroUsuario} path='/cadastro-usuario'></Route>
       <PrivateRoute component={Atendimentos} path='/atendimentos' ></PrivateRoute>
       <PrivateRoute component={Empresas} path='/empresas' ></PrivateRoute>
       <PrivateRoute component={ErrorPage} path='*'></PrivateRoute>

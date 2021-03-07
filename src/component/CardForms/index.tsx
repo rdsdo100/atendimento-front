@@ -16,8 +16,6 @@ const CardForms: React.FC = ({children}) => {
                {children}
 
             </CardForm>
-
-
         </Card>
 
       </Container>

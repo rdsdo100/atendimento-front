@@ -37,19 +37,19 @@ border-radius: 5px;
 `;
 
 export const HeaderCard = styled.div`
-  
+
    grid-area: header;
    display: flex;
-   flex-direction: column;
-   background: #8F8F8F;
-
+   justify-content: center;
+   background: ${props => props.theme.colors.primary};
    height: 40px;
-  
     border-bottom: black 1px solid;
    
 `;
 
-export const Titulo = styled.h1``;
+export const Titulo = styled.h1`
+ color: ${props => props.theme.colors.gray}
+`;
 
 export const CardForm = styled.div`
  grid-area: card;
