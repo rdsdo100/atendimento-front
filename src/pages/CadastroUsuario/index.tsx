@@ -21,20 +21,21 @@ interface IUsuario {
     senha: string
     matricula: string
     grupoUsuario: number
+
 }
 
 const CadastroUsuario: React.FC = () => {
 
     const history = useHistory()
-    const auth = useSelector((state: ApplicationState) => state.auth.auth)
+    const auth =  localStorage.getItem("Authorization")
     const [gupoUsuarios, setGrupoUsuarios] = useState<IGrupoUsuario[]>([])
-    const [nome, setNome] = useState<string>()
-    const [email, setEmail] = useState<string>()
-    const [matrucula, setMatricula] = useState<string>()
-    const [grupoUsuario, setGrupoUsuario] = useState<number>()
-    const [password, setPassword] = useState<string>()
+    const [nome, setNome] = useState<string>('')
+    const [email, setEmail] = useState<string>('')
+    const [matricula, setMatricula] = useState<string>('')
+    const [grupoUsuario, setGrupoUsuario] = useState<number>(0)
+    const [password, setPassword] = useState<string>('')
 
-    useEffect(() => {
+   useEffect(() => {
 
         api.get<IGrupoUsuario[]>('gupo-usuario',
             { headers: { authorization: auth } })
@@ -52,32 +53,48 @@ const CadastroUsuario: React.FC = () => {
 
 
     async function handleSubmit(event: FormEvent) {
-       
-       
+
+        const envio: IUsuario = {
+            nome: String(nome),
+            email: String(email),
+            matricula: String(matricula),
+            grupoUsuario: Number(grupoUsuario),
+            senha: String(password)
+        }
+
         setNome('')
-        event.preventDefault()
-
-        
+        setEmail('')
+        setMatricula('')
+        setPassword('')
+        setGrupoUsuario(0)
        
 
-        console.log({
+        api.post('user', envio,
+            { headers: { authorization: auth } })
+            .then(response => {
+                const resposta: any = response.data
+                console.log(response)
+                alert(resposta)
+               
+            })
+            .catch(erro => {
+                alert('Erro ao acessar servidor!')
+                //  history.push('/')
+            })
 
-            nome,
-            email,
-            matrucula,
-            grupoUsuario,
-            password
+            console.log(auth)
+           
+            event.preventDefault()
+           
 
-        })
-
-      //  alert("Ta indo!!!!")
+       
 
 
     }
 
     function handleImputNome(event: ChangeEvent<HTMLInputElement>) {
         const { name, value } = event.target
-        
+
         setNome(String(value))
 
 
@@ -103,30 +120,52 @@ const CadastroUsuario: React.FC = () => {
 
     }
 
-
-
     return (
         <Container>
             <Menu></Menu>
             <CardForms>
-                <form onSubmit={handleSubmit}>
-                    <InputCadastro name= 'nome' onChange={handleImputNome} >Nome</InputCadastro>
-                    <InputCadastro                   
-                    defaultValue = {nome}
-                    onChange={handleImputEmail}
-                    >E-mail</InputCadastro>
-                    <InputCadastro onChange={handleImputMatricula} >Matricula</InputCadastro>
-                    <Select onChange={handleImputGrupoUsuario}>
+                <form >
+                    <InputCadastro
+                        onChange={handleImputNome}
+                        defaultValue={nome}>
+                        Nome
+                    </InputCadastro>
+
+                    <InputCadastro
+                        defaultValue={email}
+                        onChange={handleImputEmail}>
+                        E-mail
+                    </InputCadastro>
+
+                    <InputCadastro
+                        onChange={handleImputMatricula}
+                        defaultValue={matricula}>
+                        Matricula
+                        </InputCadastro>
+                    <Select
+                        onChange={handleImputGrupoUsuario}
+                        defaultValue={grupoUsuario}>
+                            
                         <option key={0} value='0'>Seleciona o Grupo de Usuário!</option>
                         {
                             gupoUsuarios.map((grupo: any) => {
-
                                 return <option key={grupo.id} value={grupo.id}>{`${String(grupo.id)} - ${String(grupo.nome)} `}</option>
                             })
                         }
                     </Select>
-                    <InputCadastro type='password' onChange={handleImputPassword} >Senha</InputCadastro>
-                    <button type='submit' >Cadastrar</button>
+
+                    <InputCadastro
+                        type='password'
+                        onChange={handleImputPassword}
+                        defaultValue={password}>
+                        Senha
+                        </InputCadastro>
+
+                    <button
+                        type='submit' onSubmit={handleSubmit} >
+                        Cadastrar
+                         </button>
+
                 </form>
             </CardForms>
         </Container>

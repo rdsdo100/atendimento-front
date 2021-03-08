@@ -25,7 +25,7 @@ const Atendimentos: React.FC = () => {
     const [listEmpresas, setListEmpresas] = useState<IEmpresas[]>([])
     const [empresa, setEmpresa] = useState<number>(0)
     const [atendimento, setAtendimento] = useState<string>('')
-    const auth = useSelector((state: ApplicationState) => state.auth.auth)
+    const auth = localStorage.getItem('Authorization')
 
     useEffect(() => {
 

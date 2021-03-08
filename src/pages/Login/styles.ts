@@ -69,7 +69,7 @@ export const Label = styled.label`
 
 
 `;
-export  const  A = styled.a`
+export  const  A = styled.button`
  
     position: relative;
     display: inline-block;
@@ -82,6 +82,7 @@ export  const  A = styled.a`
     transition: .5s;
     margin-top: 40px;
     letter-spacing: 4px;
+    background-color: transparent;
   
 
   :hover {

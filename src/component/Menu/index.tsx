@@ -8,7 +8,7 @@ const Menu: React.FC = () => {
     
 
 function sairSistema(){
-    dispath(loadAuthSuccess({name: String('')}))
+    localStorage.removeItem("Authorization")
 }
 
     return(
