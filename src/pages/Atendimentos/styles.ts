@@ -9,31 +9,25 @@ export const Container = styled.div`
    
 `;
 
-
 export const GridTemplate = styled.div`
 
 display: grid;
 grid-template-rows:  auto;
-    grid-template-columns:   700px auto ;
+    grid-template-columns:   50% auto ;
     grid-template-areas:
      "CF CL";
-       
+     grid-gap: 5px;
 
 `;
-
-
 
 export const GridConteinerForm = styled.div`
 position: relative;
 grid-area: CF;
-padding: 10px;
-
 
 `;
 
 export const GridConteinerList = styled.div`
 grid-area: CL;
-padding: 10px;
 `;
 
 export const Form = styled.form`
@@ -42,6 +36,5 @@ export const Form = styled.form`
   margin: 10px;
  display: flex;
  flex-direction: column
-
    
 `;

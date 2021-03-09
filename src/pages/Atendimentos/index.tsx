@@ -5,7 +5,6 @@ import CardForms from '../../component/CardForms';
 import Select from '../../component/inputs/Select';
 import TextArea from '../../component/inputs/TextArea';
 import LayoutPrincipal from '../../component/LayoutPrincipal';
-import Menu from '../../component/Menu';
 import { api } from '../../services/api';
 
 import { Container, Form, GridConteinerForm, GridConteinerList, GridTemplate } from './styles'
@@ -27,14 +26,13 @@ interface IAtendimentosRecebidos {
     nomeEmpresa: string
 }
 
-
 const Atendimentos: React.FC = () => {
 
     const history = useHistory()
     const [listEmpresas, setListEmpresas] = useState<IEmpresas[]>([])
     const [empresa, setEmpresa] = useState<number>(0)
     const [atendimento, setAtendimento] = useState<string>('')
-    const [atendimentosRecebidos , setAtendimentosRecebidos ] = useState<IAtendimentosRecebidos[]>([])
+    const [atendimentosRecebidos, setAtendimentosRecebidos] = useState<IAtendimentosRecebidos[]>([])
     const auth = localStorage.getItem('Authorization')
 
     useEffect(() => {
@@ -58,7 +56,7 @@ const Atendimentos: React.FC = () => {
             { headers: { authorization: auth } })
             .then(response => {
                 const resposta: any = response.data
-               setAtendimentosRecebidos(resposta)
+                setAtendimentosRecebidos(resposta)
 
             }).catch(erro => {
 
@@ -68,12 +66,12 @@ const Atendimentos: React.FC = () => {
     }, [])
 
     async function handleSubmit(event: FormEvent) {
-        
+
         const respostaEnvio: IEnvioAtendimentos = {
             descricaoAtendimento: atendimento,
             codigoEmpresaId: empresa
         }
-        api.post<IEnvioAtendimentos>('atendimento',respostaEnvio,
+        api.post<IEnvioAtendimentos>('atendimento', respostaEnvio,
             { headers: { authorization: auth } })
             .then(response => {
                 const resposta: any = response.data
@@ -86,8 +84,6 @@ const Atendimentos: React.FC = () => {
                 alert('Não enviado!')
 
             })
-
-
     }
 
     function handleImputAtendimento(event: ChangeEvent<HTMLTextAreaElement>) {
@@ -104,61 +100,67 @@ const Atendimentos: React.FC = () => {
 
         <Container>
 
- <LayoutPrincipal titulo="Home" >
-   
-  
-   
+            <LayoutPrincipal titulo="Atendimentos" >
 
-            <GridTemplate>
+                <GridTemplate>
 
-           
+                    <GridConteinerForm>
 
-               
-                <GridConteinerForm>
-                    <CardForms titulo={"Atendimentos"}>
+                        <CardForms titulo={"Atendimentos"}>
 
-                        <Form onSubmit={handleSubmit}>
-                            <Select
-                                name="empresas"
-                                id="empresas"
-                                onChange={handleSelectedIDEmpresa}
+                            <Form onSubmit={handleSubmit}>
+                                
+                                <Select
+                                    name="empresas"
+                                    id="empresas"
+                                    onChange={handleSelectedIDEmpresa}>
 
-                            >
+                                    <option key={0} value='0'>Seleciona a Empresa!</option>
+                                    {listEmpresas.map((empresa: any) => {
+                                        return <option key={empresa.id} value={empresa.id}> {`${empresa.codigoEmpresa}- ${empresa.nomeEmpresa}`}</option>
+                                    })}
 
-                                <option key={0} value='0'>Seleciona a Empresa!</option>
-                                {listEmpresas.map((empresa: any) => {
-                                    return <option key={empresa.id} value={empresa.id}> {`${empresa.codigoEmpresa}- ${empresa.nomeEmpresa}`}</option>
-                                })}
+                                </Select>
 
-                            </Select>
-                            <TextArea onChange={handleImputAtendimento}></TextArea>
-                            <button type="submit" >Enviar</button>
-                        </Form>
-                    </CardForms>
-                </GridConteinerForm>
-                <GridConteinerList>
-                <CardForms titulo={"Lista de atendimentos do dia."}>
+                                <TextArea 
+                                onChange={handleImputAtendimento}>
+                                </TextArea>
 
-<ul>
-{
-    atendimentosRecebidos.map((atendimento:any)=>{
+                                <button type="submit" >Enviar</button>
+                            
+                            </Form>
 
-return <CardAtendimento 
-id={atendimento.id}
- descricaoAtendimento={atendimento.descricaoAtendimento}
- cogigoEmpresa= {atendimento.cogigoEmpresa}
- nomeEmpresa= {atendimento.nomeEmpresa}
- />
+                        </CardForms>
+                   
+                    </GridConteinerForm>
+                   
+                    <GridConteinerList>
+                   
+                        <CardForms titulo={"Lista de atendimentos do dia."}>
 
-    })
-}
-</ul>
+                            <ul>
+                                {
+                                    atendimentosRecebidos.map((atendimento: any) => {
 
-</CardForms>
-                </GridConteinerList>
+                                        return <CardAtendimento
+                                            id={atendimento.id}
+                                            descricaoAtendimento={atendimento.descricaoAtendimento}
+                                            cogigoEmpresa={atendimento.cogigoEmpresa}
+                                            nomeEmpresa={atendimento.nomeEmpresa}
+                                        />
 
+                                    })
+                                }
+                            </ul>
+
+                        </CardForms>
+
+                    </GridConteinerList>
+    
             </GridTemplate>
-</LayoutPrincipal>
+
+            </LayoutPrincipal>
+
         </Container>
     )
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import Menu from '../Menu';
-import { BodyLayout, Container, HeadLayout}  from './styles'
+import { BodyLayout, Container, HeadLayout , H1}  from './styles'
 
 interface ILayoutPrincipal {
   titulo: string
@@ -12,7 +12,7 @@ const LayoutPrincipal: React.FC <ILayoutPrincipal> = ({children, titulo}) => {
       <Container>
         <HeadLayout>
           <Menu></Menu>
-          <h1>{titulo}</h1>
+          <H1>{titulo}</H1>
           <h3>usuario</h3>
         </HeadLayout>
         <BodyLayout>

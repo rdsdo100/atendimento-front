@@ -12,6 +12,7 @@ grid-template-rows:  50px auto;
     grid-template-areas:
     "MH MH MH" 
     "ATL PR ATR";
+    grid-gap: 5px;
 
 `;
 
@@ -36,5 +37,9 @@ background-color:  ${props => props.theme.colors.secundary};
 
 `;
 
-
+export const H1 = styled.div`
+color: ${props => props.theme.colors.gray};
+font-family: 'roboto' ;
+font-size: 24pt;
+ `;
 
