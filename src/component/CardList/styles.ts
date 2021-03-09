@@ -50,7 +50,7 @@ position: relative;
         ::-webkit-scrollbar-track {
             background-color: ${props => props.theme.colors.tertiary};
         }
-    }
+    
 
 
 margin: 0;
