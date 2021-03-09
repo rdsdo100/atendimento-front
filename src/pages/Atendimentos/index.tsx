@@ -2,6 +2,7 @@ import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import CardAtendimento from '../../component/CardAtendimento';
 import CardForms from '../../component/CardForms';
+import CardList from '../../component/CardList';
 import Select from '../../component/inputs/Select';
 import TextArea from '../../component/inputs/TextArea';
 import LayoutPrincipal from '../../component/LayoutPrincipal';
@@ -136,7 +137,7 @@ const Atendimentos: React.FC = () => {
                    
                     <GridConteinerList>
                    
-                        <CardForms titulo={"Lista de atendimentos do dia."}>
+                        <CardList titulo={"Lista de atendimentos do dia."}>
 
                             <ul>
                                 {
@@ -153,7 +154,7 @@ const Atendimentos: React.FC = () => {
                                 }
                             </ul>
 
-                        </CardForms>
+                        </CardList>
 
                     </GridConteinerList>
     

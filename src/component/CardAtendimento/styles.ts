@@ -12,11 +12,17 @@ export const Container = styled.div`
 `;
 
 export const LI = styled.li`
-
+width: 100%;
     position: relative;
     list-style: none;
+    border-radius: 8px;
     color: ${props => props.theme.colors.gray};
-    padding: 10px
+    padding: 10px;
+    &:hover {
+        background-color: ${props => props.theme.colors.tertiary};
+        color: ${props => props.theme.colors.ter};
+        border-radius: 8px;
+    }
 `;
 
 export const Header = styled.h1`
