@@ -123,7 +123,7 @@ const CadastroUsuario: React.FC = () => {
     return (
         <Container>
             <Menu></Menu>
-            <CardForms>
+            <CardForms titulo={"Cadastro de Usuário"} >
                 <form >
                     <InputCadastro
                         onChange={handleImputNome}

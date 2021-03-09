@@ -1,12 +1,8 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, FormEvent} from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { CardForm } from '../../component/CardForms/styles';
 import InputCadastro from '../../component/inputs/InputCadastro';
-import Select from '../../component/inputs/Select';
-import TextArea from '../../component/inputs/TextArea';
 import Menu from '../../component/Menu';
-import { api } from '../../services/api';
 import { ApplicationState } from '../../store';
 import { Container, Form } from './styles'
 

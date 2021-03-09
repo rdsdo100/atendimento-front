@@ -1,15 +1,17 @@
 import React from 'react';
 import { Container ,Card , HeaderCard , Titulo , CardForm  }  from './styles'
 
+interface ICards {
+titulo: string
+}
 
-
-const CardForms: React.FC = ({children}) => {
+const CardForms: React.FC<ICards> = ({children,  titulo}) => {
   return(
 
       <Container>
         <Card>
             <HeaderCard>
-                <Titulo>Cadastro de Usuário</Titulo>
+                <Titulo>{titulo}</Titulo>
             </HeaderCard>
             <CardForm>
 
