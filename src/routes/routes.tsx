@@ -10,6 +10,8 @@ import Empresas from "../pages/Empresas";
 
 const  PrivateRoute =  ({component, isAuthenticated, ...rest}: any) => {
 
+
+
   const routeComponent = (props: any) => (
     true
           ? React.createElement(component, props)
@@ -31,7 +33,7 @@ const Routes =  () =>{
 
     <Route component={Login} path='/' exact ></Route>
       <PrivateRoute component={Home} path='/home' ></PrivateRoute>
-      <Route component={CadastroUsuario} path='/cadastro-usuario'></Route>
+      <PrivateRoute component={CadastroUsuario} path='/cadastro-usuario'></PrivateRoute>
       <PrivateRoute component={Atendimentos} path='/atendimentos' ></PrivateRoute>
       <PrivateRoute component={Empresas} path='/empresas' ></PrivateRoute>
       <PrivateRoute component={ErrorPage} path='*'></PrivateRoute>

@@ -13,24 +13,15 @@ export const Container = styled.div`
 export const GridTemplate = styled.div`
 
 display: grid;
-grid-template-rows:  40px calc(100vh - 40px);
-    grid-template-columns: 40px  700px auto ;
-
-
+grid-template-rows:  auto;
+    grid-template-columns:   700px auto ;
     grid-template-areas:
-    "MH MH MH" 
-     "CK CF CL";
-    
-   
-
-    
-   
+     "CF CL";
+       
 
 `;
-export const GridConteinerHeader = styled.div`
-grid-area: MH;
 
-`;
+
 
 export const GridConteinerForm = styled.div`
 position: relative;

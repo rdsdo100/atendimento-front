@@ -22,6 +22,7 @@ const Login: React.FC = () => {
 
     async function handleEntrar(event: FormEvent) {
         event.preventDefault()
+        localStorage.removeItem("Authorization")
         const loginServer= new LoginServer()
         const login = await loginServer.login(String(usuario) , String(senha))
         const  token = localStorage.getItem("Authorization")

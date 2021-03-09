@@ -4,10 +4,11 @@ import CardAtendimento from '../../component/CardAtendimento';
 import CardForms from '../../component/CardForms';
 import Select from '../../component/inputs/Select';
 import TextArea from '../../component/inputs/TextArea';
+import LayoutPrincipal from '../../component/LayoutPrincipal';
 import Menu from '../../component/Menu';
 import { api } from '../../services/api';
 
-import { Container, Form, GridConteinerForm, GridConteinerHeader, GridConteinerList, GridTemplate } from './styles'
+import { Container, Form, GridConteinerForm, GridConteinerList, GridTemplate } from './styles'
 
 interface IEmpresas {
     id: number
@@ -67,12 +68,25 @@ const Atendimentos: React.FC = () => {
     }, [])
 
     async function handleSubmit(event: FormEvent) {
-        event.preventDefault()
-
+        
         const respostaEnvio: IEnvioAtendimentos = {
             descricaoAtendimento: atendimento,
             codigoEmpresaId: empresa
         }
+        api.post<IEnvioAtendimentos>('atendimento',respostaEnvio,
+            { headers: { authorization: auth } })
+            .then(response => {
+                const resposta: any = response.data
+                alert('Salvo!')
+                console.log(resposta)
+                setAtendimento('')
+                setEmpresa(0)
+            }).catch(erro => {
+
+                alert('Não enviado!')
+
+            })
+
 
     }
 
@@ -90,11 +104,16 @@ const Atendimentos: React.FC = () => {
 
         <Container>
 
+ <LayoutPrincipal titulo="Home" >
+   
+  
+   
+
             <GridTemplate>
 
-                <GridConteinerHeader>
-                    <Menu></Menu>
-                </GridConteinerHeader>
+           
+
+               
                 <GridConteinerForm>
                     <CardForms titulo={"Atendimentos"}>
 
@@ -139,7 +158,7 @@ id={atendimento.id}
                 </GridConteinerList>
 
             </GridTemplate>
-
+</LayoutPrincipal>
         </Container>
     )
 }

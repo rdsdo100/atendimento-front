@@ -62,19 +62,20 @@ const CadastroUsuario: React.FC = () => {
             senha: String(password)
         }
 
-        setNome('')
-        setEmail('')
-        setMatricula('')
-        setPassword('')
-        setGrupoUsuario(0)
+     console.log(envio)
        
 
         api.post('user', envio,
             { headers: { authorization: auth } })
             .then(response => {
                 const resposta: any = response.data
-                console.log(response)
+              
                 alert(resposta)
+                setNome('')
+                setEmail('')
+                setMatricula('')
+                setPassword('')
+                setGrupoUsuario(0)
                
             })
             .catch(erro => {
@@ -84,7 +85,7 @@ const CadastroUsuario: React.FC = () => {
 
             console.log(auth)
            
-            event.preventDefault()
+            
            
 
        
@@ -124,7 +125,7 @@ const CadastroUsuario: React.FC = () => {
         <Container>
             <Menu></Menu>
             <CardForms titulo={"Cadastro de Usuário"} >
-                <form >
+                <form onSubmit={handleSubmit}>
                     <InputCadastro
                         onChange={handleImputNome}
                         defaultValue={nome}>
@@ -162,7 +163,7 @@ const CadastroUsuario: React.FC = () => {
                         </InputCadastro>
 
                     <button
-                        type='submit' onSubmit={handleSubmit} >
+                        type='submit'  >
                         Cadastrar
                          </button>
 

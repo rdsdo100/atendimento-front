@@ -12,23 +12,17 @@ export default class LoginServer {
         })
 
         if (login.data.message) {
-            return login.data.usuario
             localStorage.removeItem("Authorization")
-        }
+            return login.data.usuario
+           
+        }else{
 
         localStorage.setItem("Authorization", String(login.data.authorization))
-        return login
-
-
-    }
-
-
-    islogin() {
-
-        if (localStorage.getItem("Authorization")) {
-            return true
+        return login.data
         }
-        return false
+
     }
 
+
+  
 }

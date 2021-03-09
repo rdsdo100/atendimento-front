@@ -2,18 +2,15 @@ import React from 'react'
 
 import {Component} from './styles'
 import Menu from "../../component/Menu";
+import LayoutPrincipal from '../../component/LayoutPrincipal';
 
 
  const Home: React.FC = () => {
 
 return(
-    <Component>
-
-<Menu></Menu>
-            
-
-
-    </Component>
+<LayoutPrincipal titulo="Home" >
+   
+</LayoutPrincipal>
 
 )
 }
