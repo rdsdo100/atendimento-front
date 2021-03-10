@@ -2,12 +2,13 @@ import styled from "styled-components";
 
 export const LI = styled.li`
   float: left;
+  
 `;
 
 
 export  const LabelTabs = styled.label`
   position: relative;
-  width: 370px;
+  width: 600px;
   padding: 25px;
   background-color: ${props => props.theme.colors.black};
   display: block;
@@ -19,12 +20,12 @@ export  const LabelTabs = styled.label`
 
 export const Content = styled.div`
   
-    border-top: 5px solid #e54e43;
+    border-top: 5px solid ${props => props.theme.colors.warning};;
     background-color: ${props => props.theme.colors.secondary};
     display: none;
     position: absolute;
-    height: 431px;
-    width: 1110px;
+    width:100%;
+  height: calc(100% - 371px);
     left: 0;
     
 `;
@@ -33,7 +34,7 @@ export const RdTabs = styled.input`
   display: none;
   
   &:checked ~ ${LabelTabs} {
-    background-color: #e54e43;
+    background-color: ${props => props.theme.colors.warning};
   }
 
   :checked ~ ${Content} {

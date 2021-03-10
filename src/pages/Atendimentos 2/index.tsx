@@ -1,12 +1,10 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import CardAtendimento from '../../component/CardAtendimento';
-import CardForms from '../../component/CardForms';
-import CardList from '../../component/CardList';
 import Select from '../../component/inputs/Select';
 import TextArea from '../../component/inputs/TextArea';
 import LayoutPrincipal from '../../component/LayoutPrincipal';
-import { Tab, Tabs } from '../../component/TabsComponents';
+import { CardListTab, Tab, Tabs } from '../../component/TabsComponents';
 import { api } from '../../services/api';
 
 import { Container, Form, GridConteinerForm, GridConteinerList, GridTemplate } from './styles'
@@ -35,6 +33,7 @@ const Atendimentos: React.FC = () => {
     const [empresa, setEmpresa] = useState<number>(0)
     const [atendimento, setAtendimento] = useState<string>('')
     const [atendimentosRecebidos, setAtendimentosRecebidos] = useState<IAtendimentosRecebidos[]>([])
+    const [id, setId] = useState()
     const auth = localStorage.getItem('Authorization')
 
     useEffect(() => {
@@ -88,6 +87,10 @@ const Atendimentos: React.FC = () => {
             })
     }
 
+    let testeDeletar: number
+
+
+
     function handleImputAtendimento(event: ChangeEvent<HTMLTextAreaElement>) {
         const { name, value } = event.target
         setAtendimento(String(value))
@@ -98,97 +101,53 @@ const Atendimentos: React.FC = () => {
         setEmpresa(Number(empresa))
     }
 
+
+
+
+    const handleLabel = (novoLabel: string) => {
+        console.log(novoLabel)
+    }
+
+
+
     return (
 
         <Container>
 
             <LayoutPrincipal titulo="Atendimentos" >
 
-              
+                <Tab>
+                    <Tabs IdNameTab="tab1" defaultCheckedTab={true} text='Cadastrar tendimento'>
+                        <Form onSubmit={handleSubmit}>
 
-            
-<Tab>
-    <Tabs IdNameTab = "tab1" defaultCheckedTab= {true} text= 'Cadastrar tendimento'>
-    <Form onSubmit={handleSubmit}>
-                                
-                                <Select
-                                    name="empresas"
-                                    id="empresas"
-                                    onChange={handleSelectedIDEmpresa}>
+                            <Select
+                                name="empresas"
+                                id="empresas"
+                                onChange={handleSelectedIDEmpresa}>
 
-                                    <option key={0} value='0'>Seleciona a Empresa!</option>
-                                    {listEmpresas.map((empresa: any) => {
-                                        return <option key={empresa.id} value={empresa.id}> {`${empresa.codigoEmpresa}- ${empresa.nomeEmpresa}`}</option>
-                                    })}
+                                <option key={0} value='0'>Seleciona a Empresa!</option>
+                                {listEmpresas.map((empresa: any) => {
+                                    return <option key={empresa.id} value={empresa.id}> {`${empresa.codigoEmpresa}- ${empresa.nomeEmpresa}`}</option>
+                                })}
 
-                                </Select>
+                            </Select>
 
-                                <TextArea 
+                            <TextArea
                                 onChange={handleImputAtendimento}>
-                                </TextArea>
+                            </TextArea>
 
-                                <button type="submit" >Enviar</button>
-                            
-                            </Form>
-    </Tabs>
-    <Tabs IdNameTab = "tab2"  text= 'Lista de Atendimentos'>
-    
-    <ul>
-                                {
-                                    atendimentosRecebidos.map((atendimento: any) => {
+                            <button type="submit" >Enviar</button>
 
-                                        return <CardAtendimento
-                                            id={atendimento.id}
-                                            descricaoAtendimento={atendimento.descricaoAtendimento}
-                                            cogigoEmpresa={atendimento.cogigoEmpresa}
-                                            nomeEmpresa={atendimento.nomeEmpresa}
-                                        />
-
-                                    })
-                                }
-                            </ul>
-                          
-    </Tabs>
-
-</Tab>
-             
-
-                       
-
-                          {/*   <Form onSubmit={handleSubmit}>
-                                
-                                <Select
-                                    name="empresas"
-                                    id="empresas"
-                                    onChange={handleSelectedIDEmpresa}>
-
-                                    <option key={0} value='0'>Seleciona a Empresa!</option>
-                                    {listEmpresas.map((empresa: any) => {
-                                        return <option key={empresa.id} value={empresa.id}> {`${empresa.codigoEmpresa}- ${empresa.nomeEmpresa}`}</option>
-                                    })}
-
-                                </Select>
-
-                                <TextArea 
-                                onChange={handleImputAtendimento}>
-                                </TextArea>
-
-                                <button type="submit" >Enviar</button>
-                            
-                            </Form>
-
-                        */}
-                    
-                   
-                   {/*  <GridConteinerList>
-                   
-                        <CardList titulo={"Lista de atendimentos do dia."}>
-
+                        </Form>
+                    </Tabs>
+                    <Tabs IdNameTab="tab2" text='Lista de Atendimentos'>
+                        <CardListTab>
                             <ul>
                                 {
                                     atendimentosRecebidos.map((atendimento: any) => {
 
                                         return <CardAtendimento
+                                            testId={handleLabel}
                                             id={atendimento.id}
                                             descricaoAtendimento={atendimento.descricaoAtendimento}
                                             cogigoEmpresa={atendimento.cogigoEmpresa}
@@ -198,12 +157,10 @@ const Atendimentos: React.FC = () => {
                                     })
                                 }
                             </ul>
+                        </CardListTab>
+                    </Tabs>
 
-                        </CardList>
-
-                    </GridConteinerList>*/}
-    
-          
+                </Tab>
 
             </LayoutPrincipal>
 

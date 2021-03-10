@@ -1,6 +1,5 @@
 import React from 'react';
-import { Container ,Card , HeaderCard , Titulo , CardForm  }  from './styles'
-
+import { Container ,Card , HeaderCard , Titulo , CardListComponnt  }  from './styles'
 interface ICards {
 titulo: string
 }
@@ -13,9 +12,9 @@ const CardList: React.FC<ICards> = ({children,  titulo}) => {
             <HeaderCard>
                 <Titulo>{titulo}</Titulo>
             </HeaderCard>
-            <CardForm>
+            <CardListComponnt>
                {children}
-            </CardForm>
+            </CardListComponnt>
         </Card>
 
       </Container>

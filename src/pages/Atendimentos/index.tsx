@@ -97,6 +97,13 @@ const Atendimentos: React.FC = () => {
         setEmpresa(Number(empresa))
     }
 
+
+
+    const handleLabels = (novoLabel: string) => {
+        console.log(novoLabel)
+    }
+
+
     return (
 
         <Container>
@@ -144,6 +151,7 @@ const Atendimentos: React.FC = () => {
                                     atendimentosRecebidos.map((atendimento: any) => {
 
                                         return <CardAtendimento
+                                        testId={handleLabels}
                                             id={atendimento.id}
                                             descricaoAtendimento={atendimento.descricaoAtendimento}
                                             cogigoEmpresa={atendimento.cogigoEmpresa}
