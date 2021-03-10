@@ -6,6 +6,7 @@ import ErrorPage from "../pages/ErrorPage";
 import Home from "../pages/Home";
 import Atendimentos from "../pages/Atendimentos";
 import Empresas from "../pages/Empresas";
+import Atendimentos2 from "../pages/Atendimentos 2";
 
 
 const  PrivateRoute =  ({component, isAuthenticated, ...rest}: any) => {
@@ -35,6 +36,7 @@ const Routes =  () =>{
       <PrivateRoute component={Home} path='/home' ></PrivateRoute>
       <PrivateRoute component={CadastroUsuario} path='/cadastro-usuario'></PrivateRoute>
       <PrivateRoute component={Atendimentos} path='/atendimentos' ></PrivateRoute>
+      <PrivateRoute component={Atendimentos2} path='/atendimentos2' ></PrivateRoute>
       <PrivateRoute component={Empresas} path='/empresas' ></PrivateRoute>
       <PrivateRoute component={ErrorPage} path='*'></PrivateRoute>
 

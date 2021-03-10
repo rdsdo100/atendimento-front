@@ -12,9 +12,13 @@ export const Container = styled.div`
 export const Nav = styled.nav`
 
   position: absolute;
-  background-color: ${props => props.theme.colors.primary};
+  background-color: ${props => props.theme.colors.secundary};
+  border: 1px solid black;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
   width:  350px;
-  height: 100%;
+  height: 100vh;
   top: 0;
   left: -350px;
   z-index: 1;

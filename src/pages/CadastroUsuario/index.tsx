@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import CardForms from "../../component/CardForms";
 import InputCadastro from '../../component/inputs/InputCadastro';
 import Select from '../../component/inputs/Select';
+import LayoutPrincipal from '../../component/LayoutPrincipal';
 import Menu from '../../component/Menu';
 import { api } from '../../services/api';
 import { ApplicationState } from '../../store';
@@ -123,7 +124,7 @@ const CadastroUsuario: React.FC = () => {
 
     return (
         <Container>
-            <Menu></Menu>
+            <LayoutPrincipal titulo= 'Usuarios'>
             <CardForms titulo={"Cadastro de Usuário"} >
                 <form onSubmit={handleSubmit}>
                     <InputCadastro
@@ -169,6 +170,7 @@ const CadastroUsuario: React.FC = () => {
 
                 </form>
             </CardForms>
+            </LayoutPrincipal>
         </Container>
 
     )

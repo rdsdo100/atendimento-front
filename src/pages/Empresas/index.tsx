@@ -1,7 +1,9 @@
 import React, { ChangeEvent, FormEvent} from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import CardForms from '../../component/CardForms';
 import InputCadastro from '../../component/inputs/InputCadastro';
+import LayoutPrincipal from '../../component/LayoutPrincipal';
 import Menu from '../../component/Menu';
 import { ApplicationState } from '../../store';
 import { Container, Form } from './styles'
@@ -49,7 +51,8 @@ alert("Ta indo!!!!")
     return (
 
         <Container>
-            <Menu></Menu>
+            <LayoutPrincipal titulo='Empresas'>
+            <CardForms titulo={"Cadastro de Empresas"}>      
             <Form onSubmit={handleSubmit} >
                 
 
@@ -59,6 +62,8 @@ alert("Ta indo!!!!")
                 <button type="submit" >Enviar</button>
                 
             </Form>
+            </CardForms>
+            </LayoutPrincipal>
         </Container>
 
     )
