@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
     position: relative;
     display: flex;
-    height: 100px;
+    height: 150px;
     width: calc(100% - 20px);
     border: 1px solid black;
     border-radius: 8px;
@@ -27,7 +27,7 @@ width: 100%;
 
 export const Header = styled.h1`
     position: relative;
-    font-size: 12pt;
+    font-size: 24pt;
 `;
 
 export const Descripiton = styled.p`

@@ -1,7 +1,7 @@
-import React, { ButtonHTMLAttributes } from 'react';
-import { Container, LI } from './styles'
+import React from 'react';
+import { Container, LI, Header } from './styles'
 import { MdDeleteForever, MdModeEdit } from "react-icons/md";
-import { DefaultSerializer } from 'node:v8';
+
 
 interface IAtendimentosCards {
   id: number
@@ -25,13 +25,11 @@ const CardAtendimento: React.FC<IAtendimentosCards> = ({
 
 }) => {
 
-
-
+ 
   const buttonId = () => {
     const novoLabel:string = "Rubens"
     testId(novoLabel);
 }
-
 
 
   return (
@@ -39,7 +37,7 @@ const CardAtendimento: React.FC<IAtendimentosCards> = ({
     <Container>
       <LI key={id} >
         <div>
-          <header>{`${cogigoEmpresa}-${nomeEmpresa}`}</header>
+          <Header>{`${cogigoEmpresa}-${nomeEmpresa}`}</Header>
           <p>{` ${String(id)} - ${String(descricaoAtendimento)}`}</p>
         </div>
         <div>

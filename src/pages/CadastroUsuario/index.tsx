@@ -1,14 +1,12 @@
-import { setgroups } from 'node:process';
+
 import React, { FormEvent, ChangeEvent, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import CardForms from "../../component/CardForms";
+import CardUsuario from '../../component/CardUsuario';
 import InputCadastro from '../../component/inputs/InputCadastro';
 import Select from '../../component/inputs/Select';
 import LayoutPrincipal from '../../component/LayoutPrincipal';
-import Menu from '../../component/Menu';
+import { CardListTab, Tab, Tabs } from '../../component/TabsComponents';
 import { api } from '../../services/api';
-import { ApplicationState } from '../../store';
 import { Container } from './styles'
 
 interface IGrupoUsuario {
@@ -25,18 +23,30 @@ interface IUsuario {
 
 }
 
+interface IGetUsuario{
+    id: number
+    nomeUsuario?: string,
+    email?: string,
+    matricula?: string,
+    ativo?: boolean,
+    bloqueado?: boolean,
+    grupoUsuariosId?: number
+    grupoUsuariosNome?: string
+}
+
 const CadastroUsuario: React.FC = () => {
 
     const history = useHistory()
-    const auth =  localStorage.getItem("Authorization")
+    const auth = localStorage.getItem("Authorization")
     const [gupoUsuarios, setGrupoUsuarios] = useState<IGrupoUsuario[]>([])
+    const [usuarios, setUsuarios] = useState<IGetUsuario[]>([])
     const [nome, setNome] = useState<string>('')
     const [email, setEmail] = useState<string>('')
     const [matricula, setMatricula] = useState<string>('')
     const [grupoUsuario, setGrupoUsuario] = useState<number>(0)
     const [password, setPassword] = useState<string>('')
 
-   useEffect(() => {
+    useEffect(() => {
 
         api.get<IGrupoUsuario[]>('gupo-usuario',
             { headers: { authorization: auth } })
@@ -50,7 +60,23 @@ const CadastroUsuario: React.FC = () => {
 
     }, [])
 
+useEffect(()=>{
 
+    api.get<IGetUsuario>('user', 
+    { headers: { authorization: auth } })
+    .then(response => {
+        const resposta: any = response.data
+
+       setUsuarios(resposta)
+       
+
+    })
+    .catch(erro => {
+        alert('Erro ao acessar servidor!')
+        //  history.push('/')
+    })
+
+},[])
 
 
     async function handleSubmit(event: FormEvent) {
@@ -63,57 +89,46 @@ const CadastroUsuario: React.FC = () => {
             senha: String(password)
         }
 
-     console.log(envio)
-       
-
         api.post('user', envio,
             { headers: { authorization: auth } })
             .then(response => {
                 const resposta: any = response.data
-              
+
                 alert(resposta)
                 setNome('')
                 setEmail('')
                 setMatricula('')
                 setPassword('')
                 setGrupoUsuario(0)
-               
+
             })
             .catch(erro => {
                 alert('Erro ao acessar servidor!')
                 //  history.push('/')
             })
 
-            console.log(auth)
-           
-            
-           
-
-       
-
-
     }
 
     function handleImputNome(event: ChangeEvent<HTMLInputElement>) {
-        const { name, value } = event.target
+        const nome  = event.target.value
 
-        setNome(String(value))
+        setNome(String(nome))
 
 
     }
     function handleImputEmail(event: ChangeEvent<HTMLInputElement>) {
-        const { name, value } = event.target
-        setEmail(String(value))
+        const emailUsuario  = event.target.value
+        setEmail(String(emailUsuario))
 
     }
     function handleImputMatricula(event: ChangeEvent<HTMLInputElement>) {
-        const { name, value } = event.target
-        setMatricula(String(value))
+        const matricula  = event.target.value
+        setMatricula(String(matricula))
 
     }
     function handleImputGrupoUsuario(event: ChangeEvent<HTMLSelectElement>) {
-        const { name, value } = event.target
-        setGrupoUsuario(Number(value))
+        const grupoUsuario = event.target.value
+        setGrupoUsuario(Number(grupoUsuario))
 
     }
     function handleImputPassword(event: ChangeEvent<HTMLInputElement>) {
@@ -124,52 +139,74 @@ const CadastroUsuario: React.FC = () => {
 
     return (
         <Container>
-            <LayoutPrincipal titulo= 'Usuarios'>
-            <CardForms titulo={"Cadastro de Usuário"} >
-                <form onSubmit={handleSubmit}>
-                    <InputCadastro
-                        onChange={handleImputNome}
-                        defaultValue={nome}>
-                        Nome
+            <LayoutPrincipal titulo='Usuarios'>
+
+                <Tab>
+                    <Tabs IdNameTab="tab1Usuario"
+                        defaultCheckedTab={true}
+                        text='Cadastrar Usuário'>
+                        <form onSubmit={handleSubmit}>
+                            <InputCadastro
+                                onChange={handleImputNome}
+                                defaultValue={nome}>
+                                Nome
                     </InputCadastro>
 
-                    <InputCadastro
-                        defaultValue={email}
-                        onChange={handleImputEmail}>
-                        E-mail
+                            <InputCadastro
+                                defaultValue={email}
+                                onChange={handleImputEmail}>
+                                E-mail
                     </InputCadastro>
 
-                    <InputCadastro
-                        onChange={handleImputMatricula}
-                        defaultValue={matricula}>
-                        Matricula
+                            <InputCadastro
+                                onChange={handleImputMatricula}
+                                defaultValue={matricula}>
+                                Matricula
                         </InputCadastro>
-                    <Select
-                        onChange={handleImputGrupoUsuario}
-                        defaultValue={grupoUsuario}>
-                            
-                        <option key={0} value='0'>Seleciona o Grupo de Usuário!</option>
-                        {
-                            gupoUsuarios.map((grupo: any) => {
-                                return <option key={grupo.id} value={grupo.id}>{`${String(grupo.id)} - ${String(grupo.nome)} `}</option>
-                            })
-                        }
-                    </Select>
+                            <Select
+                                onChange={handleImputGrupoUsuario}
+                                defaultValue={grupoUsuario}>
 
-                    <InputCadastro
-                        type='password'
-                        onChange={handleImputPassword}
-                        defaultValue={password}>
-                        Senha
+                                <option key={0} value='0'>Seleciona o Grupo de Usuário!</option>
+                                {
+                                    gupoUsuarios.map((grupo: any) => {
+                                        return <option key={grupo.id} value={grupo.id}>{`${String(grupo.id)} - ${String(grupo.nome)} `}</option>
+                                    })
+                                }
+                            </Select>
+
+                            <InputCadastro
+                                type='password'
+                                onChange={handleImputPassword}
+                                defaultValue={password}>
+                                Senha
                         </InputCadastro>
 
-                    <button
-                        type='submit'  >
-                        Cadastrar
+                            <button
+                                type='submit'  >
+                                Cadastrar
                          </button>
 
-                </form>
-            </CardForms>
+                        </form>
+                    </Tabs>
+                    <Tabs IdNameTab="tab2Usuario" text='Lista de Usuarios'>
+                        <CardListTab>
+{
+    usuarios.map((user:any)=>{
+
+        return <CardUsuario
+        id={user.id}
+        nomeUsuario={user.nomeUsuario} 
+        matricula = {user.matricula}
+        />
+    })
+}
+                        </CardListTab>
+                    </Tabs>
+
+                </Tab>
+
+
             </LayoutPrincipal>
         </Container>
 

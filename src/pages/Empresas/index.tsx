@@ -1,20 +1,11 @@
-import React, { ChangeEvent, FormEvent} from 'react';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import CardForms from '../../component/CardForms';
+import React, { FormEvent } from 'react';
 import InputCadastro from '../../component/inputs/InputCadastro';
 import LayoutPrincipal from '../../component/LayoutPrincipal';
-import Menu from '../../component/Menu';
-import { ApplicationState } from '../../store';
+import { CardListTab, Tabs } from '../../component/TabsComponents';
+import Tab from '../../component/TabsComponents/Tab';
 import { Container, Form } from './styles'
 
-
-
 const Empresas: React.FC = () => {
-
-    const history = useHistory()
-    
-    const auth = useSelector((state: ApplicationState) => state.auth.auth)
 
     /*useEffect(() => {
 
@@ -31,41 +22,45 @@ const Empresas: React.FC = () => {
 
     }, [])*/
 
-
-
-
     async function handleSubmit(event: FormEvent) {
         event.preventDefault()
 
-alert("Ta indo!!!!")
-
+        alert("Ta indo!!!!")
 
     }
 
-    function handleImputAtendimento(event: ChangeEvent<HTMLTextAreaElement>) {
-        const { name, value } = event.target
-
-        
-    }
-    
     return (
 
         <Container>
             <LayoutPrincipal titulo='Empresas'>
-            <CardForms titulo={"Cadastro de Empresas"}>      
-            <Form onSubmit={handleSubmit} >
-                
 
-                <InputCadastro>Codigo da Empresa</InputCadastro>
-                <InputCadastro>Nome da Empresa</InputCadastro>
-                
-                <button type="submit" >Enviar</button>
-                
-            </Form>
-            </CardForms>
+                <Tab>
+                    <Tabs IdNameTab="tab1Empresas"
+                        defaultCheckedTab={true}
+                        text='Cadastrar Usuário'>
+
+                        <Form onSubmit={handleSubmit} >
+
+
+                            <InputCadastro>Codigo da Empresa</InputCadastro>
+                            <InputCadastro>Nome da Empresa</InputCadastro>
+
+                            <button type="submit" >Enviar</button>
+
+                        </Form>
+
+                    </Tabs>
+                    <Tabs IdNameTab="tab2Empresas" text='Lista de Usuarios'>
+                        <CardListTab>
+
+                        </CardListTab>
+                    </Tabs>
+
+                </Tab>
+
             </LayoutPrincipal>
         </Container>
 
     )
-} 
+}
 export default Empresas

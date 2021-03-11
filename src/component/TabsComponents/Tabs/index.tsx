@@ -14,7 +14,7 @@ const Tabs: React.FC<ITab> = ({children ,
                                      text,
                                      IdNameTab}) => (
 
-    <LI>
+    <LI key={IdNameTab}>
         <TabBody>
             <RdTabs type='radio' name='tabs' id={IdNameTab}  defaultChecked={  defaultCheckedTab ? true : false  } />
             <LabelTabs  htmlFor={IdNameTab}>{text}</LabelTabs>
