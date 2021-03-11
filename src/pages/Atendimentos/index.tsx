@@ -146,7 +146,7 @@ const Atendimentos: React.FC = () => {
                                 {
                                     atendimentosRecebidos.map((atendimento: any) => {
 
-                                        return <CardAtendimento
+                                        return <CardAtendimento key={atendimento.id}
                                             testId={handleLabel}
                                             id={atendimento.id}
                                             descricaoAtendimento={atendimento.descricaoAtendimento}

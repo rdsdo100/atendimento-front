@@ -35,7 +35,7 @@ const CardAtendimento: React.FC<IAtendimentosCards> = ({
   return (
 
     <Container>
-      <LI key={id} >
+      <LI>
         <div>
           <Header>{`${cogigoEmpresa}-${nomeEmpresa}`}</Header>
           <p>{` ${String(id)} - ${String(descricaoAtendimento)}`}</p>
