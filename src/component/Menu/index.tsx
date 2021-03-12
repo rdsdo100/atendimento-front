@@ -29,6 +29,7 @@ function sairSistema(){
                     <li><A to="/atendimentos"   >Atendimentos</A></li>
                     <li><A to="/empresas">Empresas</A></li>
                     <li><A to="/cadastro-usuario">Usuário</A></li>
+                    <li><A to="/graficos">Graficos</A></li>
                     <li><A to='/' onChange={()=>{sairSistema()}} >Sair</A></li>
                 </UL>
 

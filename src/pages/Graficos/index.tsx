@@ -1,16 +1,17 @@
 import React from 'react'
+
 import LayoutPrincipal from '../../component/LayoutPrincipal';
 
 
- const Home: React.FC = () => {
+ const Graficos: React.FC = () => {
 
 return(
-<LayoutPrincipal titulo="Home" >
+<LayoutPrincipal titulo="Graficos" >
    
 </LayoutPrincipal>
 
 )
 }
-export default Home
+export default Graficos
 
 //https://mariosouto.com/inputs-materializados-com-css/

@@ -6,6 +6,7 @@ import ErrorPage from "../pages/ErrorPage";
 import Home from "../pages/Home";
 import Empresas from "../pages/Empresas";
 import Atendimentos from "../pages/Atendimentos";
+import Graficos from "../pages/Graficos";
 
 
 
@@ -36,7 +37,7 @@ const Routes =  () =>{
       <PrivateRoute component={Home} path='/home' ></PrivateRoute>
       <PrivateRoute component={CadastroUsuario} path='/cadastro-usuario'></PrivateRoute>
       <PrivateRoute component={Atendimentos} path='/atendimentos' ></PrivateRoute>
-      
+      <PrivateRoute component={Graficos} path ='/graficos'></PrivateRoute>
       <PrivateRoute component={Empresas} path='/empresas' ></PrivateRoute>
       <PrivateRoute component={ErrorPage} path='*'></PrivateRoute>
 
