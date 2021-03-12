@@ -15,6 +15,7 @@ interface IEmpresas {
     nomeEmpresas: any
 }
 interface IEnvioAtendimentos {
+    id?: number
     descricaoAtendimento: string
     codigoEmpresaId: number
 }
@@ -36,6 +37,8 @@ const Atendimentos: React.FC = () => {
     const [idDelete, setIdDelete] = useState<number>()
     const [message , setMessage] = useState<string>('')
     const auth = localStorage.getItem('Authorization')
+
+
 
     useEffect(() => {
 
@@ -106,8 +109,7 @@ const Atendimentos: React.FC = () => {
         .then(response => {
             const resposta: any = response.data
             
-            console.log(resposta)
-            //setMessage(String(resposta))
+            setMessage(String(resposta))
             
         }).catch(erro => {
 
