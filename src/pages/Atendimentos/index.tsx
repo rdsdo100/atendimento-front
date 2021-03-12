@@ -33,7 +33,8 @@ const Atendimentos: React.FC = () => {
     const [empresa, setEmpresa] = useState<number>(0)
     const [atendimento, setAtendimento] = useState<string>('')
     const [atendimentosRecebidos, setAtendimentosRecebidos] = useState<IAtendimentosRecebidos[]>([])
-    const [id, setId] = useState<number>()
+    const [idDelete, setIdDelete] = useState<number>()
+    const [message , setMessage] = useState<string>('')
     const auth = localStorage.getItem('Authorization')
 
     useEffect(() => {
@@ -64,7 +65,7 @@ const Atendimentos: React.FC = () => {
                 history.push('/')
             })
 
-    }, [])
+    }, [idDelete])
 
     async function handleSubmit(event: FormEvent) {
 
@@ -87,7 +88,7 @@ const Atendimentos: React.FC = () => {
             })
     }
 
-    let testeDeletar: number
+  
 
 
 
@@ -101,11 +102,24 @@ const Atendimentos: React.FC = () => {
         setEmpresa(Number(empresa))
     }
 
+    const handleDelete = (idDelete: number) => {
+        setIdDelete(idDelete)
 
+        api.delete<string>(`atendimento/${idDelete}`, 
+        { headers: { authorization: auth } })
+        .then(response => {
+            const resposta: any = response.data
+            
+            console.log(resposta)
+            //setMessage(String(resposta))
+            
+        }).catch(erro => {
 
+            alert('Não enviado!')
 
-    const handleLabel = (novoLabel: number) => {
-        console.log(novoLabel)
+        })
+        
+
     }
 
 
@@ -147,7 +161,7 @@ const Atendimentos: React.FC = () => {
                                     atendimentosRecebidos.map((atendimento: any) => {
 
                                         return <CardAtendimento key={atendimento.id}
-                                            testId={handleLabel}
+                                            testId={handleDelete}
                                             id={atendimento.id}
                                             descricaoAtendimento={atendimento.descricaoAtendimento}
                                             cogigoEmpresa={atendimento.cogigoEmpresa}
