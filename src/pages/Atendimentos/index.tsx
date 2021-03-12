@@ -88,10 +88,6 @@ const Atendimentos: React.FC = () => {
             })
     }
 
-  
-
-
-
     function handleImputAtendimento(event: ChangeEvent<HTMLTextAreaElement>) {
         const { name, value } = event.target
         setAtendimento(String(value))
@@ -119,10 +115,7 @@ const Atendimentos: React.FC = () => {
 
         })
         
-
     }
-
-
 
     return (
 
