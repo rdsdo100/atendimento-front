@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, LI, Header } from './styles'
+import { Container, LI, Header, ContainerButtons, ContainerInfo, MdDeleteForeverIcon, MdModeEditIcon, Button } from './styles'
 import { MdDeleteForever, MdModeEdit } from "react-icons/md";
 
 
@@ -9,7 +9,7 @@ interface IAtendimentosCards {
   dataAtendimento?: Date
   cogigoEmpresa?: string
   nomeEmpresa: string
-  readonly testId: (arg0: string) => void;
+  readonly testId: (arg0: number) => void;
 
     
   
@@ -27,7 +27,7 @@ const CardAtendimento: React.FC<IAtendimentosCards> = ({
 
  
   const buttonId = () => {
-    const novoLabel:string = "Rubens"
+    const novoLabel:number = id
     testId(novoLabel);
 }
 
@@ -36,14 +36,15 @@ const CardAtendimento: React.FC<IAtendimentosCards> = ({
 
     <Container>
       <LI>
-        <div>
+
+        <ContainerInfo>
           <Header>{`${cogigoEmpresa}-${nomeEmpresa}`}</Header>
           <p>{` ${String(id)} - ${String(descricaoAtendimento)}`}</p>
-        </div>
-        <div>
-          <button type="button">Editar<MdModeEdit /></button>
-          <button type="button" onClick={buttonId}>Deletar<MdDeleteForever /></button>
-        </div>
+        </ContainerInfo>
+        <ContainerButtons>
+          <Button type="button"><MdModeEditIcon/></Button>
+          <Button type="button" onClick={buttonId} ><MdDeleteForeverIcon /></Button>
+        </ContainerButtons>
       </LI>
 
     </Container>

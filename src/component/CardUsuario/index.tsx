@@ -1,6 +1,7 @@
 import React from 'react';
-import { Container, LI } from './styles'
+import { Button, Container, ContainerButtons, LI, MdDeleteForeverIcon, MdModeEditIcon } from './styles'
 import { MdDeleteForever, MdModeEdit } from "react-icons/md";
+import { ContainerInfo } from '../CardAtendimento/styles';
 
 interface IUduario {
 
@@ -23,17 +24,19 @@ const CardUsuario: React.FC<IUduario> = ({ id, nomeUsuario, matricula }) => {
   return (
 
     <Container>
-      <LI key={id}>
-        <div>
+      <LI>
+        <ContainerInfo>
           <p>{id}</p>
           <p>{nomeUsuario}</p>
           <p>{matricula}</p>
-<div>
-<button type="button">Editar<MdModeEdit /></button>
-          <button type="button">Deletar<MdDeleteForever /></button>
-</div>
 
-        </div>
+          </ContainerInfo>
+<ContainerButtons>
+<Button type="button"><MdModeEditIcon /></Button>
+          <Button type="button"><MdDeleteForeverIcon /></Button>
+</ContainerButtons>
+
+        
       </LI>
 
     </Container>

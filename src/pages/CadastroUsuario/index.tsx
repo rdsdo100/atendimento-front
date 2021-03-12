@@ -195,11 +195,13 @@ useEffect(()=>{
     usuarios.map((user:any)=>{
 
         return <CardUsuario
+        key={user.id}
         id={user.id}
         nomeUsuario={user.nomeUsuario} 
         matricula = {user.matricula}
         />
     })
+
 }
                         </CardListTab>
                     </Tabs>

@@ -33,7 +33,7 @@ const Atendimentos: React.FC = () => {
     const [empresa, setEmpresa] = useState<number>(0)
     const [atendimento, setAtendimento] = useState<string>('')
     const [atendimentosRecebidos, setAtendimentosRecebidos] = useState<IAtendimentosRecebidos[]>([])
-    const [id, setId] = useState()
+    const [id, setId] = useState<number>()
     const auth = localStorage.getItem('Authorization')
 
     useEffect(() => {
@@ -104,7 +104,7 @@ const Atendimentos: React.FC = () => {
 
 
 
-    const handleLabel = (novoLabel: string) => {
+    const handleLabel = (novoLabel: number) => {
         console.log(novoLabel)
     }
 
