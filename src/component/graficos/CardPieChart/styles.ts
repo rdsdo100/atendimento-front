@@ -6,7 +6,7 @@ interface ILegendProps {
 }
 
 export const Container = styled.div`
-  width : 48%;
+  width : 1180px;
   height: 260px;
   margin: 10px ;
   background-color: ${props => props.theme.colors.primary};

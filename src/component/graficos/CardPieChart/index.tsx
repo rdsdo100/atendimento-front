@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-    PieChart,
-    Pie,
-    ResponsiveContainer,
-    Cell
-   
-} from 'recharts'
+import { Cell, Pie, PieChart, RadialBar, RadialBarChart, ResponsiveContainer } from 'recharts'
 
 import { Container, LegendContainer, SideLeft, SideRight , Legend  } from './styles'
 
@@ -16,40 +10,60 @@ const CardPieChart: React.FC = () => {
 
 
 
-const data = [
-    {
-        name: "entradas",
-        value: 150,
-        percent: 20,
-        color: '#e44c4e'
-    },
-    {
-        name: "Saidas",
-        value: 100,
-        percent: 80,
-        color: '#f7931b'
-    }
-]
-
-
-
+   const data = [
+        {
+          name: '18-24',
+          uv: 31.47,
+          pv: 2400,
+          fill: '#8884d8',
+        },
+        {
+          name: '25-29',
+          uv: 26.69,
+          pv: 4567,
+          fill: '#83a6ed',
+        },
+        {
+          name: '30-34',
+          uv: 15.69,
+          pv: 1398,
+          fill: '#8dd1e1',
+        },
+        {
+          name: '35-39',
+          uv: 8.22,
+          pv: 9800,
+          fill: '#82ca9d',
+        },
+        {
+          name: '40-49',
+          uv: 8.63,
+          pv: 3908,
+          fill: '#a4de6c',
+        },
+        {
+          name: '50+',
+          uv: 2.63,
+          pv: 4800,
+          fill: '#d0ed57',
+        },
+        {
+          name: 'unknow',
+          uv: 6.67,
+          pv: 4800,
+          fill: '#f80058',
+        },
+      ];
+      
     return (
-
         <Container>
-            
-
-
-            
-           
-           
-
-
-            <ResponsiveContainer>
+             
+             <ResponsiveContainer>
                 <PieChart>
-                    <Pie data={data} dataKey="percent">
+                    <Pie data={data} dataKey="uv">
                         {
                             data.map((indicator) => (
-                                <Cell key={indicator.name} fill={indicator.color} />
+                                <Cell key={indicator.name} fill={indicator.fill} />
                             ))
                         }
                     </Pie>
