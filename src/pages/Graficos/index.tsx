@@ -1,4 +1,6 @@
 import React from 'react'
+import CardPieChart from '../../component/graficos/CardPieChart';
+
 
 import LayoutPrincipal from '../../component/LayoutPrincipal';
 
@@ -8,6 +10,8 @@ import LayoutPrincipal from '../../component/LayoutPrincipal';
 return(
 <LayoutPrincipal titulo="Graficos" >
    
+<CardPieChart></CardPieChart>
+
 </LayoutPrincipal>
 
 )
