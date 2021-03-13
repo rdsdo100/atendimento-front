@@ -19,14 +19,14 @@ const CardPieChart: React.FC = () => {
 const data = [
     {
         name: "entradas",
-        value: 100,
-        percent: 50,
+        value: 150,
+        percent: 20,
         color: '#e44c4e'
     },
     {
         name: "Saidas",
         value: 100,
-        percent: 50,
+        percent: 80,
         color: '#f7931b'
     }
 ]
@@ -36,55 +36,31 @@ const data = [
     return (
 
         <Container>
-            <SideLeft>
-                <h2>Relação</h2>
-                <LegendContainer>
-                    <Legend color="#f7931b">
-                        <div>95%</div>
-                        <span>Saidas</span>
-                    </Legend>
-                    <Legend color="#e44c4e">
-                        <div>95%</div>
-                        <span>Saidas</span>
-                    </Legend>
-                    
-</LegendContainer>
+            
 
-</SideLeft>
 
-            <SideRight>
+            
            
-               
+           
 
 
-
-
-
-
-            <ResponsiveContainer width="100%" height="100%">
-        <PieChart width={400} height={400}>
-          <Pie
-            data={data}
-            cx="50%"
-            cy="50%"
-            labelLine={false}
-            
-            outerRadius={80}
-            fill="#8884d8"
-            dataKey="value"
-          >
-            {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={entry.color} />
-            ))}
-          </Pie>
-        </PieChart>
-      </ResponsiveContainer>
+            <ResponsiveContainer>
+                <PieChart>
+                    <Pie data={data} dataKey="percent">
+                        {
+                            data.map((indicator) => (
+                                <Cell key={indicator.name} fill={indicator.color} />
+                            ))
+                        }
+                    </Pie>
+                </PieChart>
+            </ResponsiveContainer>
 
 
 
                     
             
-            </SideRight>
+   
 
         </Container>)
 }
