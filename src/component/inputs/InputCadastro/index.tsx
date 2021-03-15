@@ -4,6 +4,8 @@ import {LoginBoxs , UserBoxs, Input, Label} from "./styles"
 
 type IInputProps = InputHTMLAttributes<HTMLInputElement>;
 
+
+
 const InputCadastro: React.FC<IInputProps> = ({  children, ...rest }) =>  (
 
         <LoginBoxs>

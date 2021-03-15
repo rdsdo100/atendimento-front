@@ -1,6 +1,7 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { MdTextFields } from 'react-icons/md';
 import { useHistory } from 'react-router-dom';
+import Button from '../../component/buttons/Button';
+import ButtonAtendimentos from '../../component/buttons/ButtonAtendimentos';
 import CardAtendimento from '../../component/CardAtendimento';
 import Select from '../../component/inputs/Select';
 import TextArea from '../../component/inputs/TextArea';
@@ -8,7 +9,7 @@ import LayoutPrincipal from '../../component/LayoutPrincipal';
 import { CardListTab, Tab, Tabs } from '../../component/TabsComponents';
 import { api } from '../../services/api';
 
-import { Container, Form } from './styles'
+import { Container, Form, DivButtonEditar, DivuttonEnviar } from './styles'
 
 interface IEmpresas {
     id: number
@@ -24,13 +25,13 @@ interface IAtendimentosRecebidos {
     id: number
     descricaoAtendimento: string
     dataAtendimento: Date
+    idEmpresa: number
     cogigoEmpresa: string
     nomeEmpresa: string
 }
 
-interface IButton{
-    background: string,
-     display?: string
+interface IButton {
+    display?: string
 }
 
 
@@ -44,8 +45,8 @@ const Atendimentos: React.FC = () => {
     const [atendimentosRecebidos, setAtendimentosRecebidos] = useState<IAtendimentosRecebidos[]>([])
     const [idDelete, setIdDelete] = useState<number>()
     const [message, setMessage] = useState<string>('')
-    const [butonEnviar , setButtonEnviar] = useState<IButton>({background: 'green' , display: 'block'})
-    const [butonEdit , setButtonEdit] = useState<IButton>({background: 'red' , display: 'none'})
+    const [butonEnviar, setButtonEnviar] = useState<IButton>({ display: 'block' })
+    const [butonEdit, setButtonEdit] = useState<IButton>({ display: 'none' })
     const auth = localStorage.getItem('Authorization')
 
 
@@ -71,6 +72,7 @@ const Atendimentos: React.FC = () => {
             { headers: { authorization: auth } })
             .then(response => {
                 const resposta: any = response.data
+
                 setAtendimentosRecebidos(resposta)
 
             }).catch(erro => {
@@ -139,7 +141,7 @@ const Atendimentos: React.FC = () => {
 
 
     function handleImputAtendimento(event: ChangeEvent<HTMLTextAreaElement>) {
-        const {  value } = event.target
+        const { value } = event.target
         setAtendimento(String(value))
     }
 
@@ -148,24 +150,25 @@ const Atendimentos: React.FC = () => {
         setEmpresa(Number(empresa))
     }
 
-   
 
-    function updateAtendimento() {
 
-        const ativarButton: IButton = {background: 'yellow' }
-        const desativarButton: IButton = {background: 'blue' , display: 'none'}
+    function updateAtendimento(idEdit: number) {
+
+        const ativarButton: IButton = { display: 'flex' }
+        const desativarButton: IButton = { display: 'none' }
         setButtonEdit(ativarButton)
         setButtonEnviar(desativarButton)
 
+        const atendimentoEdit = atendimentosRecebidos.find(item => item.id === idEdit)
+
         if (document.getElementById("textAreaAtendimento")) {
             (document.getElementById("textAreaAtendimento") as HTMLInputElement)
-                .value = "ok";
-
+                .value = String(atendimentoEdit?.descricaoAtendimento);
         }
 
         if (document.getElementById("empresasSelectAtendimentos")) {
             (document.getElementById("empresasSelectAtendimentos") as HTMLInputElement)
-                .value = "15";
+                .value = String(atendimentoEdit?.idEmpresa);
 
         }
         if (document.getElementById("tab1Atendimento")) {
@@ -197,7 +200,7 @@ const Atendimentos: React.FC = () => {
 
                             <Select
                                 id="empresasSelectAtendimentos"
-                                
+
                                 onChange={handleSelectedIDEmpresa}>
 
                                 <option key={0} value='0'>Seleciona a Empresa!</option>
@@ -213,10 +216,13 @@ const Atendimentos: React.FC = () => {
                             </TextArea>
 
 
-
-                            <button type="submit" style={butonEnviar} >Enviar</button>
-                            <button type="submit" style={butonEdit} >Editar</button>
-
+                            <DivuttonEnviar style={butonEnviar} >
+                                <Button style={{background: "green"}}  type="submit"  >Enviar</Button>
+                            </DivuttonEnviar>
+                            <DivButtonEditar style={butonEdit}>
+                                <Button  style={{background: "yellow" , color: '#000'}} type="submit" >Editar</Button>
+                                <Button type="submit"  >Cancelar</Button>
+                            </DivButtonEditar>
                         </Form>
                     </Tabs>
                     <Tabs IdNameTab="tab2Atendimento" text='Lista de Atendimentos'>
