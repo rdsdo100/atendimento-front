@@ -1,4 +1,5 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { MdTextFields } from 'react-icons/md';
 import { useHistory } from 'react-router-dom';
 import CardAtendimento from '../../component/CardAtendimento';
 import Select from '../../component/inputs/Select';
@@ -7,7 +8,7 @@ import LayoutPrincipal from '../../component/LayoutPrincipal';
 import { CardListTab, Tab, Tabs } from '../../component/TabsComponents';
 import { api } from '../../services/api';
 
-import { Container, Form} from './styles'
+import { Container, Form } from './styles'
 
 interface IEmpresas {
     id: number
@@ -27,6 +28,13 @@ interface IAtendimentosRecebidos {
     nomeEmpresa: string
 }
 
+interface IButton{
+    background: string,
+     display?: string
+}
+
+
+
 const Atendimentos: React.FC = () => {
 
     const history = useHistory()
@@ -35,7 +43,9 @@ const Atendimentos: React.FC = () => {
     const [atendimento, setAtendimento] = useState<string>('')
     const [atendimentosRecebidos, setAtendimentosRecebidos] = useState<IAtendimentosRecebidos[]>([])
     const [idDelete, setIdDelete] = useState<number>()
-    const [message , setMessage] = useState<string>('')
+    const [message, setMessage] = useState<string>('')
+    const [butonEnviar , setButtonEnviar] = useState<IButton>({background: 'green' , display: 'block'})
+    const [butonEdit , setButtonEdit] = useState<IButton>({background: 'red' , display: 'none'})
     const auth = localStorage.getItem('Authorization')
 
 
@@ -81,7 +91,6 @@ const Atendimentos: React.FC = () => {
             .then(response => {
                 const resposta: any = response.data
                 alert('Salvo!')
-                console.log(resposta)
                 setAtendimento('')
                 setEmpresa(0)
             }).catch(erro => {
@@ -91,8 +100,46 @@ const Atendimentos: React.FC = () => {
             })
     }
 
+    const handleDelete = (idDelete: number) => {
+
+        api.delete<string>(`atendimento/${idDelete}`,
+            { headers: { authorization: auth } })
+            .then(response => {
+                const resposta: any = response.data
+
+                setMessage(String(resposta))
+                setIdDelete(idDelete)
+
+            }).catch(erro => {
+
+                alert('Não enviado!')
+
+            })
+
+    }
+
+
+    const handlePut = (idDelete: number) => {
+
+        api.put(`atendimento`,
+            { headers: { authorization: auth } })
+            .then(response => {
+                const resposta: any = response.data
+
+                setMessage(String(resposta))
+                setIdDelete(idDelete)
+
+            }).catch(erro => {
+
+                alert('Não enviado!')
+
+            })
+
+    }
+
+
     function handleImputAtendimento(event: ChangeEvent<HTMLTextAreaElement>) {
-        const { name, value } = event.target
+        const {  value } = event.target
         setAtendimento(String(value))
     }
 
@@ -101,23 +148,42 @@ const Atendimentos: React.FC = () => {
         setEmpresa(Number(empresa))
     }
 
-    const handleDelete = (idDelete: number) => {
-        setIdDelete(idDelete)
+   
 
-        api.delete<string>(`atendimento/${idDelete}`, 
-        { headers: { authorization: auth } })
-        .then(response => {
-            const resposta: any = response.data
-            
-            setMessage(String(resposta))
-            
-        }).catch(erro => {
+    function updateAtendimento() {
 
-            alert('Não enviado!')
+        const ativarButton: IButton = {background: 'yellow' }
+        const desativarButton: IButton = {background: 'blue' , display: 'none'}
+        setButtonEdit(ativarButton)
+        setButtonEnviar(desativarButton)
 
-        })
-        
+        if (document.getElementById("textAreaAtendimento")) {
+            (document.getElementById("textAreaAtendimento") as HTMLInputElement)
+                .value = "ok";
+
+        }
+
+        if (document.getElementById("empresasSelectAtendimentos")) {
+            (document.getElementById("empresasSelectAtendimentos") as HTMLInputElement)
+                .value = "15";
+
+        }
+        if (document.getElementById("tab1Atendimento")) {
+            (document.getElementById("tab1Atendimento") as HTMLInputElement)
+                .checked = true;
+
+        }
+        if (document.getElementById("tab2Atendimento")) {
+            (document.getElementById("tab2Atendimento") as HTMLInputElement)
+                .checked = false;
+
+        }
+
     }
+
+
+
+
 
     return (
 
@@ -130,8 +196,8 @@ const Atendimentos: React.FC = () => {
                         <Form onSubmit={handleSubmit}>
 
                             <Select
-                                name="empresas"
-                                id="empresas"
+                                id="empresasSelectAtendimentos"
+                                
                                 onChange={handleSelectedIDEmpresa}>
 
                                 <option key={0} value='0'>Seleciona a Empresa!</option>
@@ -142,10 +208,14 @@ const Atendimentos: React.FC = () => {
                             </Select>
 
                             <TextArea
+                                id="textAreaAtendimento"
                                 onChange={handleImputAtendimento}>
                             </TextArea>
 
-                            <button type="submit" >Enviar</button>
+
+
+                            <button type="submit" style={butonEnviar} >Enviar</button>
+                            <button type="submit" style={butonEdit} >Editar</button>
 
                         </Form>
                     </Tabs>
@@ -154,9 +224,9 @@ const Atendimentos: React.FC = () => {
                             <ul>
                                 {
                                     atendimentosRecebidos.map((atendimento: any) => {
-
                                         return <CardAtendimento key={atendimento.id}
-                                            testId={handleDelete}
+                                            idDeleteAtendimentos={handleDelete}
+                                            idEditAtendimentos={updateAtendimento}
                                             id={atendimento.id}
                                             descricaoAtendimento={atendimento.descricaoAtendimento}
                                             cogigoEmpresa={atendimento.cogigoEmpresa}

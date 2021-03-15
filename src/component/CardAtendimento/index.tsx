@@ -9,7 +9,8 @@ interface IAtendimentosCards {
   dataAtendimento?: Date
   cogigoEmpresa?: string
   nomeEmpresa: string
-  readonly testId: (arg0: number) => void;
+  readonly idDeleteAtendimentos: (arg0: number) => void;
+  readonly idEditAtendimentos: (arg0: number) => void;
 
     
   
@@ -20,16 +21,24 @@ const CardAtendimento: React.FC<IAtendimentosCards> = ({
   descricaoAtendimento,
   cogigoEmpresa,
   nomeEmpresa,
-  testId
+  idDeleteAtendimentos,
+  idEditAtendimentos
   
 
 }) => {
 
  
-  const buttonId = () => {
+  const buttonDeleteId = () => {
+
     const novoLabel:number = id
-    testId(novoLabel);
+    idDeleteAtendimentos(novoLabel);
 }
+const buttonEditdId = () => {
+  
+  const novoLabel:number = id
+  idEditAtendimentos(novoLabel);
+}
+
 
 
   return (
@@ -42,8 +51,8 @@ const CardAtendimento: React.FC<IAtendimentosCards> = ({
           <p>{` ${String(id)} - ${String(descricaoAtendimento)}`}</p>
         </ContainerInfo>
         <ContainerButtons>
-          <Button type="button"><MdModeEditIcon/></Button>
-          <Button type="button" onClick={buttonId} ><MdDeleteForeverIcon /></Button>
+          <Button type="button" onClick={buttonEditdId}><MdModeEditIcon/></Button>
+          <Button type="button" onClick={buttonDeleteId} ><MdDeleteForeverIcon /></Button>
         </ContainerButtons>
       </LI>
 
