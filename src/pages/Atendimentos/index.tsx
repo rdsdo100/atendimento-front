@@ -121,37 +121,6 @@ const Atendimentos: React.FC = () => {
     }
 
 
-    const handlePut = (idDelete: number) => {
-
-        api.put(`atendimento`,
-            { headers: { authorization: auth } })
-            .then(response => {
-                const resposta: any = response.data
-
-                setMessage(String(resposta))
-                setIdDelete(idDelete)
-
-            }).catch(erro => {
-
-                alert('Não enviado!')
-
-            })
-
-    }
-
-
-    function handleImputAtendimento(event: ChangeEvent<HTMLTextAreaElement>) {
-        const { value } = event.target
-        setAtendimento(String(value))
-    }
-
-    function handleSelectedIDEmpresa(event: ChangeEvent<HTMLSelectElement>) {
-        const empresa = event.target.value
-        setEmpresa(Number(empresa))
-    }
-
-
-
     function updateAtendimento(idEdit: number) {
 
         const ativarButton: IButton = { display: 'flex' }
@@ -184,9 +153,59 @@ const Atendimentos: React.FC = () => {
 
     }
 
+    const handlePut = () => {
 
 
 
+        if (document.getElementById("textAreaAtendimento")) {
+          const tt =  (document.getElementById("textAreaAtendimento") as HTMLInputElement).value;
+          console.log(tt )
+        }
+
+        if (document.getElementById("empresasSelectAtendimentos")) {
+            const ts = (document.getElementById("empresasSelectAtendimentos") as HTMLInputElement).value;
+            console.log(ts)
+        }
+
+        
+
+{/* 
+        api.put(`atendimento`,
+            { headers: { authorization: auth } })
+            .then(response => {
+                const resposta: any = response.data
+
+                setMessage(String(resposta))
+                setIdDelete(idDelete)
+
+            }).catch(erro => {
+
+                alert('Não enviado!')
+
+            })
+*/}
+
+    }
+
+    function handleCancelar(){
+
+        const ativarButton: IButton = { display: 'flex' }
+        const desativarButton: IButton = { display: 'none' }
+        setButtonEdit(desativarButton)
+        setButtonEnviar(ativarButton)
+
+    }
+
+
+    function handleImputAtendimento(event: ChangeEvent<HTMLTextAreaElement>) {
+        const { value } = event.target
+        setAtendimento(String(value))
+    }
+
+    function handleSelectedIDEmpresa(event: ChangeEvent<HTMLSelectElement>) {
+        const empresa = event.target.value
+        setEmpresa(Number(empresa))
+    }
 
     return (
 
@@ -220,8 +239,8 @@ const Atendimentos: React.FC = () => {
                                 <Button style={{background: "green"}}  type="submit"  >Enviar</Button>
                             </DivuttonEnviar>
                             <DivButtonEditar style={butonEdit}>
-                                <Button  style={{background: "yellow" , color: '#000'}} type="submit" >Editar</Button>
-                                <Button type="submit"  >Cancelar</Button>
+                                <Button  style={{background: "yellow" , color: '#000'}} type="submit" onClick={()=>{handlePut()}} >Editar</Button>
+                                <Button type="submit" onClick={()=>{handleCancelar()}}  >Cancelar</Button>
                             </DivButtonEditar>
                         </Form>
                     </Tabs>
