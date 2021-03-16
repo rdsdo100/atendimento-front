@@ -84,6 +84,7 @@ const Atendimentos: React.FC = () => {
 
     async function handleSubmit(event: FormEvent) {
 
+        event.preventDefault()
         const respostaEnvio: IEnvioAtendimentos = {
             descricaoAtendimento: atendimento,
             codigoEmpresaId: empresa
@@ -93,8 +94,18 @@ const Atendimentos: React.FC = () => {
             .then(response => {
                 const resposta: any = response.data
                 alert('Salvo!')
-                setAtendimento('')
-                setEmpresa(0)
+
+
+                if (document.getElementById("textAreaAtendimento")) {
+                    (document.getElementById("textAreaAtendimento") as HTMLInputElement)
+                        .value = "";
+                }
+        
+                if (document.getElementById("empresasSelectAtendimentos")) {
+                    (document.getElementById("empresasSelectAtendimentos") as HTMLInputElement)
+                        .value = "0";
+        
+                }
             }).catch(erro => {
 
                 alert('Não enviado!')
@@ -239,8 +250,8 @@ const Atendimentos: React.FC = () => {
                                 <Button style={{background: "green"}}  type="submit"  >Enviar</Button>
                             </DivuttonEnviar>
                             <DivButtonEditar style={butonEdit}>
-                                <Button  style={{background: "yellow" , color: '#000'}} type="submit" onClick={()=>{handlePut()}} >Editar</Button>
-                                <Button type="submit" onClick={()=>{handleCancelar()}}  >Cancelar</Button>
+                                <Button  style={{background: "yellow" , color: '#000'}} type="button" onClick={()=>{handlePut()}} >Editar</Button>
+                                <Button type="button" onClick={()=>{handleCancelar()}}  >Cancelar</Button>
                             </DivButtonEditar>
                         </Form>
                     </Tabs>
