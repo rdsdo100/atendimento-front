@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Button from '../../component/buttons/Button';
 import ButtonAtendimentos from '../../component/buttons/ButtonAtendimentos';
 import CardAtendimento from '../../component/CardAtendimento';
+import InputCadastro from '../../component/inputs/InputCadastro';
 import Select from '../../component/inputs/Select';
 import TextArea from '../../component/inputs/TextArea';
 import LayoutPrincipal from '../../component/LayoutPrincipal';
@@ -44,6 +45,8 @@ const Atendimentos: React.FC = () => {
     const [atendimento, setAtendimento] = useState<string>('')
     const [atendimentosRecebidos, setAtendimentosRecebidos] = useState<IAtendimentosRecebidos[]>([])
     const [idDelete, setIdDelete] = useState<number>()
+    const [idCadastro, setIdCadastro] = useState<number>()
+    const [idEdit, setIidEdit] = useState<number>()
     const [message, setMessage] = useState<string>('')
     const [butonEnviar, setButtonEnviar] = useState<IButton>({ display: 'block' })
     const [butonEdit, setButtonEdit] = useState<IButton>({ display: 'none' })
@@ -80,7 +83,7 @@ const Atendimentos: React.FC = () => {
                 history.push('/')
             })
 
-    }, [idDelete])
+    }, [idDelete, idCadastro, idEdit])
 
     async function handleSubmit(event: FormEvent) {
 
@@ -93,6 +96,7 @@ const Atendimentos: React.FC = () => {
             { headers: { authorization: auth } })
             .then(response => {
                 const resposta: any = response.data
+                setIdCadastro(Number(resposta.id))
                 alert('Salvo!')
 
 
@@ -100,12 +104,16 @@ const Atendimentos: React.FC = () => {
                     (document.getElementById("textAreaAtendimento") as HTMLInputElement)
                         .value = "";
                 }
-        
+
                 if (document.getElementById("empresasSelectAtendimentos")) {
                     (document.getElementById("empresasSelectAtendimentos") as HTMLInputElement)
                         .value = "0";
-        
+
                 }
+                if (document.getElementById("IdAtendimento")) {
+                    (document.getElementById("IdAtendimento") as HTMLInputElement)
+                        .value = "0";
+                    }
             }).catch(erro => {
 
                 alert('Não enviado!')
@@ -151,6 +159,11 @@ const Atendimentos: React.FC = () => {
                 .value = String(atendimentoEdit?.idEmpresa);
 
         }
+        if (document.getElementById("IdAtendimento")) {
+            (document.getElementById("IdAtendimento") as HTMLInputElement)
+                .value = String(atendimentoEdit?.id);
+
+        }
         if (document.getElementById("tab1Atendimento")) {
             (document.getElementById("tab1Atendimento") as HTMLInputElement)
                 .checked = true;
@@ -160,50 +173,60 @@ const Atendimentos: React.FC = () => {
             (document.getElementById("tab2Atendimento") as HTMLInputElement)
                 .checked = false;
 
-        }
+        }  //IdAtendimento
 
     }
 
     const handlePut = () => {
 
+        let putAtendimento: IEnvioAtendimentos
 
+        if ((document.getElementById("textAreaAtendimento"))
+            && (document.getElementById("empresasSelectAtendimentos"))
+            && (document.getElementById("IdAtendimento"))){
+            putAtendimento = {
+                descricaoAtendimento: String((document.getElementById("textAreaAtendimento") as HTMLInputElement).value),
+                codigoEmpresaId: Number((document.getElementById("empresasSelectAtendimentos") as HTMLInputElement).value),
+                id: Number((document.getElementById("IdAtendimento") as HTMLInputElement).value),
+            }
+            console.log(putAtendimento)
 
-        if (document.getElementById("textAreaAtendimento")) {
-          const tt =  (document.getElementById("textAreaAtendimento") as HTMLInputElement).value;
-          console.log(tt )
-        }
-
-        if (document.getElementById("empresasSelectAtendimentos")) {
-            const ts = (document.getElementById("empresasSelectAtendimentos") as HTMLInputElement).value;
-            console.log(ts)
-        }
-
-        
-
-{/* 
-        api.put(`atendimento`,
+        api.put(`atendimento`, putAtendimento,
             { headers: { authorization: auth } })
             .then(response => {
                 const resposta: any = response.data
 
                 setMessage(String(resposta))
                 setIdDelete(idDelete)
+                 setIidEdit(putAtendimento.id)
 
             }).catch(erro => {
 
                 alert('Não enviado!')
 
             })
-*/}
 
+
+        }
     }
 
-    function handleCancelar(){
+    function handleCancelar() {
 
         const ativarButton: IButton = { display: 'flex' }
         const desativarButton: IButton = { display: 'none' }
         setButtonEdit(desativarButton)
         setButtonEnviar(ativarButton)
+
+        if (document.getElementById("textAreaAtendimento")) {
+            (document.getElementById("textAreaAtendimento") as HTMLInputElement)
+                .value = "";
+        }
+
+        if (document.getElementById("empresasSelectAtendimentos")) {
+            (document.getElementById("empresasSelectAtendimentos") as HTMLInputElement)
+                .value = "0";
+
+        }
 
     }
 
@@ -228,6 +251,10 @@ const Atendimentos: React.FC = () => {
                     <Tabs IdNameTab="tab1Atendimento" defaultCheckedTab={true} text='Cadastrar tendimento'>
                         <Form onSubmit={handleSubmit}>
 
+
+                            <div style={butonEdit}>
+                                <InputCadastro id="IdAtendimento" defaultValue="0"  >Id</InputCadastro>
+                            </div>
                             <Select
                                 id="empresasSelectAtendimentos"
 
@@ -247,11 +274,11 @@ const Atendimentos: React.FC = () => {
 
 
                             <DivuttonEnviar style={butonEnviar} >
-                                <Button style={{background: "green"}}  type="submit"  >Enviar</Button>
+                                <Button style={{ background: "green" }} type="submit"  >Enviar</Button>
                             </DivuttonEnviar>
                             <DivButtonEditar style={butonEdit}>
-                                <Button  style={{background: "yellow" , color: '#000'}} type="button" onClick={()=>{handlePut()}} >Editar</Button>
-                                <Button type="button" onClick={()=>{handleCancelar()}}  >Cancelar</Button>
+                                <Button style={{ background: "yellow", color: '#000' }} type="button" onClick={() => { handlePut() }} >Editar</Button>
+                                <Button type="button" onClick={() => { handleCancelar() }}  >Cancelar</Button>
                             </DivButtonEditar>
                         </Form>
                     </Tabs>
