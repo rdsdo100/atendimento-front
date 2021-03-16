@@ -189,16 +189,40 @@ const Atendimentos: React.FC = () => {
                 codigoEmpresaId: Number((document.getElementById("empresasSelectAtendimentos") as HTMLInputElement).value),
                 id: Number((document.getElementById("IdAtendimento") as HTMLInputElement).value),
             }
-            console.log(putAtendimento)
 
         api.put(`atendimento`, putAtendimento,
             { headers: { authorization: auth } })
             .then(response => {
                 const resposta: any = response.data
 
+
+
+                const ativarButton: IButton = { display: 'flex' }
+                const desativarButton: IButton = { display: 'none' }
+                setButtonEdit(desativarButton)
+                setButtonEnviar(ativarButton)
+        
+                if (document.getElementById("textAreaAtendimento")) {
+                    (document.getElementById("textAreaAtendimento") as HTMLInputElement)
+                        .value = "";
+                }
+        
+                if (document.getElementById("empresasSelectAtendimentos")) {
+                    (document.getElementById("empresasSelectAtendimentos") as HTMLInputElement)
+                        .value = "0";
+        
+                }
+
+
+
+
                 setMessage(String(resposta))
                 setIdDelete(idDelete)
                  setIidEdit(putAtendimento.id)
+
+
+
+                 
 
             }).catch(erro => {
 
