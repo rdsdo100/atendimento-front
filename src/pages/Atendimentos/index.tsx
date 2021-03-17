@@ -1,7 +1,6 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Button from '../../component/buttons/Button';
-import ButtonAtendimentos from '../../component/buttons/ButtonAtendimentos';
 import CardAtendimento from '../../component/CardAtendimento';
 import InputCadastro from '../../component/inputs/InputCadastro';
 import Select from '../../component/inputs/Select';
@@ -35,8 +34,6 @@ interface IButton {
     display?: string
 }
 
-
-
 const Atendimentos: React.FC = () => {
 
     const history = useHistory()
@@ -51,8 +48,6 @@ const Atendimentos: React.FC = () => {
     const [butonEnviar, setButtonEnviar] = useState<IButton>({ display: 'block' })
     const [butonEdit, setButtonEdit] = useState<IButton>({ display: 'none' })
     const auth = localStorage.getItem('Authorization')
-
-
 
     useEffect(() => {
 
@@ -85,6 +80,41 @@ const Atendimentos: React.FC = () => {
 
     }, [idDelete, idCadastro, idEdit])
 
+    function limparCampos() {
+
+        if ((document.getElementById("textAreaAtendimento")) &&
+            (document.getElementById("empresasSelectAtendimentos")) &&
+            (document.getElementById("IdAtendimento"))) {
+            (document.getElementById("textAreaAtendimento") as HTMLInputElement).value = "";
+            (document.getElementById("empresasSelectAtendimentos") as HTMLInputElement).value = "0";
+            (document.getElementById("IdAtendimento") as HTMLInputElement).value = "0";
+        }
+    }
+
+    function carregarCampos(id: string, idEmpresa: string, descricaoAtendimento: string) {
+
+        if ((document.getElementById("textAreaAtendimento")) &&
+            (document.getElementById("empresasSelectAtendimentos")) &&
+            (document.getElementById("IdAtendimento"))) {
+
+            (document.getElementById("textAreaAtendimento") as HTMLInputElement).value = descricaoAtendimento;
+            (document.getElementById("empresasSelectAtendimentos") as HTMLInputElement).value = idEmpresa;
+            (document.getElementById("IdAtendimento") as HTMLInputElement).value = id;
+
+        }
+
+        if (document.getElementById("tab1Atendimento")) {
+            (document.getElementById("tab1Atendimento") as HTMLInputElement)
+                .checked = true;
+
+        }
+        if (document.getElementById("tab2Atendimento")) {
+            (document.getElementById("tab2Atendimento") as HTMLInputElement)
+                .checked = false;
+
+        }
+    }
+
     async function handleSubmit(event: FormEvent) {
 
         event.preventDefault()
@@ -99,21 +129,8 @@ const Atendimentos: React.FC = () => {
                 setIdCadastro(Number(resposta.id))
                 alert('Salvo!')
 
+                limparCampos()
 
-                if (document.getElementById("textAreaAtendimento")) {
-                    (document.getElementById("textAreaAtendimento") as HTMLInputElement)
-                        .value = "";
-                }
-
-                if (document.getElementById("empresasSelectAtendimentos")) {
-                    (document.getElementById("empresasSelectAtendimentos") as HTMLInputElement)
-                        .value = "0";
-
-                }
-                if (document.getElementById("IdAtendimento")) {
-                    (document.getElementById("IdAtendimento") as HTMLInputElement)
-                        .value = "0";
-                    }
             }).catch(erro => {
 
                 alert('Não enviado!')
@@ -149,31 +166,11 @@ const Atendimentos: React.FC = () => {
 
         const atendimentoEdit = atendimentosRecebidos.find(item => item.id === idEdit)
 
-        if (document.getElementById("textAreaAtendimento")) {
-            (document.getElementById("textAreaAtendimento") as HTMLInputElement)
-                .value = String(atendimentoEdit?.descricaoAtendimento);
-        }
 
-        if (document.getElementById("empresasSelectAtendimentos")) {
-            (document.getElementById("empresasSelectAtendimentos") as HTMLInputElement)
-                .value = String(atendimentoEdit?.idEmpresa);
-
-        }
-        if (document.getElementById("IdAtendimento")) {
-            (document.getElementById("IdAtendimento") as HTMLInputElement)
-                .value = String(atendimentoEdit?.id);
-
-        }
-        if (document.getElementById("tab1Atendimento")) {
-            (document.getElementById("tab1Atendimento") as HTMLInputElement)
-                .checked = true;
-
-        }
-        if (document.getElementById("tab2Atendimento")) {
-            (document.getElementById("tab2Atendimento") as HTMLInputElement)
-                .checked = false;
-
-        }  //IdAtendimento
+        carregarCampos(
+            String(atendimentoEdit?.id),
+            String(atendimentoEdit?.idEmpresa),
+            String(atendimentoEdit?.descricaoAtendimento))
 
     }
 
@@ -183,52 +180,36 @@ const Atendimentos: React.FC = () => {
 
         if ((document.getElementById("textAreaAtendimento"))
             && (document.getElementById("empresasSelectAtendimentos"))
-            && (document.getElementById("IdAtendimento"))){
+            && (document.getElementById("IdAtendimento"))) {
             putAtendimento = {
                 descricaoAtendimento: String((document.getElementById("textAreaAtendimento") as HTMLInputElement).value),
                 codigoEmpresaId: Number((document.getElementById("empresasSelectAtendimentos") as HTMLInputElement).value),
                 id: Number((document.getElementById("IdAtendimento") as HTMLInputElement).value),
             }
 
-        api.put(`atendimento`, putAtendimento,
-            { headers: { authorization: auth } })
-            .then(response => {
-                const resposta: any = response.data
+            api.put(`atendimento`, putAtendimento,
+                { headers: { authorization: auth } })
+                .then(response => {
+                    const resposta: any = response.data
 
 
 
-                const ativarButton: IButton = { display: 'flex' }
-                const desativarButton: IButton = { display: 'none' }
-                setButtonEdit(desativarButton)
-                setButtonEnviar(ativarButton)
-        
-                if (document.getElementById("textAreaAtendimento")) {
-                    (document.getElementById("textAreaAtendimento") as HTMLInputElement)
-                        .value = "";
-                }
-        
-                if (document.getElementById("empresasSelectAtendimentos")) {
-                    (document.getElementById("empresasSelectAtendimentos") as HTMLInputElement)
-                        .value = "0";
-        
-                }
+                    const ativarButton: IButton = { display: 'flex' }
+                    const desativarButton: IButton = { display: 'none' }
+                    setButtonEdit(desativarButton)
+                    setButtonEnviar(ativarButton)
 
+                    limparCampos()
 
+                    setMessage(String(resposta))
+                    setIdDelete(idDelete)
+                    setIidEdit(putAtendimento.id)
 
+                }).catch(erro => {
 
-                setMessage(String(resposta))
-                setIdDelete(idDelete)
-                 setIidEdit(putAtendimento.id)
+                    alert('Não enviado!')
 
-
-
-                 
-
-            }).catch(erro => {
-
-                alert('Não enviado!')
-
-            })
+                })
 
 
         }
@@ -241,16 +222,7 @@ const Atendimentos: React.FC = () => {
         setButtonEdit(desativarButton)
         setButtonEnviar(ativarButton)
 
-        if (document.getElementById("textAreaAtendimento")) {
-            (document.getElementById("textAreaAtendimento") as HTMLInputElement)
-                .value = "";
-        }
-
-        if (document.getElementById("empresasSelectAtendimentos")) {
-            (document.getElementById("empresasSelectAtendimentos") as HTMLInputElement)
-                .value = "0";
-
-        }
+        limparCampos()
 
     }
 
@@ -274,7 +246,6 @@ const Atendimentos: React.FC = () => {
                 <Tab>
                     <Tabs IdNameTab="tab1Atendimento" defaultCheckedTab={true} text='Cadastrar tendimento'>
                         <Form onSubmit={handleSubmit}>
-
 
                             <div style={butonEdit}>
                                 <InputCadastro id="IdAtendimento" defaultValue="0"  >Id</InputCadastro>

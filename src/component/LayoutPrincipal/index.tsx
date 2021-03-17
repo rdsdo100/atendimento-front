@@ -13,7 +13,7 @@ const LayoutPrincipal: React.FC <ILayoutPrincipal> = ({children, titulo}) => {
         <HeadLayout>
           <Menu></Menu>
           <H1>{titulo}</H1>
-          <h3>usuario</h3>
+          <h3 style={{margin: '0 15px' , color: '#bfbfbf'}}>usuario</h3>
         </HeadLayout>
         <BodyLayout>
         {children}

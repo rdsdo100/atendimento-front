@@ -26,6 +26,7 @@ align-items: center;
 width: 100%;
 background-color:  ${props => props.theme.colors.primary};
 
+
 `;
 export const BodyLayout = styled.div`
 grid-area: PR;

@@ -48,6 +48,7 @@ export const Label = styled.label`
     padding: 0;
     position: relative;
     z-index: 2;
+    margin: 0 10px;
 
 `;
 
@@ -61,7 +62,7 @@ export const UL = styled.ul`
 export  const  ImMenuIcons = styled(ImMenu)`
   font-size: 35px;
   position: relative;
-  color: ${props => props.theme.colors.black};
+  color: ${props => props.theme.colors.gray};
   padding: 0;
   margin: 0;
 `;
