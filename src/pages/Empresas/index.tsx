@@ -1,18 +1,33 @@
-import React, { FormEvent } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import InputCadastro from '../../component/inputs/InputCadastro';
 import InputId from '../../component/inputs/InputId';
 import LayoutPrincipal from '../../component/LayoutPrincipal';
 import { CardListTab, Tabs } from '../../component/TabsComponents';
 import Tab from '../../component/TabsComponents/Tab';
+import { api } from '../../services/api';
 import { Container, Form } from './styles'
+
+
+
+interface IEmpresas {
+    id?: number 
+    codigoEmpresa : string 
+    nomeEmpresa : string 
+}
 
 const Empresas: React.FC = () => {
 
-    /*useEffect(() => {
+const [listEmpresas , setLisEmpresas] = useState<IEmpresas[]>([])
+const auth = String(localStorage.getItem("Authorization"))
+    
+useEffect(() => {
 
-        api.get('empresa',
+        api.get<IEmpresas>('empresa',
             { headers: { authorization: auth } })
             .then(response => {
+                const resposta: any = response.data
+                setLisEmpresas(resposta)
+                console.log(listEmpresas)
                 
             }).catch(erro => {
 
@@ -21,7 +36,7 @@ const Empresas: React.FC = () => {
 
 
 
-    }, [])*/
+    }, [])
 
     async function handleSubmit(event: FormEvent) {
         event.preventDefault()
@@ -70,7 +85,7 @@ const Empresas: React.FC = () => {
                 <Tab>
                     <Tabs IdNameTab="tab1Empresas"
                         defaultCheckedTab={true}
-                        text='Cadastrar Usuário'>
+                        text='Cadastrar Empresa'>
 
                         <Form onSubmit={handleSubmit} >
 
@@ -83,7 +98,7 @@ const Empresas: React.FC = () => {
                         </Form>
 
                     </Tabs>
-                    <Tabs IdNameTab="tab2Empresas" text='Lista de Usuarios'>
+                    <Tabs IdNameTab="tab2Empresas" text='Lista de Empresas'>
                         <CardListTab>
 
                         </CardListTab>
