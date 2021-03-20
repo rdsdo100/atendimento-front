@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Container, ContainerButtons, LI, MdDeleteForeverIcon, MdModeEditIcon } from './styles'
-import { MdDeleteForever, MdModeEdit } from "react-icons/md";
+
 import { ContainerInfo } from '../CardAtendimento/styles';
 
 interface IUduario {
@@ -13,13 +13,27 @@ interface IUduario {
   bloqueado?: boolean,
   grupoUsuariosId?: number
   grupoUsuariosNome?: string
+ // readonly idDeleteUsuario?: (arg0: number) => void;
+  readonly idEditUsuario: (arg0: number) => void;
 
 }
 
 
 
 
-const CardUsuario: React.FC<IUduario> = ({ id, nomeUsuario, matricula }) => {
+const CardUsuario: React.FC<IUduario> = ({ id, nomeUsuario, matricula,  idEditUsuario }) => {
+
+
+  /*const buttonDeleteId = () => {
+
+    const novoLabel: number = id
+    idDeleteUsuario(novoLabel);
+  }*/
+  const buttonEditdId = () => {
+
+    const novoLabel: number = id
+    idEditUsuario(novoLabel);
+  }
 
   return (
 
@@ -30,13 +44,13 @@ const CardUsuario: React.FC<IUduario> = ({ id, nomeUsuario, matricula }) => {
           <p>{nomeUsuario}</p>
           <p>{matricula}</p>
 
-          </ContainerInfo>
-<ContainerButtons>
-<Button type="button"><MdModeEditIcon /></Button>
-          <Button type="button"><MdDeleteForeverIcon /></Button>
-</ContainerButtons>
+        </ContainerInfo>
+        <ContainerButtons>
+          <Button type="button" onClick={buttonEditdId}><MdModeEditIcon /></Button>
+       {/*   <Button type="button" onClick={buttonDeleteId} ><MdDeleteForeverIcon /></Button>*/}
+        </ContainerButtons>
 
-        
+
       </LI>
 
     </Container>

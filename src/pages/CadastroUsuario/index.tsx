@@ -24,7 +24,6 @@ interface IUsuario {
     nome: string
     email: string
     senha: string
-    matricula: string
     grupoUsuario: number
 
 }
@@ -33,7 +32,6 @@ interface IGetUsuario {
     id: number
     nomeUsuario?: string,
     email?: string,
-    matricula?: string,
     ativo?: boolean,
     bloqueado?: boolean,
     grupoUsuariosId?: number
@@ -51,12 +49,11 @@ const CadastroUsuario: React.FC = () => {
     const [butonEdit, setButtonEdit] = useState<IButton>({ display: 'none' })
     const [nome, setNome] = useState<string>('')
     const [email, setEmail] = useState<string>('')
-    const [matricula, setMatricula] = useState<string>('')
     const [grupoUsuario, setGrupoUsuario] = useState<number>(0)
     const [password, setPassword] = useState<string>('')
     const [gupoUsuarios, setGrupoUsuarios] = useState<IGrupoUsuario[]>([])
     const auth = localStorage.getItem("Authorization")
- 
+
     useEffect(() => {
 
         api.get<IGrupoUsuario[]>('gupo-usuario',
@@ -66,7 +63,7 @@ const CadastroUsuario: React.FC = () => {
                 setGrupoUsuarios(resposta)
             }).catch(erro => {
                 alert('Erro ao acessar servidor!')
-               
+
             })
 
     }, [])
@@ -84,10 +81,10 @@ const CadastroUsuario: React.FC = () => {
             })
             .catch(erro => {
                 alert('Erro ao acessar servidor!')
-                
+
             })
 
-    }, [])
+    }, [idDeleteUsuario , idEditUsuario, idCadastroUsuario])
 
 
     async function handleSubmit(event: FormEvent) {
@@ -95,7 +92,6 @@ const CadastroUsuario: React.FC = () => {
         const envio: IUsuario = {
             nome: String(nome),
             email: String(email),
-            matricula: String(matricula),
             grupoUsuario: Number(grupoUsuario),
             senha: String(password)
         }
@@ -108,7 +104,6 @@ const CadastroUsuario: React.FC = () => {
                 alert(resposta)
                 setNome('')
                 setEmail('')
-                setMatricula('')
                 setPassword('')
                 setGrupoUsuario(0)
 
@@ -132,11 +127,7 @@ const CadastroUsuario: React.FC = () => {
         setEmail(String(emailUsuario))
 
     }
-    function handleImputMatricula(event: ChangeEvent<HTMLInputElement>) {
-        const matricula = event.target.value
-        setMatricula(String(matricula))
 
-    }
     function handleImputGrupoUsuario(event: ChangeEvent<HTMLSelectElement>) {
         const grupoUsuario = event.target.value
         setGrupoUsuario(Number(grupoUsuario))
@@ -148,28 +139,43 @@ const CadastroUsuario: React.FC = () => {
 
     }
 
-  /*  function limparCampos() {
+    function limparCampos() {
 
-        if ((document.getElementById("id_empresa")) &&
-            (document.getElementById("codigo_empresas")) &&
-            (document.getElementById("nome_empresas"))) {
 
-            (document.getElementById("id_empresa") as HTMLInputElement).value = "";
-            (document.getElementById("codigo_empresas") as HTMLInputElement).value = "";
-            (document.getElementById("nome_empresas") as HTMLInputElement).value = "";
+
+
+        if ((document.getElementById("nome_usuario")) &&
+            (document.getElementById("senha_usuario")) &&
+            (document.getElementById("grupo_usuario")) &&
+            (document.getElementById("email_usuario")) &&
+            (document.getElementById("id_usuario"))) {
+
+            (document.getElementById("nome_usuario") as HTMLInputElement).value = "";
+            (document.getElementById("senha_usuario") as HTMLInputElement).value = "";
+            (document.getElementById("grupo_usuario") as HTMLInputElement).value = "0";
+            (document.getElementById("email_usuario") as HTMLInputElement).value = "";
+            (document.getElementById("id_usuario") as HTMLInputElement).value = "";
         }
     }
-*/
-/*
-    function carregarCampos(idEmpresa: string, codigoEmpresa: string, nomeEmpresa: string) {
 
-        if ((document.getElementById("id_empresa")) &&
-            (document.getElementById("codigo_empresas")) &&
-            (document.getElementById("nome_empresas"))) {
 
-            (document.getElementById("id_empresa") as HTMLInputElement).value = idEmpresa;
-            (document.getElementById("codigo_empresas") as HTMLInputElement).value = codigoEmpresa;
-            (document.getElementById("nome_empresas") as HTMLInputElement).value = nomeEmpresa;
+    function carregarCampos(idusuario: string,
+        nomeUsuario: string,
+        emailUsuario: string,
+        grupoUsuario: string,
+        senhaUsuario: string) {
+
+        if ((document.getElementById("senha_usuario")) &&
+            (document.getElementById("nome_usuario")) &&
+            (document.getElementById("grupo_usuario")) &&
+            (document.getElementById("email_usuario")) &&
+            (document.getElementById("id_usuario"))) {
+
+            (document.getElementById("id_usuario") as HTMLInputElement).value = idusuario;
+            (document.getElementById("nome_usuario") as HTMLInputElement).value = nomeUsuario;
+            (document.getElementById("grupo_usuario") as HTMLInputElement).value = grupoUsuario;
+            (document.getElementById("email_usuario") as HTMLInputElement).value = emailUsuario;
+            (document.getElementById("senha_usuario") as HTMLInputElement).value = senhaUsuario;
 
         }
 
@@ -180,70 +186,79 @@ const CadastroUsuario: React.FC = () => {
 
         }
     }
-    */
-
-        /*
-        const handleDelete = (idDelete: number) => {
-    
-            api.delete<string>(`empresa/${idDelete}`,
-                { headers: { authorization: auth } })
-                .then(response => {
-                    const resposta: any = response.data
-    
-                    setMessage(String(resposta))
-                    setIdDeleteEmpresa(idDelete)
-    
-                }).catch(erro => {
-    
-                    alert('Não enviado!')
-    
-                })
-        }
-    
-       */
 
 
-    /*
-        function updateEmpresa(idEdit: number) {
-    
-            const ativarButton: IButton = { display: 'flex' }
-            const desativarButton: IButton = { display: 'none' }
-            setButtonEdit(ativarButton)
-            setButtonEnviar(desativarButton)
-    
-    
-    
-            const empresaEdit = listEmpresas.find(item => item.id === idEdit)
-    
-    
-    
-    
-            carregarCampos(
-                String(empresaEdit?.id),
-                String(empresaEdit?.codigoEmpresa),
-                String(empresaEdit?.nomeEmpresa)
-                )
-    
-        }*/
+
+    const handleDelete = (idDelete: number) => {
+
+        api.delete<string>(`user/${idDelete}`,
+            { headers: { authorization: auth } })
+            .then(response => {
+                const resposta: any = response.data
+
+                setMessage(String(resposta))
+                setIdDeleteUsuario(idDelete)
+
+            }).catch(erro => {
+
+                alert('Não enviado!')
+
+            })
+    }
 
 
-    /*   const handlePut = () => {
+
+
+
+    function updateUsuario(idEdit: number) {
+
+        const ativarButton: IButton = { display: 'flex' }
+        const desativarButton: IButton = { display: 'none' }
+        setButtonEdit(ativarButton)
+        setButtonEnviar(desativarButton)
+
+
+
+        const usuarioEdit: any = listUsuarios.find(item => item.id === idEdit)
+
+        console.log(usuarioEdit)
+
+
+        carregarCampos(
+            String(usuarioEdit?.id),
+            String(usuarioEdit.nomeUsuario),
+            String(usuarioEdit.email),
+            String(usuarioEdit.grupoUsuariosIdFK.id),
+            String(usuarioEdit.senha)
+
+        )
+
+    }
+
+
+       const handlePut = () => {
    
-           let putEmpresa: IEmpresas
+           let putEmpresa: IUsuario
    
-           if ((document.getElementById("id_empresa"))
-               && (document.getElementById("codigo_empresas"))
-               && (document.getElementById("nome_empresas"))) {
+           if ((document.getElementById("senha_usuario")) &&
+           (document.getElementById("nome_usuario")) &&
+           (document.getElementById("grupo_usuario")) &&
+           (document.getElementById("email_usuario")) &&
+           (document.getElementById("id_usuario"))) {
+
                putEmpresa = {
-                   nomeEmpresa: String((document.getElementById("nome_empresas") as HTMLInputElement).value),
-                   codigoEmpresa: String((document.getElementById("codigo_empresas") as HTMLInputElement).value),
-                   id: Number((document.getElementById("id_empresa") as HTMLInputElement).value),
+
+                id: Number((document.getElementById("id_usuario") as HTMLInputElement).value),
+                   nome: String((document.getElementById("nome_usuario") as HTMLInputElement).value),
+                   grupoUsuario: Number((document.getElementById("grupo_usuario") as HTMLInputElement).value),
+                   email: String((document.getElementById("email_usuario") as HTMLInputElement).value),
+                   senha: String((document.getElementById("senha_usuario") as HTMLInputElement).value),
                }
    
            
    
    
-               api.put(`empresa`, putEmpresa,
+               api.put(`user`, putEmpresa,
                    { headers: { authorization: auth } })
                    .then(response => {
                        const resposta: any = response.data
@@ -257,7 +272,7 @@ const CadastroUsuario: React.FC = () => {
    
                        setMessage(String(resposta))
                       
-                       setIdEditEmpresa(putEmpresa.id)
+                       setIdEditUsuario(putEmpresa.id)
    
                    }).catch(erro => {
    
@@ -267,8 +282,8 @@ const CadastroUsuario: React.FC = () => {
            }
        }
    
-   */
-  /*
+   
+
 
     function handleCancelar() {
 
@@ -280,7 +295,7 @@ const CadastroUsuario: React.FC = () => {
         limparCampos()
 
     }
-*/
+
 
     return (
         <Container>
@@ -291,24 +306,29 @@ const CadastroUsuario: React.FC = () => {
                         defaultCheckedTab={true}
                         text='Cadastrar Usuário'>
                         <form onSubmit={handleSubmit}>
+
+                            <div style={butonEdit}>
+                                <InputCadastro id="id_usuario" defaultValue="0"  >Id</InputCadastro>
+                            </div>
+
+
                             <InputCadastro
+                                id="nome_usuario"
                                 onChange={handleImputNome}
                                 defaultValue={nome}>
                                 Nome
                     </InputCadastro>
 
                             <InputCadastro
+                                id="email_usuario"
                                 defaultValue={email}
                                 onChange={handleImputEmail}>
                                 E-mail
                     </InputCadastro>
 
-                            <InputCadastro
-                                onChange={handleImputMatricula}
-                                defaultValue={matricula}>
-                                Matricula
-                        </InputCadastro>
+
                             <Select
+                                id="grupo_usuario"
                                 onChange={handleImputGrupoUsuario}
                                 defaultValue={grupoUsuario}>
 
@@ -321,23 +341,22 @@ const CadastroUsuario: React.FC = () => {
                             </Select>
 
                             <InputCadastro
+                                id="senha_usuario"
                                 type='password'
                                 onChange={handleImputPassword}
                                 defaultValue={password}>
                                 Senha
                         </InputCadastro>
 
-                            <button
-                                type='submit'  >
-                                Cadastrar
-                         </button>
+
+
 
                             <DivuttonEnviar style={butonEnviar} >
                                 <Button style={{ background: "green" }} type="submit" >Enviar</Button>
                             </DivuttonEnviar>
                             <DivButtonEditar style={butonEdit}>
-                                <Button style={{ background: "yellow", color: '#000' }} type="button" onClick={() => { }} >Editar</Button>
-                                <Button type="button" style={{ background: "#e44c4e", color: '#bfbfbf' }} onClick={() => { }}  >Cancelar</Button>
+                                <Button style={{ background: "yellow", color: '#000' }} type="button" onClick={() => {handlePut() }} >Editar</Button>
+                                <Button type="button" style={{ background: "#e44c4e", color: '#bfbfbf' }} onClick={() => { handleCancelar() }}  >Cancelar</Button>
                             </DivButtonEditar>
 
 
@@ -349,6 +368,8 @@ const CadastroUsuario: React.FC = () => {
                                 listUsuarios.map((user: any) => {
 
                                     return <CardUsuario
+                                      
+                                        idEditUsuario={updateUsuario}
                                         key={user.id}
                                         id={user.id}
                                         nomeUsuario={user.nomeUsuario}

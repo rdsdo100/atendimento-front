@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, LI, Header, ContainerButtons, ContainerInfo, MdDeleteForeverIcon, MdModeEditIcon, Button } from './styles'
-import { MdDeleteForever, MdModeEdit } from "react-icons/md";
+
 
 
 interface IAtendimentosCards {
