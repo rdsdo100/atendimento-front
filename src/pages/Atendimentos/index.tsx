@@ -45,7 +45,7 @@ const Atendimentos: React.FC = () => {
     const [idCadastro, setIdCadastro] = useState<number>()
     const [idEdit, setIidEdit] = useState<number>()
     const [message, setMessage] = useState<string>('')
-    const [butonEnviar, setButtonEnviar] = useState<IButton>({ display: 'block' })
+    const [butonEnviar, setButtonEnviar] = useState<IButton>({ display: 'flex' })
     const [butonEdit, setButtonEdit] = useState<IButton>({ display: 'none' })
     const auth = localStorage.getItem('Authorization')
 

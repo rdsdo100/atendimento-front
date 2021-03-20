@@ -1,11 +1,13 @@
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import CardListEmpresas from '../../component/CardListEmpresas';
+import { Button } from '../../component/CardUsuario/styles';
 import InputCadastro from '../../component/inputs/InputCadastro';
 import InputId from '../../component/inputs/InputId';
 import LayoutPrincipal from '../../component/LayoutPrincipal';
 import { CardListTab, Tabs } from '../../component/TabsComponents';
 import Tab from '../../component/TabsComponents/Tab';
 import { api } from '../../services/api';
-import { Container, Form } from './styles'
+import { Container, Form ,DivuttonEnviar , DivButtonEditar } from './styles'
 
 
 
@@ -14,10 +16,21 @@ interface IEmpresas {
     codigoEmpresa : string 
     nomeEmpresa : string 
 }
+interface IButton {
+    display?: string
+}
 
 const Empresas: React.FC = () => {
 
 const [listEmpresas , setLisEmpresas] = useState<IEmpresas[]>([])
+const [message ,setMessage] = useState<string>('')
+const [nomeEmpresa ,setNomeEmpresa] = useState<string>('')
+const [codigoEmpresa ,setCodigoEmpresa] = useState<string>('')
+const [idDeleteEmpresa ,setIdDeleteEmpresa] = useState<number>()
+const [idEditEmpresa ,setIdEditEmpresa] = useState<number>()
+const [idCadastro , setIdCadastro] = useState<number>()
+const [butonEnviar, setButtonEnviar] = useState<IButton>({ display: 'flex' })
+const [butonEdit, setButtonEdit] = useState<IButton>({ display: 'none' })
 const auth = String(localStorage.getItem("Authorization"))
     
 useEffect(() => {
@@ -27,19 +40,57 @@ useEffect(() => {
             .then(response => {
                 const resposta: any = response.data
                 setLisEmpresas(resposta)
-                console.log(listEmpresas)
+               
                 
             }).catch(erro => {
 
                
             })
 
+    }, [idDeleteEmpresa, idCadastro, idEditEmpresa])
 
+    const handleDelete = (idDelete: number) => {
 
-    }, [])
+        api.delete<string>(`empresa/${idDelete}`,
+            { headers: { authorization: auth } })
+            .then(response => {
+                const resposta: any = response.data
 
-    async function handleSubmit(event: FormEvent) {
+                setMessage(String(resposta))
+                setIdDeleteEmpresa(idDelete)
+
+            }).catch(erro => {
+
+                alert('Não enviado!')
+
+            })
+
+    }
+
+    async function handleSubmitEmpresa(event: FormEvent) {
         event.preventDefault()
+
+
+        event.preventDefault()
+        const respostaEnvio: IEmpresas = {
+            codigoEmpresa: String(codigoEmpresa),
+            nomeEmpresa: String(nomeEmpresa)
+        }
+        api.post<IEmpresas>('empresa', respostaEnvio,
+            { headers: { authorization: auth } })
+            .then(response => {
+
+                const resposta: any = response.data
+                setIdCadastro(Number(resposta.id))
+                alert('Salvo!')
+
+                limparCampos()
+
+            }).catch(erro => {
+
+                alert('Não enviado!')
+
+            })
 
         alert("Ta indo!!!!")
         limparCampos()
@@ -48,25 +99,26 @@ useEffect(() => {
 
     function limparCampos() {
 
-        if ((document.getElementById("idEmpresa")) &&
-            (document.getElementById("codigoEmpresa")) &&
-            (document.getElementById("nomeEmpresa"))) {
+        if ((document.getElementById("id_empresa")) &&
+            (document.getElementById("codigo_empresas")) &&
+            (document.getElementById("nome_empresas"))) {
 
-            (document.getElementById("codigoEmpresa") as HTMLInputElement).value = "";
-            (document.getElementById("nomeEmpresa") as HTMLInputElement).value = "";
-            (document.getElementById("idEmpresa") as HTMLInputElement).value = "";
+            (document.getElementById("id_empresa") as HTMLInputElement).value = "";
+            (document.getElementById("codigo_empresas") as HTMLInputElement).value = "";
+            (document.getElementById("nome_empresas") as HTMLInputElement).value = "";
         }
     }
 
     function carregarCampos(idEmpresa: string, codigoEmpresa: string, nomeEmpresa: string) {
+ 
+        if ((document.getElementById("id_empresa")) &&
+            (document.getElementById("codigo_empresas")) &&
+            (document.getElementById("nome_empresas"))) {
 
-        if ((document.getElementById("idEmpresa")) &&
-            (document.getElementById("codigoEmpresa")) &&
-            (document.getElementById("nomeEmpresa"))) {
-
-            (document.getElementById("codigoEmpresa") as HTMLInputElement).value = codigoEmpresa;
-            (document.getElementById("nomeEmpresa") as HTMLInputElement).value = nomeEmpresa;
-            (document.getElementById("idEmpresa") as HTMLInputElement).value = idEmpresa;
+            (document.getElementById("id_empresa") as HTMLInputElement).value = idEmpresa;
+            (document.getElementById("codigo_empresas") as HTMLInputElement).value = codigoEmpresa;
+            (document.getElementById("nome_empresas") as HTMLInputElement).value = nomeEmpresa;
+            
         }
 
         if ((document.getElementById("tab1Empresas")) &&
@@ -75,6 +127,97 @@ useEffect(() => {
             (document.getElementById("tab2Empresas") as HTMLInputElement).checked = false;
 
         }
+    }
+
+
+    function updateEmpresa(idEdit: number) {
+
+        const ativarButton: IButton = { display: 'flex' }
+        const desativarButton: IButton = { display: 'none' }
+        setButtonEdit(ativarButton)
+        setButtonEnviar(desativarButton)
+
+
+
+        const empresaEdit = listEmpresas.find(item => item.id === idEdit)
+
+
+
+
+        carregarCampos(
+            String(empresaEdit?.id),
+            String(empresaEdit?.codigoEmpresa),
+            String(empresaEdit?.nomeEmpresa)
+            )
+
+    }
+
+
+    const handlePut = () => {
+
+        let putEmpresa: IEmpresas
+
+        if ((document.getElementById("id_empresa"))
+            && (document.getElementById("codigo_empresas"))
+            && (document.getElementById("nome_empresas"))) {
+            putEmpresa = {
+                nomeEmpresa: String((document.getElementById("nome_empresas") as HTMLInputElement).value),
+                codigoEmpresa: String((document.getElementById("codigo_empresas") as HTMLInputElement).value),
+                id: Number((document.getElementById("id_empresa") as HTMLInputElement).value),
+            }
+
+        
+
+
+            api.put(`empresa`, putEmpresa,
+                { headers: { authorization: auth } })
+                .then(response => {
+                    const resposta: any = response.data
+
+                    const ativarButton: IButton = { display: 'flex' }
+                    const desativarButton: IButton = { display: 'none' }
+                    setButtonEdit(desativarButton)
+                    setButtonEnviar(ativarButton)
+
+                    limparCampos()
+
+                    setMessage(String(resposta))
+                   
+                    setIdEditEmpresa(putEmpresa.id)
+
+                }).catch(erro => {
+
+                    alert('Não enviado!')
+
+                })
+
+
+        }
+    }
+
+
+
+    function handleCancelar() {
+
+        const ativarButton: IButton = { display: 'flex' }
+        const desativarButton: IButton = { display: 'none' }
+        setButtonEdit(desativarButton)
+        setButtonEnviar(ativarButton)
+
+        limparCampos()
+
+    }
+
+
+
+    function handleImputCodigoEmpresa(event: ChangeEvent<HTMLInputElement>) {
+        const { value } = event.target
+        setCodigoEmpresa(String(value))
+    }
+    
+    function handleImputNomeEmpresa(event: ChangeEvent<HTMLInputElement>) {
+        const { value } = event.target
+        setNomeEmpresa(String(value))
     }
 
     return (
@@ -87,21 +230,46 @@ useEffect(() => {
                         defaultCheckedTab={true}
                         text='Cadastrar Empresa'>
 
-                        <Form onSubmit={handleSubmit} >
+                        <Form onSubmit={handleSubmitEmpresa} >
 
-                            <InputId id='idEmpresa' >Id</InputId>
-                            <InputCadastro id='codigoEmpresa'>Codigo da Empresa</InputCadastro>
-                            <InputCadastro id='nomeEmpresa' >Nome da Empresa</InputCadastro>
 
-                            <button type="submit" >Enviar</button>
+                        <div style={butonEdit}>
+                                <InputId  id="id_empresa" defaultValue="0"  >Id</InputId>
+                            </div>
+                            
+                            <InputCadastro  id="codigo_empresas" defaultValue={""} onChange={handleImputCodigoEmpresa} >Codigo da Empresa</InputCadastro>
+                            <InputCadastro id="nome_empresas" defaultValue={""} onChange={handleImputNomeEmpresa}>Nome da Empresa</InputCadastro>
+
+                            <DivuttonEnviar style={butonEnviar} >
+                                <Button style={{ background: "green" }} type="submit" >Enviar</Button>
+                            </DivuttonEnviar>
+                            <DivButtonEditar style={butonEdit}>
+                                <Button style={{ background: "yellow", color: '#000' }} type="button" onClick={() => { handlePut() }} >Editar</Button>
+                                <Button type="button" style={{ background: "#e44c4e", color: '#bfbfbf' }} onClick={() => { handleCancelar() }}  >Cancelar</Button>
+                            </DivButtonEditar>
+
 
                         </Form>
 
                     </Tabs>
                     <Tabs IdNameTab="tab2Empresas" text='Lista de Empresas'>
-                        <CardListTab>
+                    <CardListTab>
+                            <ul>
+                                {
+                                    listEmpresas.map((item: IEmpresas) => {
+                                        return <CardListEmpresas key={item.id}
+                                            idDeleteEmpresas={handleDelete}
+                                            idEditEmpresas={updateEmpresa}
+                                            id={Number(item.id)}
+                                            cogigoEmpresa={item.codigoEmpresa}
+                                            nomeEmpresa={item.nomeEmpresa}
+                                        />
 
+                                    })
+                                }
+                            </ul>
                         </CardListTab>
+                    
                     </Tabs>
 
                 </Tab>
