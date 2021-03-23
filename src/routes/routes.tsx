@@ -1,12 +1,12 @@
 import React from "react";
 import {Route , BrowserRouter  ,Switch, Redirect} from 'react-router-dom'
-import CadastroUsuario from "../pages/CadastroUsuario";
 import Login from "../pages/Login";
 import ErrorPage from "../pages/ErrorPage";
 import Home from "../pages/Home";
 import Empresas from "../pages/Empresas";
 import Atendimentos from "../pages/Atendimentos";
 import Graficos from "../pages/Graficos";
+import Usuario from "../pages/Usuario";
 
 
 
@@ -35,7 +35,7 @@ const Routes =  () =>{
 
     <Route component={Login} path='/' exact ></Route>
       <PrivateRoute component={Home} path='/home' ></PrivateRoute>
-      <PrivateRoute component={CadastroUsuario} path='/cadastro-usuario'></PrivateRoute>
+      <PrivateRoute component={Usuario} path='/usuario'></PrivateRoute>
       <PrivateRoute component={Atendimentos} path='/atendimentos' ></PrivateRoute>
       <PrivateRoute component={Graficos} path ='/graficos'></PrivateRoute>
       <PrivateRoute component={Empresas} path='/empresas' ></PrivateRoute>
@@ -48,6 +48,4 @@ const Routes =  () =>{
 
   export default Routes
 
-function component(component: any, props: any) {
-  throw new Error("Function not implemented.");
-}
+

@@ -1,59 +1,64 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Cell, Pie, PieChart, RadialBar, RadialBarChart, ResponsiveContainer } from 'recharts'
+import { api } from '../../../services/api';
 
 import { Container, LegendContainer, SideLeft, SideRight , Legend  } from './styles'
 
 
+interface IEmpresasGraficos {
+  codigoEmpresa:  string
+  count: string
+}
 
 
 const CardPieChart: React.FC = () => {
 
 
 
-   const data = [
-        {
-          name: '18-24',
-          uv: 31.47,
-          pv: 2400,
-          fill: '#8884d8',
-        },
-        {
-          name: '25-29',
-          uv: 26.69,
-          pv: 4567,
-          fill: '#83a6ed',
-        },
-        {
-          name: '30-34',
-          uv: 15.69,
-          pv: 1398,
-          fill: '#8dd1e1',
-        },
-        {
-          name: '35-39',
-          uv: 8.22,
-          pv: 9800,
-          fill: '#82ca9d',
-        },
-        {
-          name: '40-49',
-          uv: 8.63,
-          pv: 3908,
-          fill: '#31224b',
-        },
-        
-       
-      ];
+
+
+const [lisEmpresasAtendimento , setLisEmpresasAtendimento] = useState<IEmpresasGraficos[]>([{
+  codigoEmpresa:  '', count :'0' 
+}])
+const auth = String(localStorage.getItem("Authorization"))
+
+useEffect(() => {
+
+    api.get<IEmpresasGraficos> ('atendimento/graficos',
+        { headers: { authorization: auth } })
+        .then(response => {
+            const resposta: any = response.data
+
+
+
+            setLisEmpresasAtendimento(resposta)
+            
+            
+               
+        }).catch(erro => {
+
+        })
+
+}, [] )
+
+
+
+  const COLORS = ['#0088FE', '#ff0000', '#FFBB28', '#FF8042' , '#000000'];
+   const data = lisEmpresasAtendimento
       
     return (
         <Container>
              
              <ResponsiveContainer>
                 <PieChart>
-                    <Pie data={data} dataKey="uv">
+                    <Pie data={data} dataKey="count"  
+                    
+                    >
+
                         {
-                            data.map((indicator) => (
-                                <Cell key={indicator.name} fill={indicator.fill} />
+                          
+                            data.map((indicator , index) => (
+                                <Cell key={indicator.codigoEmpresa} fill={COLORS[index % COLORS.length]} />
                             ))
                         }
                     </Pie>

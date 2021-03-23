@@ -38,7 +38,7 @@ interface IGetUsuario {
     grupoUsuariosNome?: string
 }
 
-const CadastroUsuario: React.FC = () => {
+const Usuario: React.FC = () => {
 
     const [listUsuarios, setListUsuarios] = useState<IGetUsuario[]>([])
     const [message, setMessage] = useState<string>('')
@@ -389,4 +389,4 @@ const CadastroUsuario: React.FC = () => {
 
     )
 }
-export default CadastroUsuario
+export default Usuario
