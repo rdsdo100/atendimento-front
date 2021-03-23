@@ -19,7 +19,7 @@ export const Form = styled.form`
    
 `;
 
-export const DivuttonEnviar = styled.div`
+export const DivButtonEnviar = styled.div`
  
  position: relative;
 

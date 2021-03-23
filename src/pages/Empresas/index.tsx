@@ -1,31 +1,39 @@
+import { stringify } from 'node:querystring';
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import CardListEmpresas from '../../component/CardListEmpresas';
 import { Button } from '../../component/CardUsuario/styles';
 import InputCadastro from '../../component/inputs/InputCadastro';
 import InputId from '../../component/inputs/InputId';
+import Select from '../../component/inputs/Select';
 import LayoutPrincipal from '../../component/LayoutPrincipal';
 import { CardListTab, Tabs } from '../../component/TabsComponents';
 import Tab from '../../component/TabsComponents/Tab';
 import { api } from '../../services/api';
-import { Container, Form ,DivuttonEnviar , DivButtonEditar } from './styles'
-
-
+import { Container, Form ,DivButtonEnviar , DivButtonEditar } from './styles'
 
 interface IEmpresas {
     id?: number 
     codigoEmpresa : string 
     nomeEmpresa : string 
+    grupoEmpresa : number
 }
 interface IButton {
     display?: string
 }
 
+interface IGrupoEmpresa {
+    id: number
+    grupoEmpresa: string
+}
+
 const Empresas: React.FC = () => {
 
 const [listEmpresas , setLisEmpresas] = useState<IEmpresas[]>([])
+const [listGrupoEmpresas , setListGrupoEmpresas] = useState<IGrupoEmpresa[]>([])
 const [message ,setMessage] = useState<string>('')
 const [nomeEmpresa ,setNomeEmpresa] = useState<string>('')
 const [codigoEmpresa ,setCodigoEmpresa] = useState<string>('')
+const [grupoEmpresa ,setGrupoEmpresa] = useState<number>()
 const [idDeleteEmpresa ,setIdDeleteEmpresa] = useState<number>()
 const [idEditEmpresa ,setIdEditEmpresa] = useState<number>()
 const [idCadastro , setIdCadastro] = useState<number>()
@@ -40,14 +48,26 @@ useEffect(() => {
             .then(response => {
                 const resposta: any = response.data
                 setLisEmpresas(resposta)
-               
-                
+                   
             }).catch(erro => {
 
-               
             })
 
     }, [idDeleteEmpresa, idCadastro, idEditEmpresa])
+
+    useEffect(() => {
+
+        api.get<IGrupoEmpresa>('grupo-empresas',
+            { headers: { authorization: auth } })
+            .then(response => {
+                const resposta: any = response.data
+                setListGrupoEmpresas(resposta)
+               
+            }).catch(erro => {
+
+            })
+
+    }, [])
 
     const handleDelete = (idDelete: number) => {
 
@@ -74,7 +94,8 @@ useEffect(() => {
         event.preventDefault()
         const respostaEnvio: IEmpresas = {
             codigoEmpresa: String(codigoEmpresa),
-            nomeEmpresa: String(nomeEmpresa)
+            nomeEmpresa: String(nomeEmpresa),
+            grupoEmpresa: Number(grupoEmpresa)
         }
         api.post<IEmpresas>('empresa', respostaEnvio,
             { headers: { authorization: auth } })
@@ -101,23 +122,28 @@ useEffect(() => {
 
         if ((document.getElementById("id_empresa")) &&
             (document.getElementById("codigo_empresas")) &&
-            (document.getElementById("nome_empresas"))) {
+            (document.getElementById("codigo_empresas")) &&
+            (document.getElementById("grupo_empresas"))) {
 
             (document.getElementById("id_empresa") as HTMLInputElement).value = "";
             (document.getElementById("codigo_empresas") as HTMLInputElement).value = "";
             (document.getElementById("nome_empresas") as HTMLInputElement).value = "";
+            (document.getElementById("grupo_empresas") as HTMLInputElement).value = "0";
+            
         }
     }
 
-    function carregarCampos(idEmpresa: string, codigoEmpresa: string, nomeEmpresa: string) {
+    function carregarCampos(idEmpresa: string, codigoEmpresa: string, nomeEmpresa: string, grupoEmpresa: string) {
  
         if ((document.getElementById("id_empresa")) &&
-            (document.getElementById("codigo_empresas")) &&
-            (document.getElementById("nome_empresas"))) {
+        (document.getElementById("codigo_empresas")) &&
+        (document.getElementById("codigo_empresas")) &&
+        (document.getElementById("grupo_empresas"))) {
 
             (document.getElementById("id_empresa") as HTMLInputElement).value = idEmpresa;
             (document.getElementById("codigo_empresas") as HTMLInputElement).value = codigoEmpresa;
             (document.getElementById("nome_empresas") as HTMLInputElement).value = nomeEmpresa;
+            (document.getElementById("grupo_empresas") as HTMLInputElement).value = grupoEmpresa;
             
         }
 
@@ -141,13 +167,11 @@ useEffect(() => {
 
         const empresaEdit = listEmpresas.find(item => item.id === idEdit)
 
-
-
-
         carregarCampos(
             String(empresaEdit?.id),
             String(empresaEdit?.codigoEmpresa),
-            String(empresaEdit?.nomeEmpresa)
+            String(empresaEdit?.nomeEmpresa),
+            String(empresaEdit?.grupoEmpresa)
             )
 
     }
@@ -164,9 +188,8 @@ useEffect(() => {
                 nomeEmpresa: String((document.getElementById("nome_empresas") as HTMLInputElement).value),
                 codigoEmpresa: String((document.getElementById("codigo_empresas") as HTMLInputElement).value),
                 id: Number((document.getElementById("id_empresa") as HTMLInputElement).value),
+                grupoEmpresa: Number((document.getElementById("id_empresa") as HTMLInputElement).value),
             }
-
-        
 
 
             api.put(`empresa`, putEmpresa,
@@ -219,6 +242,12 @@ useEffect(() => {
         const { value } = event.target
         setNomeEmpresa(String(value))
     }
+    
+
+    function handleImputGrupoEmpresas(event: ChangeEvent<HTMLSelectElement>) {
+        const { value } = event.target
+        setGrupoEmpresa(Number(value))
+    }
 
     return (
 
@@ -240,9 +269,23 @@ useEffect(() => {
                             <InputCadastro  id="codigo_empresas" defaultValue={""} onChange={handleImputCodigoEmpresa} >Codigo da Empresa</InputCadastro>
                             <InputCadastro id="nome_empresas" defaultValue={""} onChange={handleImputNomeEmpresa}>Nome da Empresa</InputCadastro>
 
-                            <DivuttonEnviar style={butonEnviar} >
+                            <Select
+                                id="grupo_empresas"
+                                onChange={handleImputGrupoEmpresas}
+                                defaultValue={grupoEmpresa}>
+
+                                <option key={0} value='0'>Seleciona o Grupo de empresa!</option>
+                                {
+                                    listGrupoEmpresas.map((grupo: IGrupoEmpresa) => {
+                                        return <option key={grupo.id} 
+                                        value={grupo.id}>{`${String(grupo.id)} - ${String(grupo.grupoEmpresa)} `}</option>
+                                    })
+                                }
+                            </Select>
+
+                            <DivButtonEnviar style={butonEnviar} >
                                 <Button style={{ background: "green" }} type="submit" >Enviar</Button>
-                            </DivuttonEnviar>
+                            </DivButtonEnviar>
                             <DivButtonEditar style={butonEdit}>
                                 <Button style={{ background: "yellow", color: '#000' }} type="button" onClick={() => { handlePut() }} >Editar</Button>
                                 <Button type="button" style={{ background: "#e44c4e", color: '#bfbfbf' }} onClick={() => { handleCancelar() }}  >Cancelar</Button>
