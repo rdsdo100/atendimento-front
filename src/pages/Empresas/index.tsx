@@ -57,7 +57,7 @@ useEffect(() => {
 
     useEffect(() => {
 
-        api.get<IGrupoEmpresa>('grupo-empresas',
+        api.get<IGrupoEmpresa>('grupo-empresa',
             { headers: { authorization: auth } })
             .then(response => {
                 const resposta: any = response.data
