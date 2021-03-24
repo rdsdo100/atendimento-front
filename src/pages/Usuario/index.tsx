@@ -7,7 +7,7 @@ import Select from '../../component/inputs/Select';
 import LayoutPrincipal from '../../component/LayoutPrincipal';
 import { CardListTab, Tab, Tabs } from '../../component/TabsComponents';
 import { api } from '../../services/api';
-import { Container, DivuttonEnviar, DivButtonEditar } from './styles'
+import { Container, DivuttonEnviar, DivButtonEditar, DivSelect } from './styles'
 
 
 interface IButton {
@@ -19,12 +19,18 @@ interface IGrupoUsuario {
     nome: string
 }
 
+interface IEquipeUsuario {
+    id: number
+    nomeEquipe: string
+}
+
 interface IUsuario {
     id?: number
     nome: string
     email: string
     senha: string
     grupoUsuario: number
+    equipeUsuario?: number
 
 }
 
@@ -36,6 +42,9 @@ interface IGetUsuario {
     bloqueado?: boolean,
     grupoUsuariosId?: number
     grupoUsuariosNome?: string
+    equipeUsuariosId?: number
+    equipeUsuariosNome?: string
+    
 }
 
 const Usuario: React.FC = () => {
@@ -50,8 +59,10 @@ const Usuario: React.FC = () => {
     const [nome, setNome] = useState<string>('')
     const [email, setEmail] = useState<string>('')
     const [grupoUsuario, setGrupoUsuario] = useState<number>(0)
+    const [equipeUsuario, setEquipeUsuario] = useState<number>(0)
     const [password, setPassword] = useState<string>('')
-    const [gupoUsuarios, setGrupoUsuarios] = useState<IGrupoUsuario[]>([])
+    const [listGupoUsuarios, setListGrupoUsuarios] = useState<IGrupoUsuario[]>([])
+    const [listEquipeUsuarios, setListEquipeUsuarios] = useState<IEquipeUsuario[]>([])
     const auth = localStorage.getItem("Authorization")
 
     useEffect(() => {
@@ -60,13 +71,29 @@ const Usuario: React.FC = () => {
             { headers: { authorization: auth } })
             .then(response => {
                 const resposta: any = response.data
-                setGrupoUsuarios(resposta)
+                setListGrupoUsuarios(resposta)
             }).catch(erro => {
                 alert('Erro ao acessar servidor!')
 
             })
 
     }, [])
+
+
+    useEffect(() => {
+
+        api.get<IEquipeUsuario[]>('equipe-usuario',
+            { headers: { authorization: auth } })
+            .then(response => {
+                const resposta: any = response.data
+                setListEquipeUsuarios(resposta)
+            }).catch(erro => {
+                alert('Erro ao acessar servidor!')
+
+            })
+
+    }, [])
+
 
     useEffect(() => {
 
@@ -84,7 +111,7 @@ const Usuario: React.FC = () => {
 
             })
 
-    }, [idDeleteUsuario , idEditUsuario, idCadastroUsuario])
+    }, [idDeleteUsuario, idEditUsuario, idCadastroUsuario])
 
 
     async function handleSubmit(event: FormEvent) {
@@ -93,7 +120,8 @@ const Usuario: React.FC = () => {
             nome: String(nome),
             email: String(email),
             grupoUsuario: Number(grupoUsuario),
-            senha: String(password)
+            senha: String(password),
+            equipeUsuario: Number(equipeUsuario)
         }
 
         api.post('user', envio,
@@ -106,6 +134,7 @@ const Usuario: React.FC = () => {
                 setEmail('')
                 setPassword('')
                 setGrupoUsuario(0)
+                setEquipeUsuario(0)
 
             })
             .catch(erro => {
@@ -133,6 +162,13 @@ const Usuario: React.FC = () => {
         setGrupoUsuario(Number(grupoUsuario))
 
     }
+
+    function handleImputEquipeUsuario(event: ChangeEvent<HTMLSelectElement>) {
+        const equipeUsuario = event.target.value
+        setEquipeUsuario(Number(equipeUsuario))
+
+    }
+
     function handleImputPassword(event: ChangeEvent<HTMLInputElement>) {
         const { name, value } = event.target
         setPassword(String(value))
@@ -147,12 +183,14 @@ const Usuario: React.FC = () => {
         if ((document.getElementById("nome_usuario")) &&
             (document.getElementById("senha_usuario")) &&
             (document.getElementById("grupo_usuario")) &&
+            (document.getElementById("equipe_usuario")) &&
             (document.getElementById("email_usuario")) &&
             (document.getElementById("id_usuario"))) {
 
             (document.getElementById("nome_usuario") as HTMLInputElement).value = "";
             (document.getElementById("senha_usuario") as HTMLInputElement).value = "";
             (document.getElementById("grupo_usuario") as HTMLInputElement).value = "0";
+            (document.getElementById("equipe_usuario") as HTMLInputElement).value = "0";
             (document.getElementById("email_usuario") as HTMLInputElement).value = "";
             (document.getElementById("id_usuario") as HTMLInputElement).value = "";
         }
@@ -163,17 +201,21 @@ const Usuario: React.FC = () => {
         nomeUsuario: string,
         emailUsuario: string,
         grupoUsuario: string,
+        equipeUsuario: string,
         senhaUsuario: string) {
 
-        if ((document.getElementById("senha_usuario")) &&
-            (document.getElementById("nome_usuario")) &&
+
+        if ((document.getElementById("nome_usuario")) &&
+            (document.getElementById("senha_usuario")) &&
             (document.getElementById("grupo_usuario")) &&
+            (document.getElementById("equipe_usuario")) &&
             (document.getElementById("email_usuario")) &&
             (document.getElementById("id_usuario"))) {
 
             (document.getElementById("id_usuario") as HTMLInputElement).value = idusuario;
             (document.getElementById("nome_usuario") as HTMLInputElement).value = nomeUsuario;
             (document.getElementById("grupo_usuario") as HTMLInputElement).value = grupoUsuario;
+            (document.getElementById("equipe_usuario") as HTMLInputElement).value = equipeUsuario;
             (document.getElementById("email_usuario") as HTMLInputElement).value = emailUsuario;
             (document.getElementById("senha_usuario") as HTMLInputElement).value = senhaUsuario;
 
@@ -229,6 +271,7 @@ const Usuario: React.FC = () => {
             String(usuarioEdit.nomeUsuario),
             String(usuarioEdit.email),
             String(usuarioEdit.grupoUsuariosIdFK.id),
+            String("0"),
             String(usuarioEdit.senha)
 
         )
@@ -236,53 +279,55 @@ const Usuario: React.FC = () => {
     }
 
 
-       const handlePut = () => {
-   
-           let putEmpresa: IUsuario
-   
-           if ((document.getElementById("senha_usuario")) &&
-           (document.getElementById("nome_usuario")) &&
-           (document.getElementById("grupo_usuario")) &&
-           (document.getElementById("email_usuario")) &&
-           (document.getElementById("id_usuario"))) {
+    const handlePut = () => {
 
-               putEmpresa = {
+        let putEmpresa: IUsuario
+
+        if ((document.getElementById("nome_usuario")) &&
+            (document.getElementById("senha_usuario")) &&
+            (document.getElementById("grupo_usuario")) &&
+            (document.getElementById("equipe_usuario")) &&
+            (document.getElementById("email_usuario")) &&
+            (document.getElementById("id_usuario"))) {
+
+            putEmpresa = {
 
                 id: Number((document.getElementById("id_usuario") as HTMLInputElement).value),
-                   nome: String((document.getElementById("nome_usuario") as HTMLInputElement).value),
-                   grupoUsuario: Number((document.getElementById("grupo_usuario") as HTMLInputElement).value),
-                   email: String((document.getElementById("email_usuario") as HTMLInputElement).value),
-                   senha: String((document.getElementById("senha_usuario") as HTMLInputElement).value),
-               }
-   
-           
-   
-   
-               api.put(`user`, putEmpresa,
-                   { headers: { authorization: auth } })
-                   .then(response => {
-                       const resposta: any = response.data
-   
-                       const ativarButton: IButton = { display: 'flex' }
-                       const desativarButton: IButton = { display: 'none' }
-                       setButtonEdit(desativarButton)
-                       setButtonEnviar(ativarButton)
-   
-                       limparCampos()
-   
-                       setMessage(String(resposta))
-                      
-                       setIdEditUsuario(putEmpresa.id)
-   
-                   }).catch(erro => {
-   
-                       alert('Não enviado!')
-   
-                   })
-           }
-       }
-   
-   
+                nome: String((document.getElementById("nome_usuario") as HTMLInputElement).value),
+                grupoUsuario: Number((document.getElementById("grupo_usuario") as HTMLInputElement).value),
+                email: String((document.getElementById("email_usuario") as HTMLInputElement).value),
+                senha: String((document.getElementById("senha_usuario") as HTMLInputElement).value),
+                equipeUsuario: Number((document.getElementById("equipe_usuario") as HTMLInputElement).value)
+            }
+
+
+
+
+            api.put(`user`, putEmpresa,
+                { headers: { authorization: auth } })
+                .then(response => {
+                    const resposta: any = response.data
+
+                    const ativarButton: IButton = { display: 'flex' }
+                    const desativarButton: IButton = { display: 'none' }
+                    setButtonEdit(desativarButton)
+                    setButtonEnviar(ativarButton)
+
+                    limparCampos()
+
+                    setMessage(String(resposta))
+
+                    setIdEditUsuario(putEmpresa.id)
+
+                }).catch(erro => {
+
+                    alert('Não enviado!')
+
+                })
+        }
+    }
+
+
 
 
     function handleCancelar() {
@@ -326,20 +371,33 @@ const Usuario: React.FC = () => {
                                 E-mail
                     </InputCadastro>
 
+                            <DivSelect>
+                                <Select
+                                    id="grupo_usuario"
+                                    onChange={handleImputGrupoUsuario}
+                                    defaultValue={grupoUsuario}>
 
-                            <Select
-                                id="grupo_usuario"
-                                onChange={handleImputGrupoUsuario}
-                                defaultValue={grupoUsuario}>
+                                    <option key={0} value='0'>Selecione o Grupo de Usuário!</option>
+                                    {
+                                        listGupoUsuarios.map((grupo: any) => {
+                                            return <option key={grupo.id} value={grupo.id}>{`${String(grupo.id)} - ${String(grupo.nome)} `}</option>
+                                        })
+                                    }
+                                </Select>
 
-                                <option key={0} value='0'>Seleciona o Grupo de Usuário!</option>
-                                {
-                                    gupoUsuarios.map((grupo: any) => {
-                                        return <option key={grupo.id} value={grupo.id}>{`${String(grupo.id)} - ${String(grupo.nome)} `}</option>
-                                    })
-                                }
-                            </Select>
+                                <Select
+                                    id="equipe_usuario"
+                                    onChange={handleImputEquipeUsuario}
+                                    defaultValue={grupoUsuario}>
 
+                                    <option key={0} value='0'>Selecione o Equipe!</option>
+                                    {
+                                        listEquipeUsuarios.map((grupo: IEquipeUsuario) => {
+                                            return <option key={grupo.id} value={grupo.id}>{`${String(grupo.id)} - ${String(grupo.nomeEquipe)} `}</option>
+                                        })
+                                    }
+                                </Select>
+                            </DivSelect>
                             <InputCadastro
                                 id="senha_usuario"
                                 type='password'
@@ -355,7 +413,7 @@ const Usuario: React.FC = () => {
                                 <Button style={{ background: "green" }} type="submit" >Enviar</Button>
                             </DivuttonEnviar>
                             <DivButtonEditar style={butonEdit}>
-                                <Button style={{ background: "yellow", color: '#000' }} type="button" onClick={() => {handlePut() }} >Editar</Button>
+                                <Button style={{ background: "yellow", color: '#000' }} type="button" onClick={() => { handlePut() }} >Editar</Button>
                                 <Button type="button" style={{ background: "#e44c4e", color: '#bfbfbf' }} onClick={() => { handleCancelar() }}  >Cancelar</Button>
                             </DivButtonEditar>
 
@@ -368,7 +426,7 @@ const Usuario: React.FC = () => {
                                 listUsuarios.map((user: any) => {
 
                                     return <CardUsuario
-                                      
+
                                         idEditUsuario={updateUsuario}
                                         key={user.id}
                                         id={user.id}

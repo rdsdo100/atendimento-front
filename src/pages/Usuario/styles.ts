@@ -31,3 +31,13 @@ export const DivButtonEditar = styled.div`
  }
  
 `;
+
+
+export const DivSelect = styled.div`
+ 
+ position: relative;
+ display: flex;
+ margin: 10px;
+
+ 
+`;
