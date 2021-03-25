@@ -26,6 +26,7 @@ const Login: React.FC = () => {
         const loginServer= new LoginServer()
         const login = await loginServer.login(String(usuario) , String(senha))
         const  token = localStorage.getItem("Authorization")
+        localStorage.setItem('login' , String(usuario))
         if(token){
             history.push('/home')
         }else{
