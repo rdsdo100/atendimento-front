@@ -21,7 +21,7 @@ export const Nav = styled.nav`
   height: 100vh;
   top: 0;
   left: -350px;
-  z-index: 1;
+  z-index: 2;
 
 `;
 
@@ -47,7 +47,7 @@ export const Label = styled.label`
 
     padding: 0;
     position: relative;
-    z-index: 2;
+    z-index: 3;
     margin: 0 10px;
 
 `;
@@ -73,7 +73,19 @@ export  const InputCheck = styled.input`
     transform: translateX(350px);
   }
 `;
+
 export const  Span = styled.span`
   position: relative;
   top: 0px;
+`;
+
+export const DivMenu = styled.div`
+  position: absolute;
+  background-color: rgba(00,00,00,.5);
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  z-index: 1;
+
+
 `;
