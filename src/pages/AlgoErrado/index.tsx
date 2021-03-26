@@ -7,8 +7,9 @@ const AlgoErrado: React.FC = () => {
 
         <div>
 
-            <H1> &lt; Algo Deu Errado &gt;</H1>
 
+
+<p><b><a href="https://atendimento-front.herokuapp.com" target="_blank">Viltar</a></b></p>
         </div>
 
     )
