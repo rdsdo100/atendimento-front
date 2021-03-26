@@ -19,7 +19,7 @@ const PrivateRoute = ({ component, isAuthenticated, ...rest }: any) => {
   const routeComponent = (props: any) => (
     auth
       ? React.createElement(component, props)
-      : <Redirect to={{ pathname: '/' }} />
+      : <Redirect to='/' /> 
   );
 
   return <Route {...rest} render={routeComponent} />;
