@@ -9,7 +9,7 @@ import Graficos from "../pages/Graficos";
 import Usuario from "../pages/Usuario";
 import { useSelector } from "react-redux";
 import { ApplicationState } from "../store";
-
+import AlgoErrado from "../pages/AlgoErrado";
 
 
 const PrivateRoute = ({ component, isAuthenticated, ...rest }: any) => {
@@ -20,7 +20,7 @@ const PrivateRoute = ({ component, isAuthenticated, ...rest }: any) => {
   const routeComponent = (props: any) => (
     auth
       ? React.createElement(component, props)
-      : history.push('/')
+      : history.push('algoErrado')
   );
 
   return <Route {...rest} render={routeComponent} />;
@@ -33,12 +33,13 @@ const Routes = () => {
       <Switch> // não deixa mais de uma rota ser chamada ao mesmo tempo
 
         <Route component={Login} path='/' exact ></Route>
+        <Route component={AlgoErrado} path='/algoErrado' ></Route>
         <PrivateRoute component={Home} path='/home' ></PrivateRoute>
         <PrivateRoute component={Usuario} path='/usuario'></PrivateRoute>
         <PrivateRoute component={Atendimentos} path='/atendimentos' ></PrivateRoute>
         <PrivateRoute component={Graficos} path='/graficos'></PrivateRoute>
         <PrivateRoute component={Empresas} path='/empresas' ></PrivateRoute>
-        <PrivateRoute component={ErrorPage} path='*'></PrivateRoute>
+        <Route component={ErrorPage} path='*'></Route>
 
       </Switch>
     </BrowserRouter>
