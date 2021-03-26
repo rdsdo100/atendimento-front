@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { loadAuthDelete } from '../../store/ducks/auth/actions'
 import { Nav, A, Label, UL, ImMenuIcons, InputCheck, Span, DivMenu } from './styles'
 
 interface IRotasMenu {
@@ -12,6 +14,8 @@ interface IStyleMenu {
 
 const Menu: React.FC = () => {
 
+
+    const dispath = useDispatch()
     const rotas: IRotasMenu[] = [
         { id: 1, nomeMenu: 'Home', rotaMenu: '/home' },
         { id: 2, nomeMenu: 'Atendimentos', rotaMenu: '/atendimentos' },
@@ -20,12 +24,12 @@ const Menu: React.FC = () => {
         { id: 5, nomeMenu: 'Graficos', rotaMenu: '/graficos' }
     ]
 
-    const [listRotas, setListRotas] = useState<IRotasMenu[]>(rotas)
+    const [listRotas, setListRotas] = useState<IRotasMenu[]>([])
     const [styleMenu, setStyleMenu] = useState<IStyleMenu>({ displayMenu: "none" })
-
-
    
-    
+    useEffect(()=>{
+        setListRotas(rotas)
+    }, [] )
 
     function handleChechMenu() {
 
@@ -38,8 +42,8 @@ const Menu: React.FC = () => {
     }
 
     function sairSistema() {
-        localStorage.removeItem("Authorization")
-       
+    dispath(loadAuthDelete())
+    
     }
 
     return (

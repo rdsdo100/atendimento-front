@@ -7,17 +7,17 @@ import Empresas from "../pages/Empresas";
 import Atendimentos from "../pages/Atendimentos";
 import Graficos from "../pages/Graficos";
 import Usuario from "../pages/Usuario";
+import { useSelector } from "react-redux";
+import { ApplicationState } from "../store";
 
 
 
 const PrivateRoute = ({ component, isAuthenticated, ...rest }: any) => {
 
-
-
-
-
+  const auth = useSelector((state: ApplicationState) => state.auth.auth)
+  
   const routeComponent = (props: any) => (
-    true
+    auth
       ? React.createElement(component, props)
       : <Redirect to={{ pathname: '/' }} />
   );

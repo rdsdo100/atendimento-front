@@ -1,5 +1,6 @@
 
 import React, { FormEvent, ChangeEvent, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import CardUsuario from '../../component/CardUsuario';
 import { Button } from '../../component/CardUsuario/styles';
 import InputCadastro from '../../component/inputs/InputCadastro';
@@ -7,6 +8,7 @@ import Select from '../../component/inputs/Select';
 import LayoutPrincipal from '../../component/LayoutPrincipal';
 import { CardListTab, Tab, Tabs } from '../../component/TabsComponents';
 import { api } from '../../services/api';
+import { ApplicationState } from '../../store';
 import { Container, DivuttonEnviar, DivButtonEditar, DivSelect } from './styles'
 
 
@@ -63,7 +65,7 @@ const Usuario: React.FC = () => {
     const [password, setPassword] = useState<string>('')
     const [listGupoUsuarios, setListGrupoUsuarios] = useState<IGrupoUsuario[]>([])
     const [listEquipeUsuarios, setListEquipeUsuarios] = useState<IEquipeUsuario[]>([])
-    const auth = localStorage.getItem("Authorization")
+    const auth = useSelector((state: ApplicationState) => state.auth.auth)
 
     useEffect(() => {
 

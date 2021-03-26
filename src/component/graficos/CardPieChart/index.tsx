@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Cell, Pie, PieChart, RadialBar, RadialBarChart, ResponsiveContainer } from 'recharts'
 import { api } from '../../../services/api';
+import { ApplicationState } from '../../../store';
 
 import { Container, LegendContainer, SideLeft, SideRight , Legend  } from './styles'
 
@@ -20,7 +22,7 @@ const CardPieChart: React.FC = () => {
 const [lisEmpresasAtendimento , setLisEmpresasAtendimento] = useState<IEmpresasGraficos[]>([{
   codigoEmpresa:  '', count :'0' 
 }])
-const auth = String(localStorage.getItem("Authorization"))
+const auth = useSelector((state: ApplicationState) => state.auth.auth)
 
 useEffect(() => {
 

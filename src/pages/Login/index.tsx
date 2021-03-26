@@ -1,11 +1,17 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react'
+import { useDispatch} from 'react-redux';
 import {useHistory} from 'react-router-dom'
 import LoginServer from "../../services/LoginServer";
+
+import { loadAuthSuccess } from '../../store/ducks/auth/actions';
 import { Component,LoginBox, H2, UserBox , Input , Label , A} from './styles'
 
 const Login: React.FC = () => {
 
     const history = useHistory()
+    const dispath = useDispatch()
+   
+    
     const [usuario , setUsuario] = useState<string>()
     const [senha , setSenha] = useState<string>()
     const [error , setError] = useState<string>()
@@ -21,18 +27,20 @@ const Login: React.FC = () => {
     }
 
     async function handleEntrar(event: FormEvent) {
+       
         event.preventDefault()
-        localStorage.removeItem("Authorization")
         const loginServer= new LoginServer()
         const login = await loginServer.login(String(usuario) , String(senha))
-        const  token = localStorage.getItem("Authorization")
-        localStorage.setItem('login' , String(usuario))
-        if(token){
+
+        dispath(loadAuthSuccess({name: String(login.data.authorization)}))
+        
+        if(login.data.authorization){
             history.push('/home')
         }else{
             setError("Login Invalido!")
         }
     }
+
 
 return(
     <Component>

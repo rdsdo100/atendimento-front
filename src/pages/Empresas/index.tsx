@@ -1,5 +1,6 @@
 import { stringify } from 'node:querystring';
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import CardListEmpresas from '../../component/CardListEmpresas';
 import { Button } from '../../component/CardUsuario/styles';
 import InputCadastro from '../../component/inputs/InputCadastro';
@@ -9,6 +10,7 @@ import LayoutPrincipal from '../../component/LayoutPrincipal';
 import { CardListTab, Tabs } from '../../component/TabsComponents';
 import Tab from '../../component/TabsComponents/Tab';
 import { api } from '../../services/api';
+import { ApplicationState } from '../../store';
 import { Container, Form ,DivButtonEnviar , DivButtonEditar } from './styles'
 
 interface IEmpresas {
@@ -39,7 +41,7 @@ const [idEditEmpresa ,setIdEditEmpresa] = useState<number>()
 const [idCadastro , setIdCadastro] = useState<number>()
 const [butonEnviar, setButtonEnviar] = useState<IButton>({ display: 'flex' })
 const [butonEdit, setButtonEdit] = useState<IButton>({ display: 'none' })
-const auth = String(localStorage.getItem("Authorization"))
+const auth = useSelector((state: ApplicationState) => state.auth.auth)
     
 useEffect(() => {
 
