@@ -21,7 +21,8 @@ const Menu: React.FC = () => {
         { id: 2, nomeMenu: 'Atendimentos', rotaMenu: '/atendimentos' },
         { id: 3, nomeMenu: 'Empresas', rotaMenu: '/empresas' },
         { id: 4, nomeMenu: 'Usuário', rotaMenu: '/usuario' },
-        { id: 5, nomeMenu: 'Graficos', rotaMenu: '/graficos' }
+        { id: 5, nomeMenu: 'Graficos', rotaMenu: '/graficos' },
+        { id: 6, nomeMenu: 'RelatorioAtendimentos', rotaMenu: '/relatorio-atendimentos' }
     ]
 
     const [listRotas, setListRotas] = useState<IRotasMenu[]>([])

@@ -7,9 +7,11 @@ const AlgoErrado: React.FC = () => {
 
         <div>
 
-
-
-<p><b><a href="https://atendimento-front.herokuapp.com">Viltar</a></b></p>
+            <p>
+                <b>
+                    <a href="https://atendimento-front.herokuapp.com">Voltar</a>
+                </b>
+            </p>
         </div>
 
     )

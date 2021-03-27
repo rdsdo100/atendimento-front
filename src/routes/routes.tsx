@@ -10,6 +10,7 @@ import Usuario from "../pages/Usuario";
 import { useSelector } from "react-redux";
 import { ApplicationState } from "../store";
 import AlgoErrado from "../pages/AlgoErrado";
+import RelatorioAtendimentos from "../pages/RelatorioAtendimentos";
 
 
 const PrivateRoute = ({ component, isAuthenticated, ...rest }: any) => {
@@ -39,6 +40,7 @@ const Routes = () => {
         <PrivateRoute component={Atendimentos} path='/atendimentos' ></PrivateRoute>
         <PrivateRoute component={Graficos} path='/graficos'></PrivateRoute>
         <PrivateRoute component={Empresas} path='/empresas' ></PrivateRoute>
+        <PrivateRoute component={RelatorioAtendimentos} path='/relatorio-atendimentos'></PrivateRoute>
         <Route component={ErrorPage} path='*'></Route>
 
       </Switch>
