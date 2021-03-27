@@ -29,8 +29,13 @@ const Login: React.FC = () => {
     async function handleEntrar(event: FormEvent) {
        
         event.preventDefault()
+
+        localStorage.removeItem('login')
+        localStorage.setItem('login' , String(usuario))
+
         const loginServer= new LoginServer()
         const login = await loginServer.login(String(usuario) , String(senha))
+
 
         dispath(loadAuthSuccess({name: String(login.data.authorization)}))
         
