@@ -21,7 +21,7 @@ const PrivateRoute = ({ component, isAuthenticated, ...rest }: any) => {
   const routeComponent = (props: any) => (
     auth
       ? React.createElement(component, props)
-      : history.push('algoErrado')
+      : history.push('/algoErrado')
   );
 
   return <Route {...rest} render={routeComponent} />;
