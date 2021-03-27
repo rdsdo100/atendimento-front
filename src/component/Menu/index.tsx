@@ -18,11 +18,12 @@ const Menu: React.FC = () => {
     const dispath = useDispatch()
     const rotas: IRotasMenu[] = [
         { id: 1, nomeMenu: 'Home', rotaMenu: '/home' },
-        { id: 2, nomeMenu: 'Atendimentos', rotaMenu: '/atendimentos' },
-        { id: 3, nomeMenu: 'Empresas', rotaMenu: '/empresas' },
-        { id: 4, nomeMenu: 'Usuário', rotaMenu: '/usuario' },
-        { id: 5, nomeMenu: 'Graficos', rotaMenu: '/graficos' },
-        { id: 6, nomeMenu: 'RelatorioAtendimentos', rotaMenu: '/relatorio-atendimentos' }
+        { id: 2, nomeMenu: 'Contatos', rotaMenu: '/contatos' },
+        { id: 3, nomeMenu: 'Atendimentos', rotaMenu: '/atendimentos' },
+        { id: 4, nomeMenu: 'Empresas', rotaMenu: '/empresas' },
+        { id: 5, nomeMenu: 'Usuário', rotaMenu: '/usuario' },
+        { id: 6, nomeMenu: 'Graficos', rotaMenu: '/graficos' },
+        { id: 7, nomeMenu: 'RelatorioAtendimentos', rotaMenu: '/relatorio-atendimentos' }
     ]
 
     const [listRotas, setListRotas] = useState<IRotasMenu[]>([])
@@ -43,7 +44,11 @@ const Menu: React.FC = () => {
     }
 
     function sairSistema() {
-    dispath(loadAuthDelete())
+    //dispath(loadAuthDelete())
+    
+   localStorage.removeItem('Authorization')
+   localStorage.removeItem('login')
+   
     
     }
 

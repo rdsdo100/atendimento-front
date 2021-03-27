@@ -1,6 +1,4 @@
-import { stringify } from 'node:querystring';
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import CardListEmpresas from '../../component/CardListEmpresas';
 import { Button } from '../../component/CardUsuario/styles';
 import InputCadastro from '../../component/inputs/InputCadastro';
@@ -30,6 +28,8 @@ interface IGrupoEmpresa {
 
 const Empresas: React.FC = () => {
 
+     // const auth = useSelector((state: ApplicationState) => state.auth.auth)
+   const auth = localStorage.getItem('Authorization')
 const [listEmpresas , setLisEmpresas] = useState<IEmpresas[]>([])
 const [listGrupoEmpresas , setListGrupoEmpresas] = useState<IGrupoEmpresa[]>([])
 const [message ,setMessage] = useState<string>('')
@@ -41,7 +41,7 @@ const [idEditEmpresa ,setIdEditEmpresa] = useState<number>()
 const [idCadastro , setIdCadastro] = useState<number>()
 const [butonEnviar, setButtonEnviar] = useState<IButton>({ display: 'flex' })
 const [butonEdit, setButtonEdit] = useState<IButton>({ display: 'none' })
-const auth = useSelector((state: ApplicationState) => state.auth.auth)
+
     
 useEffect(() => {
 

@@ -1,5 +1,4 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Button from '../../component/buttons/Button';
 import CardAtendimento from '../../component/CardAtendimento';
@@ -9,7 +8,7 @@ import TextArea from '../../component/inputs/TextArea';
 import LayoutPrincipal from '../../component/LayoutPrincipal';
 import { CardListTab, Tab, Tabs } from '../../component/TabsComponents';
 import { api } from '../../services/api';
-import { ApplicationState } from '../../store';
+
 
 import { Container, Form, DivButtonEditar, DivuttonEnviar } from './styles'
 
@@ -39,7 +38,8 @@ interface IButton {
 const Atendimentos: React.FC = () => {
 
     const history = useHistory()
-    const auth = useSelector((state: ApplicationState) => state.auth.auth)
+   // const auth = useSelector((state: ApplicationState) => state.auth.auth)
+   const auth = localStorage.getItem('Authorization')
     const [listEmpresas, setListEmpresas] = useState<IEmpresas[]>([])
     const [empresa, setEmpresa] = useState<number>(0)
     const [atendimento, setAtendimento] = useState<string>('')

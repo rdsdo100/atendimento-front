@@ -1,20 +1,20 @@
-import React, {ChangeEvent, FormEvent, useState} from 'react'
-import { useDispatch} from 'react-redux';
+import React, {ChangeEvent, FormEvent, useEffect, useState} from 'react'
 import {useHistory} from 'react-router-dom'
 import LoginServer from "../../services/LoginServer";
-
-import { loadAuthSuccess } from '../../store/ducks/auth/actions';
 import { Component,LoginBox, H2, UserBox , Input , Label , A} from './styles'
 
 const Login: React.FC = () => {
 
     const history = useHistory()
-    const dispath = useDispatch()
-   
-    
+    //const dispath = useDispatch()
     const [usuario , setUsuario] = useState<string>()
     const [senha , setSenha] = useState<string>()
     const [error , setError] = useState<string>()
+
+    useEffect(()=>{
+        localStorage.removeItem('login')
+        localStorage.removeItem('Authorization')
+    } , [])
 
     function habdleInputUsuario(event : ChangeEvent<HTMLInputElement>) {
         const {value} = event.target
@@ -29,15 +29,13 @@ const Login: React.FC = () => {
     async function handleEntrar(event: FormEvent) {
        
         event.preventDefault()
-
-        localStorage.removeItem('login')
-        localStorage.setItem('login' , String(usuario))
-
         const loginServer= new LoginServer()
         const login = await loginServer.login(String(usuario) , String(senha))
+       
+        localStorage.setItem('login' , String(usuario))
+        localStorage.setItem('Authorization', String(login.data.authorization))
 
-
-        dispath(loadAuthSuccess({name: String(login.data.authorization)}))
+     //   dispath(loadAuthSuccess({name: String(login.data.authorization)}))
         
         if(login.data.authorization){
             history.push('/home')

@@ -22,7 +22,8 @@ const CardPieChart: React.FC = () => {
 const [lisEmpresasAtendimento , setLisEmpresasAtendimento] = useState<IEmpresasGraficos[]>([{
   codigoEmpresa:  '', count :'0' 
 }])
-const auth = useSelector((state: ApplicationState) => state.auth.auth)
+ // const auth = useSelector((state: ApplicationState) => state.auth.auth)
+ const auth = localStorage.getItem('Authorization')
 
 useEffect(() => {
 

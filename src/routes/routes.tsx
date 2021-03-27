@@ -11,13 +11,14 @@ import { useSelector } from "react-redux";
 import { ApplicationState } from "../store";
 import AlgoErrado from "../pages/AlgoErrado";
 import RelatorioAtendimentos from "../pages/RelatorioAtendimentos";
+import Contatos from "../pages/Contatos";
 
 
 const PrivateRoute = ({ component, isAuthenticated, ...rest }: any) => {
 
   const history = useHistory()
-  const auth = useSelector((state: ApplicationState) => state.auth.auth)
-
+ // const auth = useSelector((state: ApplicationState) => state.auth.auth)
+ const auth = localStorage.getItem('Authorization')
   const routeComponent = (props: any) => (
     auth
       ? React.createElement(component, props)
@@ -36,6 +37,7 @@ const Routes = () => {
         <Route component={Login} path='/' exact ></Route>
         <Route component={AlgoErrado} path='/algoErrado' ></Route>
         <PrivateRoute component={Home} path='/home' ></PrivateRoute>
+        <PrivateRoute component={Contatos} path='/contatos' ></PrivateRoute>
         <PrivateRoute component={Usuario} path='/usuario'></PrivateRoute>
         <PrivateRoute component={Atendimentos} path='/atendimentos' ></PrivateRoute>
         <PrivateRoute component={Graficos} path='/graficos'></PrivateRoute>

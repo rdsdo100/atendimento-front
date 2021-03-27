@@ -1,6 +1,5 @@
 
 import React, { FormEvent, ChangeEvent, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import CardUsuario from '../../component/CardUsuario';
 import { Button } from '../../component/CardUsuario/styles';
 import InputCadastro from '../../component/inputs/InputCadastro';
@@ -46,11 +45,12 @@ interface IGetUsuario {
     grupoUsuariosNome?: string
     equipeUsuariosId?: number
     equipeUsuariosNome?: string
-    
+
 }
 
 const Usuario: React.FC = () => {
-
+    // const auth = useSelector((state: ApplicationState) => state.auth.auth)
+    const auth = localStorage.getItem('Authorization')
     const [listUsuarios, setListUsuarios] = useState<IGetUsuario[]>([])
     const [message, setMessage] = useState<string>('')
     const [idDeleteUsuario, setIdDeleteUsuario] = useState<number>()
@@ -65,7 +65,7 @@ const Usuario: React.FC = () => {
     const [password, setPassword] = useState<string>('')
     const [listGupoUsuarios, setListGrupoUsuarios] = useState<IGrupoUsuario[]>([])
     const [listEquipeUsuarios, setListEquipeUsuarios] = useState<IEquipeUsuario[]>([])
-    const auth = useSelector((state: ApplicationState) => state.auth.auth)
+
 
     useEffect(() => {
 
