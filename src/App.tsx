@@ -7,6 +7,7 @@ import {ThemeProvider} from "styled-components";
 import dark from "./styles/thems/dark";
 
 function App() {
+
   return (
     <div>
     <Provider store={store}>
