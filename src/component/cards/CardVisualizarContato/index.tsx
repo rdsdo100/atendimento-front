@@ -24,56 +24,58 @@ interface IEmpresas {
   nomeEmpresas: any
 }
 
-interface IProps{
+interface IProps {
   readonly clickVisualizarContato: (arg0: string) => void;
 }
 
-const CardVisualizarContato: React.FC <IProps> = ({ children , clickVisualizarContato }) => {
+const CardVisualizarContato: React.FC<IProps> = ({ children, clickVisualizarContato }) => {
 
-function handleButtonCancelar(){
+  function handleButtonCancelar() {
 
-  const  none = "none"
-  clickVisualizarContato(none)
-}
+    const none = "none"
+    clickVisualizarContato(none)
+  }
 
   return (
 
 
     <DivFundo>
-     <CardPopUp>
+      <CardPopUp>
 
-       <div>
-         <p>Empresa:</p>
-         <p>Nome: </p>
+        <div>
+          <p>Empresa:</p>
+          <p>Nome: </p>
+          <p>Função: </p>
+          <button>Novo numero</button>
 
-<div style={{width:"100%" , background: '#999' , margin: "40px 0"  , padding: "40px 0" }}>
-<table style={{width:"100%"}}>
-  <tr>
-    <th>ID</th>
-    <th>DD</th>
-    <th>Telefone</th>
-    <th>Info.</th>
-    <th>Opçoes</th>
-  </tr>
-  <tr>
-    <td style={{border: "1px  solid black" , margin: "0"}}>1</td>
-    <td style={{border: "1px  solid black", margin: "0" }}>62</td>
-    <td style={{border: "1px  solid black", margin: "0"}}>991544066</td>
-    <td style={{border: "1px  solid black", margin: "0"}}>Principal</td>
-    <td style={{border: "1px  solid black" , margin: "0"}}>
-      <button>Editar</button>
-    </td>
-  </tr>
-  
-  
-</table>
+          <div style={{ width: "100%", background: '#999', margin: "40px 0", padding: "40px 0" }}>
+            <table style={{ width: "100%" }}>
+              <tr>
+                <th>ID</th>
+                <th>DD</th>
+                <th>Telefone</th>
+                <th>Info.</th>
+                <th>Opçoes</th>
+              </tr>
+              <tr>
+                <td >1</td>
+                <td>62</td>
+                <td >991544066</td>
+                <td>Principal</td>
+                <td >
+                  <button>Editar</button>
+                </td>
+              </tr>
 
-</div>
-       </div>
-      
-      <Button onClick={()=>{handleButtonCancelar()}} >Fechar</Button>
-     </CardPopUp>
-     </DivFundo>
+
+            </table>
+
+          </div>
+        </div>
+
+        <Button onClick={() => { handleButtonCancelar() }} >Fechar</Button>
+      </CardPopUp>
+    </DivFundo>
   )
 
 };

@@ -78,7 +78,9 @@ function handleButtonCancelar(){
       <InputCadastro>Nome</InputCadastro>
       <InputCadastro>DD</InputCadastro>
       <InputCadastro>Telefone</InputCadastro>
-      <Button>Cadastrar</Button>
+      <InputCadastro>Função</InputCadastro>
+      <InputCadastro>Descição</InputCadastro>
+      <Button onClick={()=>{handleButtonCancelar()}} >Cadastrar</Button>
       <Button onClick={()=>{handleButtonCancelar()}} >cancelar</Button>
 
      </CardPopUp>
