@@ -21,7 +21,7 @@ export const Nav = styled.nav`
   height: 100vh;
   top: 0;
   left: -350px;
-  z-index: 2;
+  z-index: 3;
 
 `;
 
@@ -47,7 +47,7 @@ export const Label = styled.label`
 
     padding: 0;
     position: relative;
-    z-index: 3;
+    z-index: 4;
     margin: 0 10px;
 
 `;
@@ -85,7 +85,7 @@ export const DivMenu = styled.div`
   width: 100%;
   height: 100vh;
   top: 0;
-  z-index: 1;
+  z-index: 2;
 
 
 `;

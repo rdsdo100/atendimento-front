@@ -45,12 +45,7 @@ const CardContato: React.FC<IContatos> = ({ children,
           <p style={{ color: "#fff" }} >{`${telefones[0].dd}- ${telefones[0].telefone} `}</p>
 
         </ContainerInfo>
-        <ContainerButtons>
-          <Button type="button" ><MdModeEditIcon /></Button>
-          <Button type="button" ><MdDeleteForeverIcon /></Button>
-        </ContainerButtons>
-
-
+       
       </LI>
 
     </Container>
