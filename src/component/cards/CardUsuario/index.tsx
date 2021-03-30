@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Container, ContainerButtons, LI, MdDeleteForeverIcon, MdModeEditIcon } from './styles'
+import { Button, Container, ContainerButtons, LI,  MdModeEditIcon } from './styles'
 
 import { ContainerInfo } from '../CardAtendimento/styles';
 

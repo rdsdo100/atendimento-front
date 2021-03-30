@@ -1,7 +1,7 @@
 
 import React, { FormEvent, ChangeEvent, useEffect, useState } from 'react';
-import CardUsuario from '../../component/CardUsuario';
-import { Button } from '../../component/CardUsuario/styles';
+import CardUsuario from '../../component/cards/CardUsuario';
+import { Button } from '../../component/cards/CardUsuario/styles';
 import InputCadastro from '../../component/inputs/InputCadastro';
 import Select from '../../component/inputs/Select';
 import LayoutPrincipal from '../../component/LayoutPrincipal';

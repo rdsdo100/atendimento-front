@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import CardListEmpresas from '../../component/CardListEmpresas';
-import { Button } from '../../component/CardUsuario/styles';
+import CardListEmpresas from '../../component/cards/CardListEmpresas';
+import { Button } from '../../component/cards/CardUsuario/styles';
 import InputCadastro from '../../component/inputs/InputCadastro';
 import InputId from '../../component/inputs/InputId';
 import Select from '../../component/inputs/Select';
@@ -8,7 +8,6 @@ import LayoutPrincipal from '../../component/LayoutPrincipal';
 import { CardListTab, Tabs } from '../../component/TabsComponents';
 import Tab from '../../component/TabsComponents/Tab';
 import { api } from '../../services/api';
-import { ApplicationState } from '../../store';
 import { Container, Form ,DivButtonEnviar , DivButtonEditar } from './styles'
 
 interface IEmpresas {

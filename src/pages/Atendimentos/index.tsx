@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Button from '../../component/buttons/Button';
-import CardAtendimento from '../../component/CardAtendimento';
+import CardAtendimento from '../../component/cards/CardAtendimento';
 import InputCadastro from '../../component/inputs/InputCadastro';
 import Select from '../../component/inputs/Select';
 import TextArea from '../../component/inputs/TextArea';

@@ -17,7 +17,7 @@ export const Container = styled.select`
 export const LoginBoxs = styled.div`
   position: relative;
   width: 100%;
-  padding: 15px;
+  padding: 0 15px;
   box-sizing: border-box;
 `;
 
