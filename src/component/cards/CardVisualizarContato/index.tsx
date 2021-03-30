@@ -1,7 +1,7 @@
 import React from 'react';
 import CardPopUp from '../CardPopUp';
 import Button from '../../buttons/Button';
-import { DivFundo } from './styles';
+import { DivFundo, DivTableContato, Span } from './styles';
 
 
 interface Itelefone {
@@ -15,20 +15,17 @@ interface IContatos {
   idEmpresa?: number
   nomeEmpresa?: string
   nome: string
-  telefones: Itelefone
+  telefones: Itelefone[]
 
 }
-interface IEmpresas {
-  id: number
-  codigoEmoresa: string
-  nomeEmpresas: any
-}
+
 
 interface IProps {
   readonly clickVisualizarContato: (arg0: string) => void;
+  contato: IContatos
 }
 
-const CardVisualizarContato: React.FC<IProps> = ({ children, clickVisualizarContato }) => {
+const CardVisualizarContato: React.FC<IProps> = ({ children, clickVisualizarContato, contato }) => {
 
   function handleButtonCancelar() {
 
@@ -43,12 +40,14 @@ const CardVisualizarContato: React.FC<IProps> = ({ children, clickVisualizarCont
       <CardPopUp>
 
         <div>
-          <p>Empresa:</p>
-          <p>Nome: </p>
-          <p>Função: </p>
-          <button>Novo numero</button>
+          <div>
+            <Span>Empresa: {contato.nomeEmpresa} </Span>
+            <Span>Nome: {contato.nome}</Span>
+            <Span>Função: </Span>
+            <button>Novo número</button>
+          </div>
 
-          <div style={{ width: "100%", background: '#999', margin: "40px 0", padding: "40px 0" }}>
+          <DivTableContato>
             <table style={{ width: "100%" }}>
               <tr>
                 <th>ID</th>
@@ -58,9 +57,9 @@ const CardVisualizarContato: React.FC<IProps> = ({ children, clickVisualizarCont
                 <th>Opçoes</th>
               </tr>
               <tr>
-                <td >1</td>
-                <td>62</td>
-                <td >991544066</td>
+                <td >{contato.telefones[0].id}</td>
+                <td>{contato.telefones[0].dd}</td>
+                <td >{contato.telefones[0].telefone}</td>
                 <td>Principal</td>
                 <td >
                   <button>Editar</button>
@@ -70,7 +69,7 @@ const CardVisualizarContato: React.FC<IProps> = ({ children, clickVisualizarCont
 
             </table>
 
-          </div>
+          </DivTableContato>
         </div>
 
         <Button onClick={() => { handleButtonCancelar() }} >Fechar</Button>

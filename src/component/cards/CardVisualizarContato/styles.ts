@@ -95,3 +95,22 @@ export const DivFundo = styled.div`
 
 
 `;
+
+export const DivTableContato = styled.div`
+
+width: 100%;
+height: 300px;
+ background: #999;
+  margin: 40px 0;
+   padding: 40px 0;
+
+
+`;
+
+export const Span = styled.span`
+position: relative;
+display: flex;
+flex-direction: column;
+color: ${props => props.theme.colors.white};
+
+`;
