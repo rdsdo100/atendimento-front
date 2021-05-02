@@ -23,8 +23,10 @@ const Menu: React.FC = () => {
         { id: 4, nomeMenu: 'Empresas', rotaMenu: '/empresas' },
         { id: 5, nomeMenu: 'Usuário', rotaMenu: '/usuario' },
         { id: 6, nomeMenu: 'Graficos', rotaMenu: '/graficos' },
-        { id: 7, nomeMenu: 'RelatorioAtendimentos', rotaMenu: '/relatorio-atendimentos' }
+        { id: 7, nomeMenu: 'RelatorioAtendimentos', rotaMenu: '/relatorio-atendimentos' },
+        { id: 7, nomeMenu: 'Validar Cpf Cnpj', rotaMenu: '/cpf-cnpj' }
     ]
+   
 
     const [listRotas, setListRotas] = useState<IRotasMenu[]>([])
     const [styleMenu, setStyleMenu] = useState<IStyleMenu>({ displayMenu: "none" })
