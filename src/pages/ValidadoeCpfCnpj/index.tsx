@@ -10,23 +10,24 @@ import { Component} from './styles';
 const ValidadoeCpfCnpj: React.FC = () => {
 
     const auth = localStorage.getItem('Authorization')
-    const [cpgCnpj, setCpgCnpj] = useState<string>()
-    const [resposta, setResposta] = useState<boolean>()
+    const [cpfCnpj, setCpfCnpj] = useState<string>('')
+    const [resposta, setResposta] = useState<string>()
 
-    function validar(event: ChangeEvent<HTMLInputElement>) {
-        event.stopPropagation()
-        const { value } = event.target
-        setCpgCnpj(String(value))
+    function handleValidar( event: ChangeEvent<HTMLInputElement>) {
+        const cpfCnpj = event.target.value
+        setCpfCnpj(String(cpfCnpj))
     }
 
     async function handleSubmitEmpresa(event: FormEvent) {
-        event.stopPropagation()
-        if(cpgCnpj){
-        api.get(`validar/%{cpgCnpj}`,
+        event.preventDefault()
+
+        if(cpfCnpj){
+        api.post(`validar`, {cpfCnpj: cpfCnpj} , 
             { headers: { authorization: auth } })
             .then(response => {
-                setResposta(Boolean(response))
-                setCpgCnpj(`${cpgCnpj} - ${resposta}`)
+
+                setResposta(String(response.data.validacao))
+               setCpfCnpj(`${cpfCnpj} - ${resposta}`)
             })
             .catch(erro => {
                 alert('Erro ao acessar servidor!')
@@ -41,9 +42,10 @@ const ValidadoeCpfCnpj: React.FC = () => {
         <Component>
             <LayoutPrincipal titulo='VAlidação Cpf Cnpj'>
                 <form onSubmit={handleSubmitEmpresa}>
-                    <Input placeholder="cpf cnpj" onChange={validar}></Input>
+                  
+                    <Input placeholder="Cpf Cnpj" onChange={handleValidar}></Input>
                     <Button type ='submit'>Validar</Button>
-                    <TextArea value={cpgCnpj} ></TextArea>
+                    <TextArea value={resposta} ></TextArea>
                 </form>
             </LayoutPrincipal>
         </Component>

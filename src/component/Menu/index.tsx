@@ -24,7 +24,7 @@ const Menu: React.FC = () => {
         { id: 5, nomeMenu: 'Usuário', rotaMenu: '/usuario' },
         { id: 6, nomeMenu: 'Graficos', rotaMenu: '/graficos' },
         { id: 7, nomeMenu: 'RelatorioAtendimentos', rotaMenu: '/relatorio-atendimentos' },
-        { id: 7, nomeMenu: 'Validar Cpf Cnpj', rotaMenu: '/cpf-cnpj' }
+        { id: 8, nomeMenu: 'Validar Cpf Cnpj', rotaMenu: '/cpf-cnpj' }
     ]
    
 
