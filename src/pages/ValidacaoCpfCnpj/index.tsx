@@ -7,7 +7,7 @@ import LayoutPrincipal from '../../component/LayoutPrincipal';
 import { api } from '../../services/api';
 import { Component} from './styles';
 
-const ValidadoeCpfCnpj: React.FC = () => {
+const ValidacaoCpfCnpj: React.FC = () => {
 
     const auth = localStorage.getItem('Authorization')
     const [cpfCnpj, setCpfCnpj] = useState<string>('')
@@ -51,4 +51,4 @@ const ValidadoeCpfCnpj: React.FC = () => {
         </Component>
     )
 }
-export default ValidadoeCpfCnpj
+export default ValidacaoCpfCnpj

@@ -7,12 +7,12 @@ import Empresas from "../pages/Empresas";
 import Atendimentos from "../pages/Atendimentos";
 import Graficos from "../pages/Graficos";
 import Usuario from "../pages/Usuario";
-import { useSelector } from "react-redux";
-import { ApplicationState } from "../store";
 import AlgoErrado from "../pages/AlgoErrado";
 import RelatorioAtendimentos from "../pages/RelatorioAtendimentos";
 import Contatos from "../pages/Contatos";
-import ValidadoeCpfCnpj from "../pages/ValidadoeCpfCnpj";
+import ValidacaoCpfCnpj from "../pages/ValidacaoCpfCnpj";
+import ValidacaoChave from "../pages/ValidadocaoChave";
+
 
 
 const PrivateRoute = ({ component, isAuthenticated, ...rest }: any) => {
@@ -38,7 +38,8 @@ const Routes = () => {
         <Route component={Login} path='/' exact ></Route>
         <Route component={AlgoErrado} path='/algoErrado' ></Route>
         <PrivateRoute component={Home} path='/home' ></PrivateRoute>
-        <PrivateRoute component={ValidadoeCpfCnpj} path='/cpf-cnpj'></PrivateRoute>
+        <PrivateRoute component={ValidacaoCpfCnpj} path='/cpf-cnpj'></PrivateRoute>
+        <PrivateRoute component={ValidacaoChave} path='/chave'></PrivateRoute>
         <PrivateRoute component={Contatos} path='/contatos' ></PrivateRoute>
         <PrivateRoute component={Usuario} path='/usuario'></PrivateRoute>
         <PrivateRoute component={Atendimentos} path='/atendimentos' ></PrivateRoute>
